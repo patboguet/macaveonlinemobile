@@ -9,6 +9,7 @@ import android.content.ContentResolver;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -24,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -58,12 +60,28 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
+        //* POLICE PERSO *
+        // Définition du chemin de la police
+        String fontPath = "fonts/MaiandraGD.ttf";
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        // Récupération des éléments sur lesquels on applique la police
+        ScrollView loginForm = (ScrollView) findViewById(R.id.loginForm);
+        EditText tvLogin = (EditText) findViewById(R.id.login);
+        EditText tvPass = (EditText) findViewById(R.id.password);
+        Button btnLogin = (Button) findViewById(R.id.btnConnexion);
+        Button btnInscription = (Button) findViewById(R.id.btnInscription);
+/*
+        // Loading Font Face
+        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+
+        // Applying font
+        loginForm.setTypeFace(tf);
+        tvLogin.setTypeface(tf);
+        tvPass.setTypeface(tf);
+        btnLogin.setTypeface(tf);
+        btnInscription.setTypeface(tf);*/
+
+        tvPass.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -74,16 +92,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+
+        btnLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        mLoginFormView = findViewById(R.id.loginForm);
+        mProgressView = findViewById(R.id.loginProgress);
     }
 
     private void populateAutoComplete() {
