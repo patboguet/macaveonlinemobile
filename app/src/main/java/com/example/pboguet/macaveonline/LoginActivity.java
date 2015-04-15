@@ -9,7 +9,6 @@ import android.content.ContentResolver;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -25,8 +24,9 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.example.pboguet.macaveonline.Utils.DataBaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,38 +50,33 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+    private EditText loginView;
+    private EditText passView;
+    private View progressView;
+    private View loginFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
-        //* POLICE PERSO *
-        // Définition du chemin de la police
-        String fontPath = "fonts/MaiandraGD.ttf";
+        // Vérification en BDD si l'utilisateur est déjà identifié sur le device
+        DataBaseHelper db = new DataBaseHelper(getApplicationContext(), "macaveonline");
 
-        // Récupération des éléments sur lesquels on applique la police
-        ScrollView loginForm = (ScrollView) findViewById(R.id.loginForm);
-        EditText tvLogin = (EditText) findViewById(R.id.login);
-        EditText tvPass = (EditText) findViewById(R.id.password);
-        Button btnLogin = (Button) findViewById(R.id.btnConnexion);
-        Button btnInscription = (Button) findViewById(R.id.btnInscription);
-/*
-        // Loading Font Face
-        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+        // Vérifier si on a des utilisateurs dans la base
+            // Si oui, on regarde si l'utilisateur est déjà connecté
+                // Si oui, autologin
+            // Si non, on demande la connexion
+        // Si non, connexion au webservice pour création de compte
+        boolean isConnected = db.checkIsConnected(1);
 
-        // Applying font
-        loginForm.setTypeFace(tf);
-        tvLogin.setTypeface(tf);
-        tvPass.setTypeface(tf);
-        btnLogin.setTypeface(tf);
-        btnInscription.setTypeface(tf);*/
+        setContentView(R.layout.connexion);
 
-        tvPass.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        // Set up the login form.
+        loginView = (EditText) findViewById(R.id.login);
+        populateAutoComplete();
+
+        passView = (EditText) findViewById(R.id.password);
+        passView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -92,16 +87,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
-
-        btnLogin.setOnClickListener(new OnClickListener() {
+        Button btnConnexion = (Button) findViewById(R.id.btnConnexion);
+        btnConnexion.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
 
-        mLoginFormView = findViewById(R.id.loginForm);
-        mProgressView = findViewById(R.id.loginProgress);
+        loginFormView = findViewById(R.id.formView);
+        progressView = findViewById(R.id.login_progress);
     }
 
     private void populateAutoComplete() {
@@ -120,12 +115,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
 
         // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
+        loginView.setError(null);
+        passView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String email = loginView.getText().toString();
+        String password = passView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -133,19 +128,19 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
+            passView.setError(getString(R.string.error_invalid_password));
+            focusView = passView;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+            loginView.setError(getString(R.string.error_field_required));
+            focusView = loginView;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
+            loginView.setError(getString(R.string.error_invalid_email));
+            focusView = loginView;
             cancel = true;
         }
 
@@ -183,28 +178,28 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+            loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            loginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                    loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
 
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
+            progressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            progressView.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                    progressView.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
         } else {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            progressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -233,8 +228,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             emails.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
-
-        addEmailsToAutoComplete(emails);
     }
 
     @Override
@@ -250,16 +243,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
-    }
-
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mEmailView.setAdapter(adapter);
     }
 
     /**
@@ -307,8 +290,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             if (success) {
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                passView.setError(getString(R.string.error_incorrect_password));
+                passView.requestFocus();
             }
         }
 
