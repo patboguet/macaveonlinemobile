@@ -4,14 +4,16 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
+import android.content.Context;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -20,13 +22,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pboguet.macaveonline.Utils.DataBaseHelper;
+import com.example.pboguet.macaveonline.Utils.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,19 +37,14 @@ import java.util.List;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
+{
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+    private User myUser;
 
     // UI references.
     private EditText loginView;
@@ -59,23 +56,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Vérification en BDD si l'utilisateur est déjà identifié sur le device
-        DataBaseHelper db = new DataBaseHelper(getApplicationContext(), "macaveonline");
-
-        // Vérifier si on a des utilisateurs dans la base
-            // Si oui, on regarde si l'utilisateur est déjà connecté
-                // Si oui, autologin
-            // Si non, on demande la connexion
-        // Si non, connexion au webservice pour création de compte
-        boolean isConnected = db.checkIsConnected(1);
-
         setContentView(R.layout.connexion);
 
         // Set up the login form.
         loginView = (EditText) findViewById(R.id.login);
         populateAutoComplete();
 
-        passView = (EditText) findViewById(R.id.password);
+        passView = (EditText) findViewById(R.id.pass);
         passView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -152,7 +139,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = new UserLoginTask(email, password, this);
             mAuthTask.execute((Void) null);
         }
     }
@@ -253,33 +240,35 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         private final String mEmail;
         private final String mPassword;
+        private final Context mContext;
 
-        UserLoginTask(String email, String password) {
+        UserLoginTask(String email, String password, Context context) {
             mEmail = email;
             mPassword = password;
+            mContext = context;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
+            DataBaseHelper db = null;
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+                db = new DataBaseHelper(mContext, "macaveonline");
+                myUser = db.getUser(mEmail);
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+                if (myUser.userId > 0) {
+                    // Account exists, check password.
+                    if (myUser.password.equals(mPassword))
+                        return true;
+                    else
+                        return false;
+                } else {
+                    myUser.password = mPassword;
+                    return true;
                 }
+            } finally {
+                if (db != null)
+                    db.close();
             }
-
-            // TODO: register the new account here.
-            return true;
         }
 
         @Override
@@ -288,7 +277,43 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
-                finish();
+                if (myUser.userId > 0) {
+                    finish();
+                    Intent myIntent = new Intent(LoginActivity.this, MyMainActivity.class);
+                    LoginActivity.this.startActivity(myIntent);
+                } else {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    DataBaseHelper db = null;
+                                    try {
+                                        finish();
+                                        db = new DataBaseHelper(mContext, "macaveonline");
+                                        myUser = db.insertUser(myUser);
+                                        Toast myToast = Toast.makeText(mContext, "Utilisateur inséré", Toast.LENGTH_SHORT);
+                                        myToast.show();
+                                        Intent myIntent = new Intent(LoginActivity.this, MyMainActivity.class);
+                                        LoginActivity.this.startActivity(myIntent);
+                                    } finally {
+                                        if (db != null)
+                                            db.close();
+                                    }
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    passView.setError(getString(R.string.error_incorrect_password));
+                                    passView.requestFocus();
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this.mContext);
+                    builder.setMessage(R.string.confirm_registry).setPositiveButton(R.string.yes, dialogClickListener)
+                            .setNegativeButton(R.string.no, dialogClickListener).show();
+                }
             } else {
                 passView.setError(getString(R.string.error_incorrect_password));
                 passView.requestFocus();

@@ -7,15 +7,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 /**
  * Created by pboguet on 15/04/15.
  */
@@ -38,7 +29,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     private static final String KEY_CONNEXION = "connexion";
 
     private static final String CREATE_TABLE = "CREATE TABLE "
-            + "cave" + " ( "
+            + "macaveonline" + " ( "
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + KEY_LOGIN + " TEXT,"
             + KEY_PASS + " TEXT,"
@@ -74,6 +65,75 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     }
 
+    public User insertUser (User queryValues){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_LOGIN, queryValues.login);
+        values.put(KEY_PASS, queryValues.password);
+        values.put(KEY_NOM, queryValues.nom);
+        values.put(KEY_PRENOM, queryValues.prenom);
+        values.put(KEY_MAIL, queryValues.mail);
+        queryValues.userId=db.insert(TABLE, null, values);
+        db.close();
+        return queryValues;
+    }
+
+    public int updateUserPassword (User queryValues){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_LOGIN, queryValues.login);
+        values.put(KEY_PASS, queryValues.password);
+        values.put(KEY_NOM, queryValues.nom);
+        values.put(KEY_PRENOM, queryValues.prenom);
+        values.put(KEY_MAIL, queryValues.mail);
+        queryValues.userId=db.insert(TABLE, null, values);
+        db.close();
+        return db.update(TABLE, values, KEY_ID + " = ?", new String[] {String.valueOf(queryValues.userId)});
+    }
+
+    public User getUser (String username){
+        String query = "Select " + KEY_ID + ", " + KEY_PASS + " from " + TABLE + " where " + KEY_LOGIN + "='"+username+"';";
+        User myUser = new User(0,username,"","","","");
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()){
+            do {
+                myUser.userId=cursor.getLong(0);
+                myUser.password=cursor.getString(1);
+
+            } while (cursor.moveToNext());
+        }
+        return myUser;
+    }
+
+    /**
+     * On vérifie que la base de données contient les infos de l'utilisateur
+     * @return id de l'utilisateur ou -1
+     */
+    public int userInBdd()
+    {
+        try
+        {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String select = "SELECT " + KEY_ID + " FROM " + TABLE + "WHERE " + KEY_CONNEXION + "IS TRUE ;";
+            Cursor c = db.rawQuery(select, null);
+            int nb = -1;
+            if(c.getCount() >= 1)
+            {
+                c.moveToFirst();
+                nb = c.getInt(c.getColumnIndex(KEY_ID));
+            }
+            if(c != null) c.close();
+            return nb;
+        }
+        catch (SQLException ex) { System.out.println("DatabaseHelper checkIsConnected Error : " + ex.getMessage()); return -1; }
+    }
+
+    /**
+     * On vérifie si l'utilisateur s'est déjà identifié sur l'appli
+     * @param id identifiant de l'utilisateur
+     * @return connecté ou non
+     */
     public boolean checkIsConnected(Integer id)
     {
         try

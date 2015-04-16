@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MaCaveOnline</string>
+    <string name="confirm_registry">Email not found. You want to create a new user with that email and password?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
