@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ma Cave"
+            android:id="@+id/barreHaut"
+            android:inputType="none"
+            android:textColor="#ffeec78d"
+            android:background="#ffa52323"
+            android:textAlignment="center"
+            android:textSize="50dp"
+            android:textStyle="italic"
+            android:singleLine="true" />
+
+        <TabHost
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabHost"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:touchscreenBlocksFocus="false"></TabWidget>
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:textAlignment="center">
+
+                    <LinearLayout
+                        android:id="@+id/tabRouge"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical"
+                        android:transitionGroup="true">
+
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/triRouge">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/triRougeNom"
+                                android:layout_weight="1"
+                                android:text="@string/triNom"
+                                android:textAlignment="center"
+                                android:textSize="@dimen/sizeTri" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/triRegion"
+                                android:id="@+id/triRougeRegion"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:textSize="@dimen/sizeTri" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/triDate"
+                                android:id="@+id/triRougeDate"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:textSize="@dimen/sizeTri"
+                                android:textIsSelectable="false" />
+                        </LinearLayout>
+
+                        <ListView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/listeVinsRouges"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tabBlanc"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/triBlanc" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/triNom"
+                                android:id="@+id/triBlancNom"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/sizeTri" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/triRegion"
+                                android:id="@+id/triBlancRegion"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/sizeTri" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/triDate"
+                                android:id="@+id/triBlancDate"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/sizeTri" />
+                        </LinearLayout>
+
+                        <ListView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/listeVinsBlancs"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tabRose"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/triRose" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/triNom"
+                                android:id="@+id/triRoseNom"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/sizeTri" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/triRegion"
+                                android:id="@+id/triRoseRegion"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/triDate"
+                                android:id="@+id/triRoseDate"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/sizeTri" />
+                        </LinearLayout>
+
+                        <ListView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/listeVinsRoses"
+                            android:layout_weight="1"
+                            android:headerDividersEnabled="false" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tabMousseux"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/triMousseux" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/triNom"
+                                android:id="@+id/triMousseuxNom"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/sizeTri" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/triRegion"
+                                android:id="@+id/triMousseuxRegion"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/sizeTri" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/triDate"
+                                android:id="@+id/triMousseuxDate"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:textSize="@dimen/sizeTri" />
+                        </LinearLayout>
+
+                        <ListView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/listeMousseux"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+        </TabHost>
+
+    </LinearLayout>
+
+</LinearLayout>

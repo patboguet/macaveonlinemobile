@@ -106,7 +106,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
         passView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = loginView.getText().toString();
+        String login = loginView.getText().toString();
         String password = passView.getText().toString();
 
         boolean cancel = false;
@@ -115,18 +115,18 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            passView.setError(getString(R.string.error_invalid_password));
+            passView.setError(getString(R.string.err_pass_faux));
             focusView = passView;
             cancel = true;
         }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            loginView.setError(getString(R.string.error_field_required));
+        // Check for a valid login address.
+        if (TextUtils.isEmpty(login)) {
+            loginView.setError(getString(R.string.err_champ_requis));
             focusView = loginView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
-            loginView.setError(getString(R.string.error_invalid_email));
+        } else if (!isLoginValid(login)) {
+            loginView.setError(getString(R.string.err_login_invalide));
             focusView = loginView;
             cancel = true;
         }
@@ -139,14 +139,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password, this);
+            mAuthTask = new UserLoginTask(login, password, this);
             mAuthTask.execute((Void) null);
         }
     }
 
-    private boolean isEmailValid(String email) {
+    private boolean isLoginValid(String login) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return login.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
@@ -303,7 +303,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:
-                                    passView.setError(getString(R.string.error_incorrect_password));
+                                    passView.setError(getString(R.string.err_pass_faux));
                                     passView.requestFocus();
                                     break;
                             }
@@ -315,7 +315,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
                             .setNegativeButton(R.string.no, dialogClickListener).show();
                 }
             } else {
-                passView.setError(getString(R.string.error_incorrect_password));
+                passView.setError(getString(R.string.err_pass_faux));
                 passView.requestFocus();
             }
         }

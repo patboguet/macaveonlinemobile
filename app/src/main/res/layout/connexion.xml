@@ -19,22 +19,29 @@
             android:layout_height="wrap_content" android:orientation="vertical">
 
             <EditText android:id="@+id/login" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:hint="Login"
+                android:layout_height="wrap_content" android:hint="@string/login"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:inputType="text" />
 
             <EditText android:id="@+id/pass" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:hint="Mot de passe"
+                android:layout_height="wrap_content" android:hint="@string/mot_de_passe"
                 android:imeActionId="@+id/login"
-                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeActionLabel="@string/mot_de_passe"
                 android:imeOptions="actionUnspecified" android:inputType="textPassword"
                 android:maxLines="1" android:singleLine="true" />
 
             <Button android:id="@+id/btnConnexion" style="?android:textAppearanceSmall"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginTop="16dp" android:text="Connexion"
+                android:layout_marginTop="16dp" android:text="@string/connexion"
                 android:textStyle="bold" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/inscription"
+                android:id="@+id/btnInscription"
+                android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
     </ScrollView>
