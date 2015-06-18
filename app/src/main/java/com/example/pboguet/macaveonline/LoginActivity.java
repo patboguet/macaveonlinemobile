@@ -56,34 +56,44 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.connexion);
+        DataBaseHelper db = new DataBaseHelper(this, "macaveonline");
+        //TODO : si connexion, ajouter en BDD
+        if(!db.checkIsConnected(2))
+        {
+            //TODO : transmettre id User à la MainActivity
+            Intent myIntent = new Intent(LoginActivity.this, MyMainActivity.class);
+            LoginActivity.this.startActivity(myIntent);
+        }
+        else {
+            setContentView(R.layout.connexion);
 
-        // Set up the login form.
-        loginView = (EditText) findViewById(R.id.login);
-        populateAutoComplete();
+            // Set up the login form.
+            loginView = (EditText) findViewById(R.id.login);
+            populateAutoComplete();
 
-        passView = (EditText) findViewById(R.id.pass);
-        passView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
+            passView = (EditText) findViewById(R.id.pass);
+            passView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                    if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                        attemptLogin();
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
-        Button btnConnexion = (Button) findViewById(R.id.btnConnexion);
-        btnConnexion.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
+            Button btnConnexion = (Button) findViewById(R.id.btnConnexion);
+            btnConnexion.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    attemptLogin();
+                }
+            });
 
-        loginFormView = findViewById(R.id.formView);
-        progressView = findViewById(R.id.login_progress);
+            loginFormView = findViewById(R.id.formView);
+            progressView = findViewById(R.id.login_progress);
+        }
     }
 
     private void populateAutoComplete() {

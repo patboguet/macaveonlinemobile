@@ -5,7 +5,7 @@
     <string name="login">Login</string>
     <string name="mot_de_passe">Mot de passe</string>
     <string name="connexion">Connexion</string>
-    <string name="inscription">S'inscrire</string>
+    <string name="inscription">Inscription</string>
 
     <string name="err_login_invalide">Login invalide</string>
     <string name="err_pass_trop_court">Mot de passe trop court</string>

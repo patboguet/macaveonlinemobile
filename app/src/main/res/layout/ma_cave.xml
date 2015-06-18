@@ -35,7 +35,9 @@
                     android:id="@android:id/tabs"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:touchscreenBlocksFocus="false"></TabWidget>
+                    android:touchscreenBlocksFocus="false"
+                    android:visibility="visible">
+                 </TabWidget>
 
                 <FrameLayout
                     android:id="@android:id/tabcontent"
@@ -48,7 +50,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:orientation="vertical"
-                        android:transitionGroup="true">
+                        android:transitionGroup="true"
+                        android:visibility="visible">
 
 
                         <LinearLayout
@@ -64,7 +67,8 @@
                                 android:layout_weight="1"
                                 android:text="@string/triNom"
                                 android:textAlignment="center"
-                                android:textSize="@dimen/sizeTri" />
+                                android:textSize="@dimen/sizeTri"
+                                android:gravity="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -73,7 +77,8 @@
                                 android:id="@+id/triRougeRegion"
                                 android:layout_weight="1"
                                 android:textAlignment="center"
-                                android:textSize="@dimen/sizeTri" />
+                                android:textSize="@dimen/sizeTri"
+                                android:gravity="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -83,7 +88,8 @@
                                 android:layout_weight="1"
                                 android:textAlignment="center"
                                 android:textSize="@dimen/sizeTri"
-                                android:textIsSelectable="false" />
+                                android:textIsSelectable="false"
+                                android:gravity="center" />
                         </LinearLayout>
 
                         <ListView
@@ -97,7 +103,8 @@
                         android:id="@+id/tabBlanc"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -111,7 +118,8 @@
                                 android:text="@string/triNom"
                                 android:id="@+id/triBlancNom"
                                 android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri" />
+                                android:textSize="@dimen/sizeTri"
+                                android:gravity="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -119,7 +127,8 @@
                                 android:text="@string/triRegion"
                                 android:id="@+id/triBlancRegion"
                                 android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri" />
+                                android:textSize="@dimen/sizeTri"
+                                android:gravity="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -127,7 +136,8 @@
                                 android:text="@string/triDate"
                                 android:id="@+id/triBlancDate"
                                 android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri" />
+                                android:textSize="@dimen/sizeTri"
+                                android:gravity="center" />
                         </LinearLayout>
 
                         <ListView
@@ -142,7 +152,8 @@
                         android:id="@+id/tabRose"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -156,14 +167,17 @@
                                 android:text="@string/triNom"
                                 android:id="@+id/triRoseNom"
                                 android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri" />
+                                android:textSize="@dimen/sizeTri"
+                                android:gravity="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/triRegion"
                                 android:id="@+id/triRoseRegion"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                android:textSize="@dimen/sizeTri"
+                                android:gravity="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -171,7 +185,8 @@
                                 android:text="@string/triDate"
                                 android:id="@+id/triRoseDate"
                                 android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri" />
+                                android:textSize="@dimen/sizeTri"
+                                android:gravity="center" />
                         </LinearLayout>
 
                         <ListView
@@ -187,7 +202,8 @@
                         android:id="@+id/tabMousseux"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -201,7 +217,8 @@
                                 android:text="@string/triNom"
                                 android:id="@+id/triMousseuxNom"
                                 android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri" />
+                                android:textSize="@dimen/sizeTri"
+                                android:gravity="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -209,7 +226,8 @@
                                 android:text="@string/triRegion"
                                 android:id="@+id/triMousseuxRegion"
                                 android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri" />
+                                android:textSize="@dimen/sizeTri"
+                                android:gravity="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -218,7 +236,8 @@
                                 android:id="@+id/triMousseuxDate"
                                 android:layout_weight="1"
                                 android:textAlignment="center"
-                                android:textSize="@dimen/sizeTri" />
+                                android:textSize="@dimen/sizeTri"
+                                android:gravity="center" />
                         </LinearLayout>
 
                         <ListView
