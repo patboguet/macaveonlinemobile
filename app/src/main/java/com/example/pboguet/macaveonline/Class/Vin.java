@@ -23,6 +23,47 @@ public class Vin {
     protected int note;
     protected int nbBouteilles;
     protected boolean suiviStock;
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public Appellation getAppellation() {
+        return appellation;
+    }
+
+    public void setAppellation(Appellation appellation) {
+        this.appellation = appellation;
+    }
+
+    public LieuStockage getLieuStockage() {
+        return lieuStockage;
+    }
+
+    public void setLieuStockage(LieuStockage lieuStockage) {
+        this.lieuStockage = lieuStockage;
+    }
+
+    public LieuAchat getLieuAchat() {
+        return lieuAchat;
+    }
+
+    public void setLieuAchat(LieuAchat lieuAchat) {
+        this.lieuAchat = lieuAchat;
+    }
+
+    public int getNote() {
+        return note;
+    }
+
+    public void setNote(int note) {
+        this.note = note;
+    }
+
     protected boolean favori;
     protected float prixAchat;
     protected String offertPar;

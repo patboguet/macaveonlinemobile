@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
@@ -48,21 +49,21 @@ public class SimpleAdapter extends ArrayAdapter<Vin> {
         View v = convertView;
         if (v == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(R.layout.list_item, null);
+            v = inflater.inflate(R.layout.liste_vins, null);
         }
 
-        Vin v = listeVin.get(position);
-        TextView text = (TextView) v.findViewById(R.id.name);
-        text.setText(c.getName());
+        Vin vin = listeVin.get(position);
+        TextView nomVin = (TextView) v.findViewById(R.id.nomVin);
+        nomVin.setText(vin.getNom());
 
-        TextView text1 = (TextView) v.findViewById(R.id.surname);
-        text1.setText(c.getSurname());
+        TextView region = (TextView) v.findViewById(R.id.typeVin);
+        region.setText((CharSequence) vin.getAppellation());
 
-        TextView text2 = (TextView) v.findViewById(R.id.email);
-        text2.setText(c.getEmail());
+        TextView annee = (TextView) v.findViewById(R.id.annee);
+        annee.setText(vin.getAnnee());
 
-        TextView text3 = (TextView) v.findViewById(R.id.phone);
-        text3.setText(c.getPhoneNum());
+        TextView nbBouteilles = (TextView) v.findViewById(R.id.nbBouteilles);
+        nbBouteilles.setText(vin.getAnnee());
 
         return v;
 
