@@ -1,8 +1,10 @@
-package com.example.pboguet.macaveonline;
+package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TabHost;
+
+import com.example.pboguet.macaveonline.R;
 
 /**
  * Created by pboguet on 16/04/15.

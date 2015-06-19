@@ -65,7 +65,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     }
 
-    public User insertUser (User queryValues){
+    public Utilisateur insertUser (Utilisateur queryValues){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_LOGIN, queryValues.login);
@@ -78,7 +78,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return queryValues;
     }
 
-    public int updateUserPassword (User queryValues){
+    public int updateUserPassword (Utilisateur queryValues){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_LOGIN, queryValues.login);
@@ -91,19 +91,19 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return db.update(TABLE, values, KEY_ID + " = ?", new String[] {String.valueOf(queryValues.userId)});
     }
 
-    public User getUser (String username){
+    public Utilisateur getUser (String username){
         String query = "Select " + KEY_ID + ", " + KEY_PASS + " from " + TABLE + " where " + KEY_LOGIN + "='"+username+"';";
-        User myUser = new User(0,username,"","","","");
+        Utilisateur myUtilisateur = new Utilisateur(0,username,"","","","");
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()){
             do {
-                myUser.userId=cursor.getLong(0);
-                myUser.password=cursor.getString(1);
+                myUtilisateur.userId=cursor.getLong(0);
+                myUtilisateur.password=cursor.getString(1);
 
             } while (cursor.moveToNext());
         }
-        return myUser;
+        return myUtilisateur;
     }
 
     /**

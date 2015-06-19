@@ -1,4 +1,4 @@
-package com.example.pboguet.macaveonline;
+package com.example.pboguet.macaveonline.Activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -27,8 +27,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.DataBaseHelper;
-import com.example.pboguet.macaveonline.Utils.User;
+import com.example.pboguet.macaveonline.Utils.Utilisateur;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
-    private User myUser;
+    private Utilisateur myUtilisateur;
 
     // UI references.
     private EditText loginView;
@@ -263,16 +264,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
             DataBaseHelper db = null;
             try {
                 db = new DataBaseHelper(mContext, "macaveonline");
-                myUser = db.getUser(mEmail);
+                myUtilisateur = db.getUser(mEmail);
 
-                if (myUser.userId > 0) {
+                if (myUtilisateur.userId > 0) {
                     // Account exists, check password.
-                    if (myUser.password.equals(mPassword))
+                    if (myUtilisateur.password.equals(mPassword))
                         return true;
                     else
                         return false;
                 } else {
-                    myUser.password = mPassword;
+                    myUtilisateur.password = mPassword;
                     return true;
                 }
             } finally {
@@ -287,7 +288,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
             showProgress(false);
 
             if (success) {
-                if (myUser.userId > 0) {
+                if (myUtilisateur.userId > 0) {
                     finish();
                     Intent myIntent = new Intent(LoginActivity.this, MyMainActivity.class);
                     LoginActivity.this.startActivity(myIntent);
@@ -301,7 +302,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
                                     try {
                                         finish();
                                         db = new DataBaseHelper(mContext, "macaveonline");
-                                        myUser = db.insertUser(myUser);
+                                        myUtilisateur = db.insertUser(myUtilisateur);
                                         Toast myToast = Toast.makeText(mContext, "Utilisateur inséré", Toast.LENGTH_SHORT);
                                         myToast.show();
                                         Intent myIntent = new Intent(LoginActivity.this, MyMainActivity.class);

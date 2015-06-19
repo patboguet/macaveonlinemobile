@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MyMainActivity">
+            android:name=".Activities.MyMainActivity">
 
         </activity>
     </application>
