@@ -11,8 +11,10 @@ public class VinBlanc extends Vin{
     private String type;
     private ArrayList<VinBlanc> liste;
 
-    public VinBlanc(String nom, int annee, Region region, Appellation appellation, String type, float degreAlcool, LieuStockage lieuStockage, LieuAchat lieuAchat, int consoPartir, int consoAvant, Plat typePlat, int note, int nbBouteilles, boolean suiviStock, boolean favori, float prixAchat, String offertPar, String commentaires, ArrayList<Utilisateur> utilisateur)
+    public VinBlanc(int idVin, String nom, int annee, Region region, Appellation appellation, String type, float degreAlcool, LieuStockage lieuStockage, LieuAchat lieuAchat, int consoPartir, int consoAvant, Plat typePlat, int note, int nbBouteilles, boolean suiviStock, boolean favori, float prixAchat, String offertPar, String commentaires, ArrayList<Utilisateur> utilisateur)
     {
+        super();
+        this.idVin = idVin;
         this.nom = nom;
         this.annee = annee;
         this.region = region;

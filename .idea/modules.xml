@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MaCaveOnline.iml" filepath="$PROJECT_DIR$/MaCaveOnline.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/macaveonlinemobile.iml" filepath="$PROJECT_DIR$/macaveonlinemobile.iml" />
     </modules>
   </component>
 </project>
-

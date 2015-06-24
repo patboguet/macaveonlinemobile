@@ -23,6 +23,11 @@ public class Vin {
     protected int note;
     protected int nbBouteilles;
     protected boolean suiviStock;
+    protected boolean favori;
+    protected float prixAchat;
+    protected String offertPar;
+    protected String commentaires;
+    protected ArrayList<Utilisateur> utilisateur;
 
     public Region getRegion() {
         return region;
@@ -63,13 +68,6 @@ public class Vin {
     public void setNote(int note) {
         this.note = note;
     }
-
-    protected boolean favori;
-    protected float prixAchat;
-    protected String offertPar;
-    protected String commentaires;
-    protected ArrayList<Utilisateur> utilisateur;
-
 
     public int getIdVin() {
         return idVin;

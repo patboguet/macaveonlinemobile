@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.widget.TabHost;
 
 import com.example.pboguet.macaveonline.R;
+import com.example.pboguet.macaveonline.Utils.WebService;
 
 /**
  * Created by pboguet on 16/04/15.
  */
 public class MyMainActivity extends Activity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,10 +19,10 @@ public class MyMainActivity extends Activity {
         setContentView(R.layout.ma_cave);
 
         // on récupère la liste des vins via webservice
-        // WebService wbs = new WebService("http://www.macaveonline.fr/webservice");
+        WebService wbs = new WebService();
 
         try {
-            //wbs.getVins();
+            wbs.execute("select");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -34,8 +36,6 @@ public class MyMainActivity extends Activity {
         tabs.setup();
         // on créer les onglets
         createTab(tabs);
-
-        // on affiche la liste des vins pour l'onglet sélectionné
 
     }
 

@@ -15,11 +15,35 @@ import java.util.List;
 /**
  * Created by pboguet on 19/06/15.
  */
-public class SimpleAdapter extends ArrayAdapter<Vin> {
+public class VinAdapter extends ArrayAdapter<String> {
     private List<Vin> listeVin;
-    private Context context;
+    private final Context context;
+    private final String[] values1;
+    private final String[] values2;
 
-    public SimpleAdapter(List<Vin> listeVin, Context ctx) {
+    public VinAdapter(Context context, String[] object1, String[] object2) {
+        super(context, R.layout.ma_cave, object2);
+        this.context = context;
+        this.values1 = object1;
+        this.values2 = object2;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View rowView = inflater.inflate(R.layout.ma_cave, parent, false);
+
+        TextView textView1 = (TextView) rowView.findViewById(R.id.nomVin);
+        TextView textView2 = (TextView) rowView.findViewById(R.id.annee);
+        textView1.setText(values1[position]);
+        textView2.setText(values2[position]);
+
+        return rowView;
+    }
+
+    /*public VinAdapter(List<Vin> listeVin, Context ctx) {
         super(ctx, android.R.layout.simple_list_item_1, listeVin);
         this.listeVin = listeVin;
         this.context = ctx;
@@ -75,5 +99,5 @@ public class SimpleAdapter extends ArrayAdapter<Vin> {
 
     public void setItemList(List<Vin> itemList) {
         this.listeVin = listeVin;
-    }
+    }*/
 }
