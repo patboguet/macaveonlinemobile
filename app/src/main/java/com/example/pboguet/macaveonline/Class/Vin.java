@@ -11,15 +11,15 @@ public class Vin {
     protected int idVin;
     protected String nom;
     protected int annee;
-    protected Region region;
-    protected Appellation appellation;
+    protected int region;
+    protected int appellation;
     protected String type;
     protected float degreAlcool;
-    protected LieuStockage lieuStockage;
-    protected LieuAchat lieuAchat;
+    protected int lieuStockage;
+    protected int lieuAchat;
     protected int consoPartir;
     protected int consoAvant;
-    protected Plat typePlat;
+    protected int typePlat;
     protected int note;
     protected int nbBouteilles;
     protected boolean suiviStock;
@@ -27,37 +27,37 @@ public class Vin {
     protected float prixAchat;
     protected String offertPar;
     protected String commentaires;
-    protected ArrayList<Utilisateur> utilisateur;
+    protected long utilisateur;
 
-    public Region getRegion() {
+    public int getRegion() {
         return region;
     }
 
-    public void setRegion(Region region) {
+    public void setRegion(int region) {
         this.region = region;
     }
 
-    public Appellation getAppellation() {
+    public int getAppellation() {
         return appellation;
     }
 
-    public void setAppellation(Appellation appellation) {
+    public void setAppellation(int appellation) {
         this.appellation = appellation;
     }
 
-    public LieuStockage getLieuStockage() {
+    public int getLieuStockage() {
         return lieuStockage;
     }
 
-    public void setLieuStockage(LieuStockage lieuStockage) {
+    public void setLieuStockage(int lieuStockage) {
         this.lieuStockage = lieuStockage;
     }
 
-    public LieuAchat getLieuAchat() {
+    public int getLieuAchat() {
         return lieuAchat;
     }
 
-    public void setLieuAchat(LieuAchat lieuAchat) {
+    public void setLieuAchat(int lieuAchat) {
         this.lieuAchat = lieuAchat;
     }
 
@@ -117,11 +117,11 @@ public class Vin {
         this.consoAvant = consoAvant;
     }
 
-    public Plat getTypePlat() {
+    public int getTypePlat() {
         return typePlat;
     }
 
-    public void setTypePlat(Plat typePlat) {
+    public void setTypePlat(int typePlat) {
         this.typePlat = typePlat;
     }
 
@@ -133,11 +133,11 @@ public class Vin {
         this.type = type;
     }
 
-    public ArrayList<Utilisateur> getUtilisateur() {
+    public long getUtilisateur() {
         return utilisateur;
     }
 
-    public void setUtilisateur(ArrayList<Utilisateur> utilisateur) {
+    public void setUtilisateur(long utilisateur) {
         this.utilisateur = utilisateur;
     }
 

@@ -3,6 +3,7 @@ package com.example.pboguet.macaveonline.Utils;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.pboguet.macaveonline.Activities.LoginActivity;
 import com.example.pboguet.macaveonline.Class.Mousseux;
 import com.example.pboguet.macaveonline.Class.Region;
 import com.example.pboguet.macaveonline.Class.Vin;
@@ -94,7 +95,7 @@ public class WebService extends AsyncTask<String, Void, String> {
                     // Blanc
                     case "1" :
                     {
-                        VinBlanc vinB = new VinBlanc(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, "2");
+                        VinBlanc vinB = new VinBlanc(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, LoginActivity.myUtilisateur.userId);
                         listeVinsBlanc.add(vinB);
                         listeVins.add(vinB);
                     }
@@ -102,7 +103,7 @@ public class WebService extends AsyncTask<String, Void, String> {
                     // Rouge
                     case "2" :
                     {
-                        VinRouge vinR = new VinRouge(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, "2");
+                        VinRouge vinR = new VinRouge(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, LoginActivity.myUtilisateur.userId);
                         listeVinsRouge.add(vinR);
                         listeVins.add(vinR);
                     }
@@ -110,7 +111,7 @@ public class WebService extends AsyncTask<String, Void, String> {
                     // Rosé
                     case "3" :
                     {
-                        VinRose vinRos = new VinRose(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, "2");
+                        VinRose vinRos = new VinRose(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, LoginActivity.myUtilisateur.userId);
                         listeVinsRose.add(vinRos);
                         listeVins.add(vinRos);
                     }
@@ -118,7 +119,7 @@ public class WebService extends AsyncTask<String, Void, String> {
                     // Mousseux
                     case "4" :
                     {
-                        Mousseux mousseux = new Mousseux(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, "2");
+                        Mousseux mousseux = new Mousseux(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, LoginActivity.myUtilisateur.userId);
                         listeMousseux.add(mousseux);
                         listeVins.add(mousseux);
                     }
@@ -135,7 +136,7 @@ public class WebService extends AsyncTask<String, Void, String> {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             List nameValuePairs = new ArrayList(1);
-            nameValuePairs.add(new BasicNameValuePair("idUtilisateur", "2"));
+            nameValuePairs.add(new BasicNameValuePair("idUtilisateur", Long.toString(LoginActivity.myUtilisateur.userId)));
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpClient.execute(httpPost);
             HttpEntity entity = response.getEntity();

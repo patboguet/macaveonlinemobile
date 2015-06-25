@@ -1,17 +1,14 @@
 package com.example.pboguet.macaveonline.Class;
 
-import com.example.pboguet.macaveonline.Utils.Utilisateur;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by pboguet on 19/06/15.
  */
 public class Mousseux extends Vin {
-    private String type;
-    private ArrayList<Mousseux> liste;
 
-    public Mousseux(int idVin, String nom, int annee, Region region, Appellation appellation, String type, float degreAlcool, LieuStockage lieuStockage, LieuAchat lieuAchat, int consoPartir, int consoAvant, Plat typePlat, int note, int nbBouteilles, boolean suiviStock, boolean favori, float prixAchat, String offertPar, String commentaires, ArrayList<Utilisateur> utilisateur)
+    public Mousseux(int idVin, String nom, int annee, int region, int appellation, String type, float degreAlcool, int lieuStockage, int lieuAchat, int consoPartir, int consoAvant, int typePlat, int note, int nbBouteilles, boolean suiviStock, boolean favori, float prixAchat, String offertPar, String commentaires, long utilisateur)
     {
         super();
         this.idVin = idVin;
@@ -36,8 +33,5 @@ public class Mousseux extends Vin {
         this.utilisateur = utilisateur;
     }
 
-    public ArrayList<Mousseux> getMousseux()
-    {
-        return liste;
-    }
+
 }

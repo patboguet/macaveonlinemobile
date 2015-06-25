@@ -45,7 +45,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
-    private Utilisateur myUtilisateur;
+    public static Utilisateur myUtilisateur;
 
     // UI references.
     private EditText loginView;

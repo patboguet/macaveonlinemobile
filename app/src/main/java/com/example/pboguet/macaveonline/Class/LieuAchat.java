@@ -1,25 +1,15 @@
 package com.example.pboguet.macaveonline.Class;
 
+import java.util.HashMap;
+
 /**
  * Created by pboguet on 19/06/15.
  */
 public class LieuAchat {
-    private int idLieuAchat;
-    private String nom;
+    public HashMap<Long, String> listeLieuAchat;
 
-    public int getIdLieuAchat() {
-        return idLieuAchat;
-    }
-
-    public void setIdLieuAchat(int idLieuAchat) {
-        this.idLieuAchat = idLieuAchat;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
+    public LieuAchat(long id, String lieu)
+    {
+        this.listeLieuAchat.put(id, lieu);
     }
 }

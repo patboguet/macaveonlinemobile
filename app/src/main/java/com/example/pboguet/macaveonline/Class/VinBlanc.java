@@ -8,10 +8,8 @@ import java.util.ArrayList;
  * Created by pboguet on 19/06/15.
  */
 public class VinBlanc extends Vin{
-    private String type;
-    private ArrayList<VinBlanc> liste;
 
-    public VinBlanc(int idVin, String nom, int annee, Region region, Appellation appellation, String type, float degreAlcool, LieuStockage lieuStockage, LieuAchat lieuAchat, int consoPartir, int consoAvant, Plat typePlat, int note, int nbBouteilles, boolean suiviStock, boolean favori, float prixAchat, String offertPar, String commentaires, ArrayList<Utilisateur> utilisateur)
+    public VinBlanc(int idVin, String nom, int annee, int region, int appellation, String type, float degreAlcool, int lieuStockage, int lieuAchat, int consoPartir, int consoAvant, int typePlat, int note, int nbBouteilles, boolean suiviStock, boolean favori, float prixAchat, String offertPar, String commentaires, long utilisateur)
     {
         super();
         this.idVin = idVin;
@@ -34,10 +32,5 @@ public class VinBlanc extends Vin{
         this.offertPar = offertPar;
         this.commentaires = commentaires;
         this.utilisateur = utilisateur;
-    }
-
-    public ArrayList<VinBlanc> getVinBlanc()
-    {
-        return liste;
     }
 }

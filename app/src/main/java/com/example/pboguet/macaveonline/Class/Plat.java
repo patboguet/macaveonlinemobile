@@ -1,10 +1,14 @@
 package com.example.pboguet.macaveonline.Class;
 
+import java.util.HashMap;
+
 /**
  * Created by pboguet on 19/06/15.
  */
 public class Plat {
-    private int idPlat;
-    private String type;
+    public HashMap<Long, String> listePlat;
 
+    public Plat(long id, String type) {
+        this.listePlat.put(id, type);
+    }
 }
