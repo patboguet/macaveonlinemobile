@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by pboguet on 19/06/15.
  */
 public class Vin {
-    protected int idVin;
+    protected long idVin;
     protected String nom;
     protected int annee;
     protected int region;
@@ -29,9 +29,7 @@ public class Vin {
     protected String commentaires;
     protected long utilisateur;
 
-    public int getRegion() {
-        return region;
-    }
+    public int getRegion() { return region; }
 
     public void setRegion(int region) {
         this.region = region;
@@ -69,11 +67,11 @@ public class Vin {
         this.note = note;
     }
 
-    public int getIdVin() {
+    public long getIdVin() {
         return idVin;
     }
 
-    public void setIdVin(int idVin) {
+    public void setIdVin(long idVin) {
         this.idVin = idVin;
     }
 
@@ -188,4 +186,6 @@ public class Vin {
     public void setCommentaires(String commentaires) {
         this.commentaires = commentaires;
     }
+
+
 }
