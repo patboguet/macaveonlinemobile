@@ -2,6 +2,7 @@ package com.example.pboguet.macaveonline.Class;
 
 import com.example.pboguet.macaveonline.Utils.Utilisateur;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -17,8 +18,8 @@ public class Vin {
     protected float degreAlcool;
     protected int lieuStockage;
     protected int lieuAchat;
-    protected int consoPartir;
-    protected int consoAvant;
+    protected Date consoPartir;
+    protected Date consoAvant;
     protected int typePlat;
     protected int note;
     protected int nbBouteilles;
@@ -99,19 +100,19 @@ public class Vin {
         this.degreAlcool = degreAlcool;
     }
 
-    public int getConsoPartir() {
+    public Date getConsoPartir() {
         return consoPartir;
     }
 
-    public void setConsoPartir(int consoPartir) {
+    public void setConsoPartir(Date consoPartir) {
         this.consoPartir = consoPartir;
     }
 
-    public int getConsoAvant() {
+    public Date getConsoAvant() {
         return consoAvant;
     }
 
-    public void setConsoAvant(int consoAvant) {
+    public void setConsoAvant(Date consoAvant) {
         this.consoAvant = consoAvant;
     }
 
@@ -186,6 +187,5 @@ public class Vin {
     public void setCommentaires(String commentaires) {
         this.commentaires = commentaires;
     }
-
 
 }

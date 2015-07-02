@@ -1,5 +1,6 @@
 package com.example.pboguet.macaveonline.Class;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,7 +9,7 @@ import java.util.HashMap;
  */
 public class Mousseux extends Vin {
 
-    public Mousseux(long idVin, String nom, int annee, int region, int appellation, String type, float degreAlcool, int lieuStockage, int lieuAchat, int consoPartir, int consoAvant, int typePlat, int note, int nbBouteilles, boolean suiviStock, boolean favori, float prixAchat, String offertPar, String commentaires, long utilisateur)
+    public Mousseux(long idVin, String nom, int annee, int region, int appellation, String type, float degreAlcool, int lieuStockage, int lieuAchat, Date consoPartir, Date consoAvant, int typePlat, int note, int nbBouteilles, boolean suiviStock, boolean favori, float prixAchat, String offertPar, String commentaires, long utilisateur)
     {
         super();
         this.idVin = idVin;
