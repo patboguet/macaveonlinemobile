@@ -9,6 +9,7 @@ public class Plat {
     public HashMap<Long, String> listePlat;
 
     public Plat(long id, String type) {
+        this.listePlat = new HashMap<Long, String>();
         this.listePlat.put(id, type);
     }
 }

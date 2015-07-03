@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Region"
-            android:id="@+id/typeVin"
+            android:id="@+id/regionVin"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="false"
             android:layout_marginRight="10dp"
@@ -41,7 +41,7 @@
             android:text="Année"
             android:id="@+id/annee"
             android:layout_alignParentTop="false"
-            android:layout_toRightOf="@id/typeVin"
+            android:layout_toRightOf="@id/regionVin"
             android:layout_marginTop="7dp"
             android:layout_below="@id/nomVin"/>
 

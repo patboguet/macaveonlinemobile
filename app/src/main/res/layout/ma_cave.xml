@@ -50,8 +50,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:orientation="vertical"
-                        android:transitionGroup="true"
-                        android:visibility="visible">
+                        android:transitionGroup="true">
 
 
                         <LinearLayout
@@ -103,7 +102,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:orientation="vertical"
-                        android:visibility="gone">
+                        android:transitionGroup="true">
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -141,9 +140,8 @@
 
                         <ListView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/listeVinsBlancs"
-                            android:layout_weight="1" />
+                            android:layout_height="wrap_content"
+                            android:id="@+id/listeVinsBlancs" />
 
                     </LinearLayout>
 
@@ -152,7 +150,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:orientation="vertical"
-                        android:visibility="gone">
+                        android:transitionGroup="true">
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -191,9 +189,7 @@
                         <ListView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/listeVinsRoses"
-                            android:layout_weight="1"
-                            android:headerDividersEnabled="false" />
+                            android:id="@+id/listeVinsRoses" />
 
                     </LinearLayout>
 
@@ -202,7 +198,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:orientation="vertical"
-                        android:visibility="gone">
+                        android:transitionGroup="true">
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -242,8 +238,7 @@
                         <ListView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/listeMousseux"
-                            android:layout_weight="1" />
+                            android:id="@+id/listeMousseux"/>
 
                     </LinearLayout>
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.pboguet.macaveonline.Activities.WebService;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Class.VinRouge;
 import com.example.pboguet.macaveonline.R;
@@ -16,11 +17,11 @@ import java.util.ArrayList;
 /**
  * Created by pboguet on 19/06/15.
  */
-public class VinAdapter extends ArrayAdapter<Vin> {
-    private ArrayList<Vin> vins;
+public class VinAdapter extends ArrayAdapter<VinRouge> {
+    private ArrayList<VinRouge> vins;
     private Context mContext;
 
-    public VinAdapter(Context context, int textViewResourceID, ArrayList<Vin> vins) {
+    public VinAdapter(WebService context, int textViewResourceID, ArrayList<VinRouge> vins) {
         super(context,textViewResourceID,vins);
         mContext = context;
         this.vins = vins;
@@ -40,8 +41,9 @@ public class VinAdapter extends ArrayAdapter<Vin> {
             v = inflater.inflate(R.layout.liste_vins, null);
 
         }
+        // TODO : récupérer l'id de la région et chercher l'intitulé dans la liste des régions
         TextView nom = (TextView)v.findViewById(R.id.nomVin);
-        TextView type = (TextView)v.findViewById(R.id.typeVin);
+        TextView region = (TextView)v.findViewById(R.id.regionVin);
         TextView annee = (TextView)v.findViewById(R.id.annee);
         TextView nbBt = (TextView)v.findViewById(R.id.nbBouteilles);
         TextView plus = (TextView)v.findViewById(R.id.plus);
@@ -49,9 +51,9 @@ public class VinAdapter extends ArrayAdapter<Vin> {
 
         if (nom != null) {
             nom.setText(vin.getNom());
-            type.setText(vin.getType());
-            annee.setText(vin.getAnnee());
-            nbBt.setText(vin.getNbBouteilles());
+            region.setText(Integer.toString(vin.getRegion()));
+            annee.setText(Integer.toString(vin.getAnnee()));
+            nbBt.setText(Integer.toString(vin.getNbBouteilles()));
             plus.setText("+");
             moins.setText("-");
         }

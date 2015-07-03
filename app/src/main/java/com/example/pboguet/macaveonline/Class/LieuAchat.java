@@ -10,6 +10,7 @@ public class LieuAchat {
 
     public LieuAchat(long id, String lieu)
     {
+        this.listeLieuAchat = new HashMap<Long, String>();
         this.listeLieuAchat.put(id, lieu);
     }
 }
