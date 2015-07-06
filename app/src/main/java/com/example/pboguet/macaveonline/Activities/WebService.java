@@ -1,11 +1,15 @@
 package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.LieuAchat;
@@ -18,7 +22,10 @@ import com.example.pboguet.macaveonline.Class.VinBlanc;
 import com.example.pboguet.macaveonline.Class.VinRose;
 import com.example.pboguet.macaveonline.Class.VinRouge;
 import com.example.pboguet.macaveonline.R;
-import com.example.pboguet.macaveonline.Utils.VinAdapter;
+import com.example.pboguet.macaveonline.Utils.MousseuxAdapter;
+import com.example.pboguet.macaveonline.Utils.VinBlancAdapter;
+import com.example.pboguet.macaveonline.Utils.VinRoseAdapter;
+import com.example.pboguet.macaveonline.Utils.VinRougeAdapter;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -73,21 +80,55 @@ public class WebService extends Activity {
     private String offert;
     private int lieu_achat;
     private int lieu_stockage;
+    private TextView tvPasVin;
+    private View vList;
+    private LayoutInflater inflater;
+    private TabHost tabs;
+    private TextView tvTriMousseuxNom;
+    private TextView tvTriMousseuxRegion;
+    private TextView tvTriMousseuxDate;
+    private TextView tvTriRougeNom;
+    private TextView tvTriRougeRegion;
+    private TextView tvTriRougeDate;
+    private TextView tvTriBlancNom;
+    private TextView tvTriBLancRegion;
+    private TextView tvTriBlancDate;
+    private TextView tvTriRoseNom;
+    private TextView tvTriRoseRegion;
+    private TextView tvTriRoseDate;
 
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ma_cave);
+        inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        vList = inflater.inflate(R.layout.ma_cave, null);
+
+        tvTriRougeNom = (TextView) vList.findViewById(R.id.triRougeNom);
+        tvTriRougeRegion = (TextView) vList.findViewById(R.id.triRougeRegion);
+        tvTriRougeDate = (TextView) vList.findViewById(R.id.triRougeDate);
+        tvTriBlancNom = (TextView) vList.findViewById(R.id.triBlancNom);
+        tvTriBLancRegion = (TextView) vList.findViewById(R.id.triBlancRegion);
+        tvTriBlancDate = (TextView) vList.findViewById(R.id.triBlancDate);
+        tvTriRoseNom = (TextView) vList.findViewById(R.id.triRoseNom);
+        tvTriRoseRegion = (TextView) vList.findViewById(R.id.triRoseRegion);
+        tvTriRoseDate = (TextView) vList.findViewById(R.id.triRoseDate);
+        tvTriMousseuxNom = (TextView) vList.findViewById(R.id.triMousseuxNom);
+        tvTriMousseuxRegion = (TextView) vList.findViewById(R.id.triMousseuxRegion);
+        tvTriMousseuxDate = (TextView) vList.findViewById(R.id.triMousseuxDate);
+        tvPasVin = (TextView) vList.findViewById(R.id.tvPasVin);
+
         new BackTask().execute("select_vins");
-        new BackTask().execute("select_regions");
+
+        // TODO : ne marche pas, à debug
+        /*new BackTask().execute("select_regions");
         new BackTask().execute("select_aoc");
         new BackTask().execute("select_lieu_achat");
         new BackTask().execute("select_lieu_stockage");
-        new BackTask().execute("select_plat");
+        new BackTask().execute("select_plat");*/
 
-        TabHost tabs=(TabHost)findViewById(R.id.tabHost);
-
+        tabs = (TabHost)findViewById(R.id.tabHost);
         tabs.setup();
         // on créer les onglets
         createTab(tabs);
@@ -117,7 +158,6 @@ public class WebService extends Activity {
         spec.setIndicator("MOUSSEUX");
         tabs.addTab(spec);
     }
-
 
     public class BackTask extends AsyncTask<String, Void, String> {
         @Override
@@ -343,11 +383,56 @@ public class WebService extends Activity {
                 e.printStackTrace();
             }
 
-            VinAdapter adapter = new VinAdapter(WebService.this, R.layout.liste_vins, listeVinsRouge);
 
-            ListView lv = (ListView) findViewById(R.id.listeVinsRouges);
+            if(listeVinsRouge.size() > 0) {
+                tvPasVin.setVisibility(vList.GONE);
+                tvTriRougeNom.setVisibility(vList.VISIBLE);
+                tvTriRougeRegion.setVisibility(vList.VISIBLE);
+                tvTriRougeDate.setVisibility(vList.VISIBLE);
+                VinRougeAdapter rougeAda = new VinRougeAdapter(WebService.this, R.layout.liste_vins, listeVinsRouge);
+                ListView lvR = (ListView) findViewById(R.id.listeVinsRouges);
+                lvR.setAdapter(rougeAda);
+            }
+            else {
+                affichePasVin();
+            }
+            if(listeVinsBlanc.size() > 0) {
+                tvPasVin.setVisibility(vList.GONE);
+                tvTriBlancNom.setVisibility(vList.VISIBLE);
+                tvTriBLancRegion.setVisibility(vList.VISIBLE);
+                tvTriBlancDate.setVisibility(vList.VISIBLE);
+                VinBlancAdapter blancAda = new VinBlancAdapter(WebService.this, R.layout.liste_vins, listeVinsBlanc);
+                ListView lvB = (ListView) findViewById(R.id.listeVinsBlancs);
+                lvB.setAdapter(blancAda);
+            }
+            else {
+                affichePasVin();
+            }
+            if(listeVinsRose.size() > 0) {
+                tvPasVin.setVisibility(vList.GONE);
+                tvTriRoseNom.setVisibility(vList.VISIBLE);
+                tvTriRoseRegion.setVisibility(vList.VISIBLE);
+                tvTriRoseDate.setVisibility(vList.VISIBLE);
+                VinRoseAdapter roseAda = new VinRoseAdapter(WebService.this, R.layout.liste_vins, listeVinsRose);
+                ListView lvRo = (ListView) findViewById(R.id.listeVinsRoses);
+                lvRo.setAdapter(roseAda);
+            }
+            else {
+               affichePasVin();
+            }
+            if(listeMousseux.size() > 0) {
+                tvPasVin.setVisibility(vList.GONE);
+                tvTriMousseuxNom.setVisibility(vList.VISIBLE);
+                tvTriMousseuxRegion.setVisibility(vList.VISIBLE);
+                tvTriMousseuxDate.setVisibility(vList.VISIBLE);
+                MousseuxAdapter mousseAda = new MousseuxAdapter(WebService.this, R.layout.liste_vins, listeMousseux);
+                ListView lvM = (ListView) findViewById(R.id.listeMousseux);
+                lvM.setAdapter(mousseAda);
+            }
+            else {
+                affichePasVin();
+            }
 
-            lv.setAdapter(adapter);
         }
     }
 
@@ -384,5 +469,10 @@ public class WebService extends Activity {
         return result;
     }
 
+    // TODO : ne marche pas, à debug
+    private void affichePasVin() {
+        tvPasVin = (TextView) vList.findViewById(R.id.tvPasVin);
+        tvPasVin.setVisibility(vList.VISIBLE);
+    }
 }
 

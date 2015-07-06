@@ -57,7 +57,8 @@
                             android:orientation="horizontal"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/triRouge">
+                            android:id="@+id/triRouge"
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -108,7 +109,8 @@
                             android:orientation="horizontal"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/triBlanc" >
+                            android:id="@+id/triBlanc"
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -156,7 +158,8 @@
                             android:orientation="horizontal"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/triRose" >
+                            android:id="@+id/triRose"
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -204,7 +207,8 @@
                             android:orientation="horizontal"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/triMousseux" >
+                            android:id="@+id/triMousseux"
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -246,6 +250,13 @@
 
             </LinearLayout>
         </TabHost>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Il n&apos;y a pas de vins pour cette catégorie"
+            android:id="@+id/tvPasVin"
+            android:gravity="center" />
 
     </LinearLayout>
 

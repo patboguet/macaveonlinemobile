@@ -9,19 +9,20 @@ import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Activities.WebService;
 import com.example.pboguet.macaveonline.Class.Vin;
-import com.example.pboguet.macaveonline.Class.VinRouge;
+import com.example.pboguet.macaveonline.Class.VinBlanc;
 import com.example.pboguet.macaveonline.R;
 
 import java.util.ArrayList;
 
 /**
- * Created by pboguet on 19/06/15.
+ * Created by pboguet on 06/07/2015.
  */
-public class VinAdapter extends ArrayAdapter<VinRouge> {
-    private ArrayList<VinRouge> vins;
+public class VinBlancAdapter extends ArrayAdapter<VinBlanc> {
+
+    private ArrayList<VinBlanc> vins;
     private Context mContext;
 
-    public VinAdapter(WebService context, int textViewResourceID, ArrayList<VinRouge> vins) {
+    public VinBlancAdapter(WebService context, int textViewResourceID, ArrayList<VinBlanc> vins) {
         super(context,textViewResourceID,vins);
         mContext = context;
         this.vins = vins;
@@ -36,18 +37,20 @@ public class VinAdapter extends ArrayAdapter<VinRouge> {
 
         if (v == null) {
 
-            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             v = inflater.inflate(R.layout.liste_vins, null);
 
         }
+
         // TODO : récupérer l'id de la région et chercher l'intitulé dans la liste des régions
-        TextView nom = (TextView)v.findViewById(R.id.nomVin);
-        TextView region = (TextView)v.findViewById(R.id.regionVin);
-        TextView annee = (TextView)v.findViewById(R.id.annee);
-        TextView nbBt = (TextView)v.findViewById(R.id.nbBouteilles);
-        TextView plus = (TextView)v.findViewById(R.id.plus);
-        TextView moins = (TextView)v.findViewById(R.id.moins);
+        TextView nom = (TextView) v.findViewById(R.id.nomVin);
+        TextView region = (TextView) v.findViewById(R.id.regionVin);
+        TextView annee = (TextView) v.findViewById(R.id.annee);
+        TextView nbBt = (TextView) v.findViewById(R.id.nbBouteilles);
+        TextView plus = (TextView) v.findViewById(R.id.plus);
+        TextView moins = (TextView) v.findViewById(R.id.moins);
+
 
         if (nom != null) {
             nom.setText(vin.getNom());
@@ -57,6 +60,7 @@ public class VinAdapter extends ArrayAdapter<VinRouge> {
             plus.setText("+");
             moins.setText("-");
         }
+
         return v;
     }
 }
