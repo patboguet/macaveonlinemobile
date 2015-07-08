@@ -2,6 +2,7 @@ package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.LieuAchat;
@@ -61,9 +63,9 @@ public class WebService extends Activity {
     private Date conso_partir;
     public static ArrayList<Vin> listeVins = new ArrayList<>();
     public static ArrayList<VinBlanc> listeVinsBlanc = new ArrayList<>();
-    public ArrayList<VinRouge> listeVinsRouge = new ArrayList<>();
-    public ArrayList<VinRose> listeVinsRose = new ArrayList<>();
-    public ArrayList<Mousseux> listeMousseux = new ArrayList<>();
+    public static ArrayList<VinRouge> listeVinsRouge = new ArrayList<>();
+    public static ArrayList<VinRose> listeVinsRose = new ArrayList<>();
+    public static ArrayList<Mousseux> listeMousseux = new ArrayList<>();
     public ArrayList<Region> listeRegion = new ArrayList<>();
     public ArrayList<Appellation> listeAppellation = new ArrayList<>();
     public ArrayList<LieuAchat> listeLieuAchat = new ArrayList<>();
@@ -80,44 +82,11 @@ public class WebService extends Activity {
     private String offert;
     private int lieu_achat;
     private int lieu_stockage;
-    private TextView tvPasVin;
-    private View vList;
-    private LayoutInflater inflater;
-    private TabHost tabs;
-    private TextView tvTriMousseuxNom;
-    private TextView tvTriMousseuxRegion;
-    private TextView tvTriMousseuxDate;
-    private TextView tvTriRougeNom;
-    private TextView tvTriRougeRegion;
-    private TextView tvTriRougeDate;
-    private TextView tvTriBlancNom;
-    private TextView tvTriBLancRegion;
-    private TextView tvTriBlancDate;
-    private TextView tvTriRoseNom;
-    private TextView tvTriRoseRegion;
-    private TextView tvTriRoseDate;
 
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ma_cave);
-        inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        vList = inflater.inflate(R.layout.ma_cave, null);
-
-        tvTriRougeNom = (TextView) vList.findViewById(R.id.triRougeNom);
-        tvTriRougeRegion = (TextView) vList.findViewById(R.id.triRougeRegion);
-        tvTriRougeDate = (TextView) vList.findViewById(R.id.triRougeDate);
-        tvTriBlancNom = (TextView) vList.findViewById(R.id.triBlancNom);
-        tvTriBLancRegion = (TextView) vList.findViewById(R.id.triBlancRegion);
-        tvTriBlancDate = (TextView) vList.findViewById(R.id.triBlancDate);
-        tvTriRoseNom = (TextView) vList.findViewById(R.id.triRoseNom);
-        tvTriRoseRegion = (TextView) vList.findViewById(R.id.triRoseRegion);
-        tvTriRoseDate = (TextView) vList.findViewById(R.id.triRoseDate);
-        tvTriMousseuxNom = (TextView) vList.findViewById(R.id.triMousseuxNom);
-        tvTriMousseuxRegion = (TextView) vList.findViewById(R.id.triMousseuxRegion);
-        tvTriMousseuxDate = (TextView) vList.findViewById(R.id.triMousseuxDate);
-        tvPasVin = (TextView) vList.findViewById(R.id.tvPasVin);
 
         new BackTask().execute("select_vins");
 
@@ -128,41 +97,13 @@ public class WebService extends Activity {
         new BackTask().execute("select_lieu_stockage");
         new BackTask().execute("select_plat");*/
 
-        tabs = (TabHost)findViewById(R.id.tabHost);
-        tabs.setup();
-        // on créer les onglets
-        createTab(tabs);
-        tabs.setCurrentTab(0);
-
-    }
-
-    protected void createTab(TabHost tabs)
-    {
-        TabHost.TabSpec spec=tabs.newTabSpec("tag1");
-        spec.setContent(R.id.tabRouge);
-        spec.setIndicator("ROUGES");
-        tabs.addTab(spec);
-
-        spec=tabs.newTabSpec("tag2");
-        spec.setContent(R.id.tabBlanc);
-        spec.setIndicator("BLANCS");
-        tabs.addTab(spec);
-
-        spec=tabs.newTabSpec("tag3");
-        spec.setContent(R.id.tabRose);
-        spec.setIndicator("ROSES");
-        tabs.addTab(spec);
-
-        spec=tabs.newTabSpec("tag3");
-        spec.setContent(R.id.tabMousseux);
-        spec.setIndicator("MOUSSEUX");
-        tabs.addTab(spec);
     }
 
     public class BackTask extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute () {
             //to do whatever you want before execute webservice
+            // TODO : loading
             //like progress bar or something like that
             super.onPreExecute();
         }
@@ -382,57 +323,8 @@ public class WebService extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
-            if(listeVinsRouge.size() > 0) {
-                tvPasVin.setVisibility(vList.GONE);
-                tvTriRougeNom.setVisibility(vList.VISIBLE);
-                tvTriRougeRegion.setVisibility(vList.VISIBLE);
-                tvTriRougeDate.setVisibility(vList.VISIBLE);
-                VinRougeAdapter rougeAda = new VinRougeAdapter(WebService.this, R.layout.liste_vins, listeVinsRouge);
-                ListView lvR = (ListView) findViewById(R.id.listeVinsRouges);
-                lvR.setAdapter(rougeAda);
-            }
-            else {
-                affichePasVin();
-            }
-            if(listeVinsBlanc.size() > 0) {
-                tvPasVin.setVisibility(vList.GONE);
-                tvTriBlancNom.setVisibility(vList.VISIBLE);
-                tvTriBLancRegion.setVisibility(vList.VISIBLE);
-                tvTriBlancDate.setVisibility(vList.VISIBLE);
-                VinBlancAdapter blancAda = new VinBlancAdapter(WebService.this, R.layout.liste_vins, listeVinsBlanc);
-                ListView lvB = (ListView) findViewById(R.id.listeVinsBlancs);
-                lvB.setAdapter(blancAda);
-            }
-            else {
-                affichePasVin();
-            }
-            if(listeVinsRose.size() > 0) {
-                tvPasVin.setVisibility(vList.GONE);
-                tvTriRoseNom.setVisibility(vList.VISIBLE);
-                tvTriRoseRegion.setVisibility(vList.VISIBLE);
-                tvTriRoseDate.setVisibility(vList.VISIBLE);
-                VinRoseAdapter roseAda = new VinRoseAdapter(WebService.this, R.layout.liste_vins, listeVinsRose);
-                ListView lvRo = (ListView) findViewById(R.id.listeVinsRoses);
-                lvRo.setAdapter(roseAda);
-            }
-            else {
-               affichePasVin();
-            }
-            if(listeMousseux.size() > 0) {
-                tvPasVin.setVisibility(vList.GONE);
-                tvTriMousseuxNom.setVisibility(vList.VISIBLE);
-                tvTriMousseuxRegion.setVisibility(vList.VISIBLE);
-                tvTriMousseuxDate.setVisibility(vList.VISIBLE);
-                MousseuxAdapter mousseAda = new MousseuxAdapter(WebService.this, R.layout.liste_vins, listeMousseux);
-                ListView lvM = (ListView) findViewById(R.id.listeMousseux);
-                lvM.setAdapter(mousseAda);
-            }
-            else {
-                affichePasVin();
-            }
-
+            setResult(Activity.RESULT_OK);
+            finish();
         }
     }
 
@@ -441,6 +333,7 @@ public class WebService extends Activity {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             List nameValuePairs = new ArrayList(1);
+            // TODO : erreur avec LoginActivity.myUtilisateur.userId
             //nameValuePairs.add(new BasicNameValuePair("idUtilisateur", Long.toString(LoginActivity.myUtilisateur.userId)));
             nameValuePairs.add(new BasicNameValuePair("idUtilisateur", "2"));
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -469,10 +362,8 @@ public class WebService extends Activity {
         return result;
     }
 
-    // TODO : ne marche pas, à debug
-    private void affichePasVin() {
-        tvPasVin = (TextView) vList.findViewById(R.id.tvPasVin);
-        tvPasVin.setVisibility(vList.VISIBLE);
-    }
+
+
+
 }
 

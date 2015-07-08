@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.pboguet.macaveonline.Activities.WebService;
+import com.example.pboguet.macaveonline.Activities.MyMainActivity;
 import com.example.pboguet.macaveonline.Class.Mousseux;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
@@ -22,7 +22,7 @@ public class MousseuxAdapter extends ArrayAdapter<Mousseux> {
     private ArrayList<Mousseux> vins;
     private Context mContext;
 
-    public MousseuxAdapter(WebService context, int textViewResourceID, ArrayList<Mousseux> vins) {
+    public MousseuxAdapter(MyMainActivity context, int textViewResourceID, ArrayList<Mousseux> vins) {
         super(context,textViewResourceID,vins);
         this.mContext = context;
         this.vins = vins;

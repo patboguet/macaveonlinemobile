@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.pboguet.macaveonline.Activities.WebService;
+import com.example.pboguet.macaveonline.Activities.MyMainActivity;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Class.VinRouge;
 import com.example.pboguet.macaveonline.R;
@@ -21,7 +21,7 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
     private ArrayList<VinRouge> vins;
     private Context mContext;
 
-    public VinRougeAdapter(WebService context, int textViewResourceID, ArrayList<VinRouge> vins) {
+    public VinRougeAdapter(MyMainActivity context, int textViewResourceID, ArrayList<VinRouge> vins) {
         super(context,textViewResourceID,vins);
         mContext = context;
         this.vins = vins;
