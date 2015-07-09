@@ -53,6 +53,7 @@ import java.util.List;
 public class WebService extends Activity {
 
     private static String URL = "http://www.macaveonline.fr/webservice/";
+    private static Activity mActivity;
     private InputStream is;
     private String line;
     private String result;
@@ -87,7 +88,7 @@ public class WebService extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        mActivity = this;
         new BackTask().execute("select_vins");
 
         // TODO : ne marche pas, à debug
@@ -96,7 +97,10 @@ public class WebService extends Activity {
         new BackTask().execute("select_lieu_achat");
         new BackTask().execute("select_lieu_stockage");
         new BackTask().execute("select_plat");*/
+    }
 
+    public static Activity getInstance() {
+        return mActivity;
     }
 
     public class BackTask extends AsyncTask<String, Void, String> {

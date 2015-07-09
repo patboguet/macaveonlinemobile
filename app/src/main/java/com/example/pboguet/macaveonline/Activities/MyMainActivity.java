@@ -48,6 +48,17 @@ public class MyMainActivity extends Activity {
         startActivityForResult(intent, 0311);
 
     }
+
+    @Override
+    public void onBackPressed() { super.onBackPressed(); }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(WebService.getInstance() != null) WebService.getInstance().finish();
+        if(LoginActivity.getInstance() != null) LoginActivity.getInstance().finish();
+    }
+
     @Override
      protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -85,6 +96,11 @@ public class MyMainActivity extends Activity {
                             if (WebService.listeVinsRouge.size() <= 0) {
                                 affichePasVin();
                             }
+                            else {
+                                tvTriRougeNom.setVisibility(View.VISIBLE);
+                                tvTriRougeRegion.setVisibility(View.VISIBLE);
+                                tvTriRougeDate.setVisibility(View.VISIBLE);
+                            }
                         }
                         // BLANCS
                         if ("tag2".equals(tabId)) {
@@ -102,7 +118,6 @@ public class MyMainActivity extends Activity {
                         if ("tag4".equals(tabId)) {
                             if (WebService.listeMousseux.size() <= 0) {
                                 affichePasVin();
-                                Toast.makeText(getApplicationContext(), "mousseux " + tvPasVin.getVisibility(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -116,6 +131,9 @@ public class MyMainActivity extends Activity {
                     tvTriRougeDate.setVisibility(View.VISIBLE);
                 } else {
                     MyMainActivity.affichePasVin();
+                    tvTriRougeNom.setVisibility(View.GONE);
+                    tvTriRougeRegion.setVisibility(View.GONE);
+                    tvTriRougeDate.setVisibility(View.GONE);
                 }
                 if (WebService.listeVinsBlanc.size() > 0) {
 
@@ -127,6 +145,9 @@ public class MyMainActivity extends Activity {
                     tvTriBlancDate.setVisibility(View.VISIBLE);
                 } else {
                     MyMainActivity.affichePasVin();
+                    tvTriBlancNom.setVisibility(View.GONE);
+                    tvTriBLancRegion.setVisibility(View.GONE);
+                    tvTriBlancDate.setVisibility(View.GONE);
                 }
                 if (WebService.listeVinsRose.size() > 0) {
 
@@ -138,6 +159,9 @@ public class MyMainActivity extends Activity {
                     tvTriRoseDate.setVisibility(View.VISIBLE);
                 } else {
                     MyMainActivity.affichePasVin();
+                    tvTriRoseNom.setVisibility(View.GONE);
+                    tvTriRoseRegion.setVisibility(View.GONE);
+                    tvTriRoseDate.setVisibility(View.GONE);
                 }
                 if (WebService.listeMousseux.size() > 0) {
 
@@ -147,6 +171,12 @@ public class MyMainActivity extends Activity {
                     tvTriMousseuxNom.setVisibility(View.VISIBLE);
                     tvTriMousseuxRegion.setVisibility(View.VISIBLE);
                     tvTriMousseuxDate.setVisibility(View.VISIBLE);
+                }
+                else {
+                    MyMainActivity.affichePasVin();
+                    tvTriMousseuxNom.setVisibility(View.GONE);
+                    tvTriMousseuxRegion.setVisibility(View.GONE);
+                    tvTriMousseuxDate.setVisibility(View.GONE);
                 }
             }
         }

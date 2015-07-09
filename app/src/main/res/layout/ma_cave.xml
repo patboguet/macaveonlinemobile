@@ -57,8 +57,7 @@
                             android:orientation="horizontal"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/triRouge"
-                            android:visibility="gone">
+                            android:id="@+id/triRouge" >
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -109,8 +108,7 @@
                             android:orientation="horizontal"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/triBlanc"
-                            android:visibility="gone">
+                            android:id="@+id/triBlanc" >
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -158,8 +156,7 @@
                             android:orientation="horizontal"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/triRose"
-                            android:visibility="gone">
+                            android:id="@+id/triRose" >
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -207,8 +204,7 @@
                             android:orientation="horizontal"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/triMousseux"
-                            android:visibility="gone">
+                            android:id="@+id/triMousseux" >
 
                             <TextView
                                 android:layout_width="wrap_content"

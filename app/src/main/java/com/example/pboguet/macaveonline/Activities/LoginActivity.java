@@ -46,6 +46,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
      */
     private UserLoginTask mAuthTask = null;
     public static Utilisateur myUtilisateur;
+    private static Activity mActivity;
 
     // UI references.
     private EditText loginView;
@@ -56,7 +57,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mActivity = this;
         DataBaseHelper db = new DataBaseHelper(this, "macaveonline");
         //TODO : si connexion, ajouter en BDD
         if(!db.checkIsConnected(2))
@@ -101,6 +102,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
         getLoaderManager().initLoader(0, null, this);
     }
 
+    public static Activity getInstance() {
+        return mActivity;
+    }
 
     /**
      * Attempts to sign in or register the account specified by the login form.
