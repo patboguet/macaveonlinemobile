@@ -43,24 +43,23 @@ public class VinRoseAdapter extends ArrayAdapter<VinRose> {
             v = inflater.inflate(R.layout.liste_vins, null);
 
         }
+        if(vins.size() > 0) {
+            TextView nom = (TextView) v.findViewById(R.id.nomVin);
+            TextView region = (TextView) v.findViewById(R.id.regionVin);
+            TextView annee = (TextView) v.findViewById(R.id.annee);
+            TextView nbBt = (TextView) v.findViewById(R.id.nbBouteilles);
+            TextView plus = (TextView) v.findViewById(R.id.plus);
+            TextView moins = (TextView) v.findViewById(R.id.moins);
 
-        // TODO : récupérer l'id de la région et chercher l'intitulé dans la liste des régions
-        TextView nom = (TextView) v.findViewById(R.id.nomVin);
-        TextView region = (TextView) v.findViewById(R.id.regionVin);
-        TextView annee = (TextView) v.findViewById(R.id.annee);
-        TextView nbBt = (TextView) v.findViewById(R.id.nbBouteilles);
-        TextView plus = (TextView) v.findViewById(R.id.plus);
-        TextView moins = (TextView) v.findViewById(R.id.moins);
-
-        if (nom != null) {
-            nom.setText(vin.getNom());
-            region.setText(Integer.toString(vin.getRegion()));
-            annee.setText(Integer.toString(vin.getAnnee()));
-            nbBt.setText(Integer.toString(vin.getNbBouteilles()));
-            plus.setText("+");
-            moins.setText("-");
+            if (nom != null) {
+                nom.setText(vin.getNom());
+                region.setText(vin.getNomRegion(vin.getRegion()));
+                annee.setText(Integer.toString(vin.getAnnee()));
+                nbBt.setText(Integer.toString(vin.getNbBouteilles()));
+                plus.setText("+");
+                moins.setText("-");
+            }
         }
-
         return v;
     }
 }

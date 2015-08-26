@@ -11,6 +11,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.MousseuxAdapter;
 import com.example.pboguet.macaveonline.Utils.VinBlancAdapter;
@@ -23,7 +24,6 @@ import java.nio.charset.CodingErrorAction;
  * Created by pboguet on 16/04/15.
  */
 public class MyMainActivity extends Activity {
-
     private TabHost tabs;
     private static TextView tvPasVin;
     private TextView tvTriMousseuxNom;
@@ -43,10 +43,8 @@ public class MyMainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ma_cave);
-
         Intent intent = new Intent(this, WebService.class);
         startActivityForResult(intent, 0311);
-
     }
 
     @Override
@@ -93,7 +91,7 @@ public class MyMainActivity extends Activity {
                         resetAffichePasVin();
                         // ROUGES
                         if ("tag1".equals(tabId)) {
-                            if (WebService.listeVinsRouge.size() <= 0) {
+                            if (ControleurPrincipal.listeVinsRouge.size() <= 0) {
                                 affichePasVin();
                             }
                             else {
@@ -104,26 +102,26 @@ public class MyMainActivity extends Activity {
                         }
                         // BLANCS
                         if ("tag2".equals(tabId)) {
-                            if (WebService.listeVinsBlanc.size() <= 0) {
+                            if (ControleurPrincipal.listeVinsBlanc.size() <= 0) {
                                 affichePasVin();
                             }
                         }
                         // ROSES
                         if ("tag3".equals(tabId)) {
-                            if (WebService.listeVinsRose.size() <= 0) {
+                            if (ControleurPrincipal.listeVinsRose.size() <= 0) {
                                 affichePasVin();
                             }
                         }
                         // MOUSSEUX
                         if ("tag4".equals(tabId)) {
-                            if (WebService.listeMousseux.size() <= 0) {
+                            if (ControleurPrincipal.listeMousseux.size() <= 0) {
                                 affichePasVin();
                             }
                         }
                     }
                 });
-                if (WebService.listeVinsRouge.size() > 0) {
-                    VinRougeAdapter rougeAda = new VinRougeAdapter(this, R.layout.liste_vins, WebService.listeVinsRouge);
+                if (ControleurPrincipal.listeVinsRouge.size() > 0) {
+                    VinRougeAdapter rougeAda = new VinRougeAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRouge);
                     ListView lvR = (ListView) findViewById(R.id.listeVinsRouges);
                     lvR.setAdapter(rougeAda);
                     tvTriRougeNom.setVisibility(View.VISIBLE);
@@ -135,9 +133,9 @@ public class MyMainActivity extends Activity {
                     tvTriRougeRegion.setVisibility(View.GONE);
                     tvTriRougeDate.setVisibility(View.GONE);
                 }
-                if (WebService.listeVinsBlanc.size() > 0) {
+                if (ControleurPrincipal.listeVinsBlanc.size() > 0) {
 
-                    VinBlancAdapter blancAda = new VinBlancAdapter(this, R.layout.liste_vins, WebService.listeVinsBlanc);
+                    VinBlancAdapter blancAda = new VinBlancAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsBlanc);
                     ListView lvB = (ListView) findViewById(R.id.listeVinsBlancs);
                     lvB.setAdapter(blancAda);
                     tvTriBlancNom.setVisibility(View.VISIBLE);
@@ -149,9 +147,9 @@ public class MyMainActivity extends Activity {
                     tvTriBLancRegion.setVisibility(View.GONE);
                     tvTriBlancDate.setVisibility(View.GONE);
                 }
-                if (WebService.listeVinsRose.size() > 0) {
+                if (ControleurPrincipal.listeVinsRose.size() > 0) {
 
-                    VinRoseAdapter roseAda = new VinRoseAdapter(this, R.layout.liste_vins, WebService.listeVinsRose);
+                    VinRoseAdapter roseAda = new VinRoseAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRose);
                     ListView lvRo = (ListView) findViewById(R.id.listeVinsRoses);
                     lvRo.setAdapter(roseAda);
                     tvTriRoseNom.setVisibility(View.VISIBLE);
@@ -163,9 +161,8 @@ public class MyMainActivity extends Activity {
                     tvTriRoseRegion.setVisibility(View.GONE);
                     tvTriRoseDate.setVisibility(View.GONE);
                 }
-                if (WebService.listeMousseux.size() > 0) {
-
-                    MousseuxAdapter mousseAda = new MousseuxAdapter(this, R.layout.liste_vins, WebService.listeMousseux);
+                if (ControleurPrincipal.listeMousseux.size() > 0) {
+                    MousseuxAdapter mousseAda = new MousseuxAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeMousseux);
                     ListView lvM = (ListView) findViewById(R.id.listeMousseux);
                     lvM.setAdapter(mousseAda);
                     tvTriMousseuxNom.setVisibility(View.VISIBLE);

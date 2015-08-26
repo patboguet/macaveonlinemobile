@@ -19,4 +19,27 @@ public class Region {
         this.id = id;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public List<Appellation> getListeAppellation() {
+        return listeAppellation;
+    }
+
+    public void setListeAppellation(List<Appellation> listeAppellation) {
+        this.listeAppellation = listeAppellation;
+    }
 }

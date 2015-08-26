@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pboguet.macaveonline.Class.Appellation;
+import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.LieuAchat;
 import com.example.pboguet.macaveonline.Class.LieuStockage;
 import com.example.pboguet.macaveonline.Class.Mousseux;
@@ -52,7 +53,6 @@ import java.util.List;
  */
 public class WebService extends Activity {
 
-    private static String URL = "http://www.macaveonline.fr/webservice/";
     private static Activity mActivity;
     private InputStream is;
     private String line;
@@ -62,16 +62,6 @@ public class WebService extends Activity {
     private int aoc;
     private float degre;
     private Date conso_partir;
-    public static ArrayList<Vin> listeVins = new ArrayList<>();
-    public static ArrayList<VinBlanc> listeVinsBlanc = new ArrayList<>();
-    public static ArrayList<VinRouge> listeVinsRouge = new ArrayList<>();
-    public static ArrayList<VinRose> listeVinsRose = new ArrayList<>();
-    public static ArrayList<Mousseux> listeMousseux = new ArrayList<>();
-    public ArrayList<Region> listeRegion = new ArrayList<>();
-    public ArrayList<Appellation> listeAppellation = new ArrayList<>();
-    public ArrayList<LieuAchat> listeLieuAchat = new ArrayList<>();
-    public ArrayList<LieuStockage> listeLieuStockage = new ArrayList<>();
-    public ArrayList<Plat> listePlat = new ArrayList<>();
     private String commentaires;
     private Date conso_avant;
     private int type_plat;
@@ -136,9 +126,9 @@ public class WebService extends Activity {
                     finUrl = "webservice_select_plat.php";
                     break;
             }
-            URL = URL + finUrl;
-            liste = connectWbs(URL);
-            URL = "http://www.macaveonline.fr/webservice/";
+            ControleurPrincipal.urlWS = ControleurPrincipal.urlWS + finUrl;
+            liste = connectWbs(ControleurPrincipal.urlWS);
+            ControleurPrincipal.urlWS = "http://www.macaveonline.fr/webservice/";
 
             return liste;
         }
@@ -233,37 +223,38 @@ public class WebService extends Activity {
                                     // Blanc
                                     case "1": {
                                         VinBlanc vinB = new VinBlanc(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, 2);
-                                        if (listeVins.indexOf(vinB) == -1) {
-                                            listeVinsBlanc.add(vinB);
-                                            listeVins.add(vinB);
+                                        if (!(ControleurPrincipal.listeVins.contains(vinB))) {
+                                            ControleurPrincipal.listeVinsBlanc.add(vinB);
+                                            ControleurPrincipal.listeVins.add(vinB);
                                         }
-
                                     }
                                     break;
                                     // Rouge
                                     case "2": {
                                         VinRouge vinR = new VinRouge(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, 2);
-                                        if (listeVins.indexOf(vinR) == -1) {
-                                            listeVinsRouge.add(vinR);
-                                            listeVins.add(vinR);
+                                        if (!(ControleurPrincipal.listeVins.contains(vinR))) {
+                                            ControleurPrincipal.listeVinsRouge.add(vinR);
+                                            ControleurPrincipal.listeVins.add(vinR);
                                         }
                                     }
                                     break;
                                     // Rosé
                                     case "3": {
                                         VinRose vinRos = new VinRose(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, 2);
-                                        if (listeVins.indexOf(vinRos) == -1) {
-                                            listeVinsRose.add(vinRos);
-                                            listeVins.add(vinRos);
+                                        if(!(ControleurPrincipal.listeVins.contains(vinRos)))
+                                        {
+                                            ControleurPrincipal.listeVinsRose.add(vinRos);
+                                            ControleurPrincipal.listeVins.add(vinRos);
                                         }
                                     }
                                     break;
                                     // Mousseux
                                     case "4": {
                                         Mousseux mousseux = new Mousseux(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, 2);
-                                        if (listeVins.indexOf(mousseux) == -1) {
-                                            listeMousseux.add(mousseux);
-                                            listeVins.add(mousseux);
+                                        if(!(ControleurPrincipal.listeVins.contains(mousseux)))
+                                        {
+                                            ControleurPrincipal.listeMousseux.add(mousseux);
+                                            ControleurPrincipal.listeVins.add(mousseux);
                                         }
                                     }
                                     break;
@@ -276,8 +267,8 @@ public class WebService extends Activity {
                             long idRegion = Long.parseLong(jsonobject.getString("id_region"));
                             String region = jsonobject.getString("region");
                             Region reg = new Region(idRegion, region);
-                            if (listeRegion.indexOf(reg) == -1) {
-                                listeRegion.add(reg);
+                            if (ControleurPrincipal.listeRegion.indexOf(reg) == -1) {
+                                ControleurPrincipal.listeRegion.add(reg);
                             }
                         }
                         break;
@@ -287,8 +278,8 @@ public class WebService extends Activity {
                             String aoc = jsonobject.getString("appellation");
                             long idRegion = Long.parseLong(jsonobject.getString("FK_region"));
                             Appellation app = new Appellation(idAoc, aoc, idRegion);
-                            if (listeAppellation.indexOf(app) == -1) {
-                                listeAppellation.add(app);
+                            if (ControleurPrincipal.listeAppellation.indexOf(app) == -1) {
+                                ControleurPrincipal.listeAppellation.add(app);
                             }
                         }
                         break;
@@ -297,8 +288,8 @@ public class WebService extends Activity {
                             long idLieu = Long.parseLong(jsonobject.getString("id_lieu_achat"));
                             String lieu = jsonobject.getString("lieu_achat");
                             LieuAchat la = new LieuAchat(idLieu, lieu);
-                            if (listeLieuAchat.indexOf(la) == -1) {
-                                listeLieuAchat.add(la);
+                            if (ControleurPrincipal.listeLieuAchat.indexOf(la) == -1) {
+                                ControleurPrincipal.listeLieuAchat.add(la);
                             }
                         }
                         break;
@@ -307,8 +298,8 @@ public class WebService extends Activity {
                             long idLieu = Long.parseLong(jsonobject.getString("id_lieu_stockage"));
                             String lieu = jsonobject.getString("lieu_stockage");
                             LieuStockage ls = new LieuStockage(idLieu, lieu);
-                            if (listeLieuStockage.indexOf(ls) == -1) {
-                                listeLieuStockage.add(ls);
+                            if (ControleurPrincipal.listeLieuStockage.indexOf(ls) == -1) {
+                                ControleurPrincipal.listeLieuStockage.add(ls);
                             }
                         }
                         break;
@@ -317,12 +308,25 @@ public class WebService extends Activity {
                             long idPlat = Long.parseLong(jsonobject.getString("id_plat"));
                             String plat = jsonobject.getString("type_plat");
                             Plat p = new Plat(idPlat, plat);
-                            if (listePlat.indexOf(p) == -1) {
-                                listePlat.add(p);
+                            if (ControleurPrincipal.listePlat.indexOf(p) == -1) {
+                                ControleurPrincipal.listePlat.add(p);
                             }
                         }
                         break;
                     }
+                }
+                switch(typeSelect)
+                {
+                    case "select_vins" : new BackTask().execute("select_regions");
+                        break;
+                    case "select_regions" : new BackTask().execute("select_aoc");
+                        break;
+                    case "select_aoc" : new BackTask().execute("select_lieu_achat");
+                        break;
+                    case "select_lieu_achat" : new BackTask().execute("select_lieu_stockage");
+                        break;
+                    case "select_lieu_stockage" : new BackTask().execute("select_plat");
+                        break;
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

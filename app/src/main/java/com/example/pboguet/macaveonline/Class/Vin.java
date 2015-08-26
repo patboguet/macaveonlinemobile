@@ -1,5 +1,6 @@
 package com.example.pboguet.macaveonline.Class;
 
+import com.example.pboguet.macaveonline.Activities.WebService;
 import com.example.pboguet.macaveonline.Utils.Utilisateur;
 
 import java.sql.Date;
@@ -29,11 +30,13 @@ public class Vin {
     protected String offertPar;
     protected String commentaires;
     protected long utilisateur;
+    protected boolean estModifie = false;
 
     public int getRegion() { return region; }
 
     public void setRegion(int region) {
         this.region = region;
+        estModifie = true;
     }
 
     public int getAppellation() {
@@ -42,6 +45,7 @@ public class Vin {
 
     public void setAppellation(int appellation) {
         this.appellation = appellation;
+        estModifie = true;
     }
 
     public int getLieuStockage() {
@@ -50,6 +54,7 @@ public class Vin {
 
     public void setLieuStockage(int lieuStockage) {
         this.lieuStockage = lieuStockage;
+        estModifie = true;
     }
 
     public int getLieuAchat() {
@@ -58,6 +63,7 @@ public class Vin {
 
     public void setLieuAchat(int lieuAchat) {
         this.lieuAchat = lieuAchat;
+        estModifie = true;
     }
 
     public int getNote() {
@@ -66,14 +72,11 @@ public class Vin {
 
     public void setNote(int note) {
         this.note = note;
+        estModifie = true;
     }
 
     public long getIdVin() {
         return idVin;
-    }
-
-    public void setIdVin(long idVin) {
-        this.idVin = idVin;
     }
 
     public String getNom() {
@@ -82,6 +85,7 @@ public class Vin {
 
     public void setNom(String nom) {
         this.nom = nom;
+        estModifie = true;
     }
 
     public int getAnnee() {
@@ -90,6 +94,7 @@ public class Vin {
 
     public void setAnnee(int annee) {
         this.annee = annee;
+        estModifie = true;
     }
 
     public float getDegreAlcool() {
@@ -98,6 +103,7 @@ public class Vin {
 
     public void setDegreAlcool(float degreAlcool) {
         this.degreAlcool = degreAlcool;
+        estModifie = true;
     }
 
     public Date getConsoPartir() {
@@ -106,6 +112,7 @@ public class Vin {
 
     public void setConsoPartir(Date consoPartir) {
         this.consoPartir = consoPartir;
+        estModifie = true;
     }
 
     public Date getConsoAvant() {
@@ -114,6 +121,7 @@ public class Vin {
 
     public void setConsoAvant(Date consoAvant) {
         this.consoAvant = consoAvant;
+        estModifie = true;
     }
 
     public int getTypePlat() {
@@ -122,6 +130,7 @@ public class Vin {
 
     public void setTypePlat(int typePlat) {
         this.typePlat = typePlat;
+        estModifie = true;
     }
 
     public String getType() {
@@ -130,6 +139,7 @@ public class Vin {
 
     public void setType(String type) {
         this.type = type;
+        estModifie = true;
     }
 
     public long getUtilisateur() {
@@ -138,6 +148,7 @@ public class Vin {
 
     public void setUtilisateur(long utilisateur) {
         this.utilisateur = utilisateur;
+        estModifie = true;
     }
 
     public int getNbBouteilles() {
@@ -146,6 +157,7 @@ public class Vin {
 
     public void setNbBouteilles(int nbBouteilles) {
         this.nbBouteilles = nbBouteilles;
+        estModifie = true;
     }
 
     public boolean isSuiviStock() {
@@ -154,6 +166,7 @@ public class Vin {
 
     public void setSuiviStock(boolean suiviStock) {
         this.suiviStock = suiviStock;
+        estModifie = true;
     }
 
     public boolean isFavori() {
@@ -162,6 +175,7 @@ public class Vin {
 
     public void setFavori(boolean favori) {
         this.favori = favori;
+        estModifie = true;
     }
 
     public float getPrixAchat() {
@@ -170,6 +184,7 @@ public class Vin {
 
     public void setPrixAchat(float prixAchat) {
         this.prixAchat = prixAchat;
+        estModifie = true;
     }
 
     public String getOffertPar() {
@@ -178,6 +193,7 @@ public class Vin {
 
     public void setOffertPar(String offertPar) {
         this.offertPar = offertPar;
+        estModifie = true;
     }
 
     public String getCommentaires() {
@@ -186,6 +202,34 @@ public class Vin {
 
     public void setCommentaires(String commentaires) {
         this.commentaires = commentaires;
+        estModifie = true;
     }
 
+    public boolean getModifie() {return estModifie;}
+
+    @Override
+    public boolean equals(Object objetAComparer) {
+        boolean res = false;
+
+        if (objetAComparer instanceof Vin)
+        {
+            Vin vinAComparer = (Vin) objetAComparer;
+            if(vinAComparer.idVin == this.idVin)
+                res = true;
+        }
+
+        return res;
+    }
+
+    public String getNomRegion(int idRegion)
+    {
+        for (int i = 0; i < ControleurPrincipal.listeRegion.size(); i++) {
+            Region reg = ControleurPrincipal.listeRegion.get(i);
+            if(idRegion == reg.getId())
+            {
+                return reg.getNom();
+            }
+        }
+        return null;
+    }
 }

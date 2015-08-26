@@ -29,20 +29,13 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         View v = convertView;
-
         Vin vin = vins.get(position);
-
         if (v == null) {
-
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
             v = inflater.inflate(R.layout.liste_vins, null);
-
         }
         if(vins.size() > 0) {
-            // TODO : récupérer l'id de la région et chercher l'intitulé dans la liste des régions
             TextView nom = (TextView) v.findViewById(R.id.nomVin);
             TextView region = (TextView) v.findViewById(R.id.regionVin);
             TextView annee = (TextView) v.findViewById(R.id.annee);
@@ -52,7 +45,7 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
 
             if (nom != null) {
                 nom.setText(vin.getNom());
-                region.setText(Integer.toString(vin.getRegion()));
+                region.setText(vin.getNomRegion(vin.getRegion()));
                 annee.setText(Integer.toString(vin.getAnnee()));
                 nbBt.setText(Integer.toString(vin.getNbBouteilles()));
                 plus.setText("+");
