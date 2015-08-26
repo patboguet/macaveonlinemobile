@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -124,6 +125,15 @@ public class MyMainActivity extends Activity {
                     VinRougeAdapter rougeAda = new VinRougeAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRouge);
                     ListView lvR = (ListView) findViewById(R.id.listeVinsRouges);
                     lvR.setAdapter(rougeAda);
+                    lvR.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
                     tvTriRougeNom.setVisibility(View.VISIBLE);
                     tvTriRougeRegion.setVisibility(View.VISIBLE);
                     tvTriRougeDate.setVisibility(View.VISIBLE);
@@ -138,6 +148,15 @@ public class MyMainActivity extends Activity {
                     VinBlancAdapter blancAda = new VinBlancAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsBlanc);
                     ListView lvB = (ListView) findViewById(R.id.listeVinsBlancs);
                     lvB.setAdapter(blancAda);
+                    lvB.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
                     tvTriBlancNom.setVisibility(View.VISIBLE);
                     tvTriBLancRegion.setVisibility(View.VISIBLE);
                     tvTriBlancDate.setVisibility(View.VISIBLE);
@@ -152,6 +171,15 @@ public class MyMainActivity extends Activity {
                     VinRoseAdapter roseAda = new VinRoseAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRose);
                     ListView lvRo = (ListView) findViewById(R.id.listeVinsRoses);
                     lvRo.setAdapter(roseAda);
+                    lvRo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
                     tvTriRoseNom.setVisibility(View.VISIBLE);
                     tvTriRoseRegion.setVisibility(View.VISIBLE);
                     tvTriRoseDate.setVisibility(View.VISIBLE);
@@ -165,6 +193,15 @@ public class MyMainActivity extends Activity {
                     MousseuxAdapter mousseAda = new MousseuxAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeMousseux);
                     ListView lvM = (ListView) findViewById(R.id.listeMousseux);
                     lvM.setAdapter(mousseAda);
+                    lvM.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
                     tvTriMousseuxNom.setVisibility(View.VISIBLE);
                     tvTriMousseuxRegion.setVisibility(View.VISIBLE);
                     tvTriMousseuxDate.setVisibility(View.VISIBLE);
