@@ -1,63 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/fragment_menu"
+        android:id="@+id/menu"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="false"
+        android:layout_marginTop="0dp"
+        android:layout_alignParentStart="true" />
+
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_toRightOf="@+id/menu"
+        >
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="40dp"
+            android:background="#a52323">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/logo"
+                android:src="@mipmap/logo" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nom"
-                android:id="@+id/labNom" />
+                android:text="Détail du vin"
+                android:id="@+id/titreFiche"
+                android:textColor="#eec78d" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/nomVin" />
+                android:id="@+id/recherche" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre bouteilles"
-                android:id="@+id/labNbBouteilles" />
-
-            <NumberPicker
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/nbBouteillesVin" />
+                android:text="Chercher"
+                android:id="@+id/btnRecherche" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Nom"
+                android:id="@+id/labNom" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/nomVin"
+                android:textColor="#a52323"
+                android:layout_marginRight="50dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Nombre bouteilles"
+                android:id="@+id/labNbBouteilles"
+                />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:id="@+id/nbMoins" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/nbBouteilles" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:id="@+id/nbPlus" />
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Année"
-                android:id="@+id/labAnnee" />
+                android:id="@+id/labAnnee"
+                 />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberSigned"
                 android:ems="10"
-                android:id="@+id/anneeVin" />
+                android:id="@+id/anneeVin"
+                android:textColor="#a52323" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Suivi stock"
                 android:id="@+id/labSuivi"
-                android:singleLine="false" />
+                android:singleLine="false"
+                 />
 
             <CheckBox
                 android:layout_width="wrap_content"
@@ -68,24 +141,28 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Région"
-                android:id="@+id/labRegion" />
+                android:id="@+id/labRegion"
+                 />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/regionVin" />
+                android:id="@+id/regionVin"
+                android:textColor="#a52323" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vin favori"
-                android:id="@+id/labFavori" />
+                android:id="@+id/labFavori"
+                 />
 
             <CheckBox
                 android:layout_width="wrap_content"
@@ -96,130 +173,152 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Type de Vin"
-                android:id="@+id/labType" />
+                android:id="@+id/labType"
+                />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/typeVin" />
+                android:id="@+id/typeVin"
+                android:textColor="#a52323" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Prix achat"
-                android:id="@+id/labPrix" />
+                android:id="@+id/labPrix"
+                />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:ems="10"
-                android:id="@+id/prixVin" />
+                android:id="@+id/prixVin"
+                android:textColor="#a52323" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Degré Alcool"
-                android:id="@+id/labDegre" />
+                android:id="@+id/labDegre"
+                />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:ems="10"
-                android:id="@+id/degre" />
+                android:id="@+id/degre"
+                android:textColor="#a52323" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Offert par"
-                android:id="@+id/labOffert" />
+                android:id="@+id/labOffert"
+                />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/offert" />
+                android:id="@+id/offert"
+                android:textColor="#a52323" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Consommer à partir de"
-                android:id="@+id/labConsoPartir" />
+                android:id="@+id/labConsoPartir"
+                />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:ems="10"
-                android:id="@+id/consoPartirVin" />
+                android:id="@+id/consoPartirVin"
+                android:textColor="#a52323" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lieu achat"
-                android:id="@+id/labLieuAchat" />
+                android:id="@+id/labLieuAchat"
+                />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/lieuAchatVin" />
+                android:id="@+id/lieuAchatVin"
+                android:textColor="#a52323" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Consommer avant"
-                android:id="@+id/labConsoAvant" />
+                android:id="@+id/labConsoAvant"
+                />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:ems="10"
-                android:id="@+id/consoAvantVin" />
+                android:id="@+id/consoAvantVin"
+                android:textColor="#a52323" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lieu stockage"
-                android:id="@+id/labLieuStockage" />
+                android:id="@+id/labLieuStockage"
+                />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/lieuStockageVin" />
+                android:id="@+id/lieuStockageVin"
+                android:textColor="#a52323" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Note"
-                android:id="@+id/labNote" />
+                android:id="@+id/labNote"
+                />
 
             <RatingBar
                 android:layout_width="wrap_content"
@@ -230,16 +329,53 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Commentaires"
-                android:id="@+id/labCommentaires" />
+                android:id="@+id/labCommentaires"
+                />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:ems="10"
-                android:id="@+id/commentairesVin" />
+                android:id="@+id/commentairesVin"
+                android:textColor="#a52323" />
         </TableRow>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enregistrer"
+                android:id="@+id/btnModifier"
+                android:visibility="gone"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Supprimer ce vin"
+                android:id="@+id/supprimerVin"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Créer un vin à partir de cette fiche"
+                android:id="@+id/copierVin"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Annuler"
+                android:id="@+id/annuler"
+                android:layout_weight="1" />
+        </LinearLayout>
 
     </TableLayout>
 
-</LinearLayout>
+</RelativeLayout>
