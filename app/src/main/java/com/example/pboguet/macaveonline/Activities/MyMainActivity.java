@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,12 +14,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
+import com.example.pboguet.macaveonline.Class.FicheVin;
+import com.example.pboguet.macaveonline.Class.Vin;
+import com.example.pboguet.macaveonline.Class.VinRose;
+import com.example.pboguet.macaveonline.Class.VinRouge;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.MousseuxAdapter;
 import com.example.pboguet.macaveonline.Utils.VinBlancAdapter;
 import com.example.pboguet.macaveonline.Utils.VinRoseAdapter;
 import com.example.pboguet.macaveonline.Utils.VinRougeAdapter;
 
+import java.io.Serializable;
 import java.nio.charset.CodingErrorAction;
 
 /**
@@ -129,9 +135,13 @@ public class MyMainActivity extends Activity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view,
                                                 int position, long id) {
-                            Toast.makeText(getApplicationContext(),
+                            VinRouge vin = (VinRouge) parent.getItemAtPosition(position);
+                            Intent intent = new Intent(view.getContext(), FicheVin.class);
+                            intent.putExtra("Vin", (Serializable) vin);
+                            startActivity(intent);
+                            /*Toast.makeText(getApplicationContext(),
                                     "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                                    .show();
+                                    .show();*/
                         }
                     });
                     tvTriRougeNom.setVisibility(View.VISIBLE);
