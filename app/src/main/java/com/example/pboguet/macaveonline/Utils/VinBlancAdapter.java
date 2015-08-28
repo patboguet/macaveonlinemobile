@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * Created by pboguet on 06/07/2015.
  */
 public class VinBlancAdapter extends ArrayAdapter<VinBlanc> {
-
     private ArrayList<VinBlanc> vins;
     private Context mContext;
 
@@ -27,7 +26,6 @@ public class VinBlancAdapter extends ArrayAdapter<VinBlanc> {
         mContext = context;
         this.vins = vins;
     }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
@@ -54,7 +52,6 @@ public class VinBlancAdapter extends ArrayAdapter<VinBlanc> {
                 moins.setText("-");
             }
         }
-
         return v;
     }
 }

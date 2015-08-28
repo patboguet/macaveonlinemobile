@@ -135,6 +135,9 @@ public class MyMainActivity extends Activity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view,
                                                 int position, long id) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                                    .show();
                             VinRouge vin = (VinRouge) parent.getItemAtPosition(position);
                             Intent intent = new Intent(view.getContext(), FicheVin.class);
                             intent.putExtra("Vin", (Serializable) vin);
