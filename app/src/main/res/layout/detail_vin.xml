@@ -17,7 +17,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_toRightOf="@+id/menu"
-        >
+        android:focusableInTouchMode="true">
 
         <TableRow
             android:layout_width="match_parent"
@@ -105,9 +105,10 @@
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:measureWithLargestChild="false">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,7 +117,7 @@
                 android:id="@+id/labAnnee"
                  />
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberSigned"
@@ -124,18 +125,34 @@
                 android:id="@+id/anneeVin"
                 android:textColor="#a52323" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Suivi stock"
-                android:id="@+id/labSuivi"
-                android:singleLine="false"
-                 />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent">
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/suiviVin" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Suivi stock"
+                    android:id="@+id/labSuivi"
+                    android:singleLine="false" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/suiviVin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vin favori"
+                    android:id="@+id/labFavori" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/favoriVin" />
+            </LinearLayout>
 
         </TableRow>
 
@@ -151,23 +168,24 @@
                 android:id="@+id/labRegion"
                  />
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/regionVin"
-                android:textColor="#a52323" />
+                android:textColor="#a52323"
+                android:focusable="false"
+                android:clickable="false" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vin favori"
-                android:id="@+id/labFavori"
-                 />
+                android:text="Appellation"
+                android:id="@+id/labAoc" />
 
-            <CheckBox
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/favoriVin" />
+                android:id="@+id/aocVin" />
 
         </TableRow>
 
@@ -180,10 +198,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Type de Vin"
-                android:id="@+id/labType"
-                />
+                android:id="@+id/labType" />
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/typeVin"
@@ -193,8 +210,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Prix achat"
-                android:id="@+id/labPrix"
-                />
+                android:id="@+id/labPrix" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -251,7 +267,7 @@
                 android:id="@+id/labConsoPartir"
                 />
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -266,7 +282,7 @@
                 android:id="@+id/labLieuAchat"
                 />
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/lieuAchatVin"
@@ -286,7 +302,7 @@
                 android:id="@+id/labConsoAvant"
                 />
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -301,7 +317,7 @@
                 android:id="@+id/labLieuStockage"
                 />
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/lieuStockageVin"

@@ -39,22 +39,14 @@ import java.util.List;
  * Created by pboguet on 25/08/2015.
  */
 public class BackTask extends AsyncTask<String, Void, String> {
-    private String urlWs;
+    private InputStream is;
+    private String line;
+    private String result;
     private String liste;
     private String typeSelect;
     private int aoc;
     private float degre;
     private Date conso_partir;
-    public static ArrayList<Vin> listeVins = new ArrayList<>();
-    public static ArrayList<VinBlanc> listeVinsBlanc = new ArrayList<>();
-    public static ArrayList<VinRouge> listeVinsRouge = new ArrayList<>();
-    public static ArrayList<VinRose> listeVinsRose = new ArrayList<>();
-    public static ArrayList<Mousseux> listeMousseux = new ArrayList<>();
-    public ArrayList<Region> listeRegion = new ArrayList<>();
-    public ArrayList<Appellation> listeAppellation = new ArrayList<>();
-    public ArrayList<LieuAchat> listeLieuAchat = new ArrayList<>();
-    public ArrayList<LieuStockage> listeLieuStockage = new ArrayList<>();
-    public ArrayList<Plat> listePlat = new ArrayList<>();
     private String commentaires;
     private Date conso_avant;
     private int type_plat;
@@ -66,6 +58,12 @@ public class BackTask extends AsyncTask<String, Void, String> {
     private String offert;
     private int lieu_achat;
     private int lieu_stockage;
+    private Activity mActivity;
+
+    public BackTask(Activity a) {
+        mActivity = a;
+    }
+
     @Override
     protected void onPreExecute () {
         //to do whatever you want before execute webservice
@@ -98,8 +96,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                 finUrl = "webservice_select_plat.php";
                 break;
         }
-        urlWs = ControleurPrincipal.urlWS + finUrl;
-        liste = connectWbs(urlWs);
+        ControleurPrincipal.urlWS = ControleurPrincipal.urlWS + finUrl;
+        liste = connectWbs(ControleurPrincipal.urlWS);
         ControleurPrincipal.urlWS = "http://www.macaveonline.fr/webservice/";
 
         return liste;
@@ -195,37 +193,38 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 // Blanc
                                 case "1": {
                                     VinBlanc vinB = new VinBlanc(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, 2);
-                                    if (listeVins.indexOf(vinB) == -1) {
-                                        listeVinsBlanc.add(vinB);
-                                        listeVins.add(vinB);
+                                    if (!(ControleurPrincipal.listeVins.contains(vinB))) {
+                                        ControleurPrincipal.listeVinsBlanc.add(vinB);
+                                        ControleurPrincipal.listeVins.add(vinB);
                                     }
-
                                 }
                                 break;
                                 // Rouge
                                 case "2": {
                                     VinRouge vinR = new VinRouge(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, 2);
-                                    if (listeVins.indexOf(vinR) == -1) {
-                                        listeVinsRouge.add(vinR);
-                                        listeVins.add(vinR);
+                                    if (!(ControleurPrincipal.listeVins.contains(vinR))) {
+                                        ControleurPrincipal.listeVinsRouge.add(vinR);
+                                        ControleurPrincipal.listeVins.add(vinR);
                                     }
                                 }
                                 break;
-                                // Ros�
+                                // Rosé
                                 case "3": {
                                     VinRose vinRos = new VinRose(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, 2);
-                                    if (listeVins.indexOf(vinRos) == -1) {
-                                        listeVinsRose.add(vinRos);
-                                        listeVins.add(vinRos);
+                                    if(!(ControleurPrincipal.listeVins.contains(vinRos)))
+                                    {
+                                        ControleurPrincipal.listeVinsRose.add(vinRos);
+                                        ControleurPrincipal.listeVins.add(vinRos);
                                     }
                                 }
                                 break;
                                 // Mousseux
                                 case "4": {
                                     Mousseux mousseux = new Mousseux(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, 2);
-                                    if (listeVins.indexOf(mousseux) == -1) {
-                                        listeMousseux.add(mousseux);
-                                        listeVins.add(mousseux);
+                                    if(!(ControleurPrincipal.listeVins.contains(mousseux)))
+                                    {
+                                        ControleurPrincipal.listeMousseux.add(mousseux);
+                                        ControleurPrincipal.listeVins.add(mousseux);
                                     }
                                 }
                                 break;
@@ -233,13 +232,13 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         }
                         break;
                     }
-                    // liste R�gions
+                    // liste Régions
                     case "select_regions": {
                         long idRegion = Long.parseLong(jsonobject.getString("id_region"));
                         String region = jsonobject.getString("region");
                         Region reg = new Region(idRegion, region);
-                        if (listeRegion.indexOf(reg) == -1) {
-                            listeRegion.add(reg);
+                        if (ControleurPrincipal.listeRegion.indexOf(reg) == -1) {
+                            ControleurPrincipal.listeRegion.add(reg);
                         }
                     }
                     break;
@@ -249,8 +248,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         String aoc = jsonobject.getString("appellation");
                         long idRegion = Long.parseLong(jsonobject.getString("FK_region"));
                         Appellation app = new Appellation(idAoc, aoc, idRegion);
-                        if (listeAppellation.indexOf(app) == -1) {
-                            listeAppellation.add(app);
+                        if (ControleurPrincipal.listeAppellation.indexOf(app) == -1) {
+                            ControleurPrincipal.listeAppellation.add(app);
                         }
                     }
                     break;
@@ -259,8 +258,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         long idLieu = Long.parseLong(jsonobject.getString("id_lieu_achat"));
                         String lieu = jsonobject.getString("lieu_achat");
                         LieuAchat la = new LieuAchat(idLieu, lieu);
-                        if (listeLieuAchat.indexOf(la) == -1) {
-                            listeLieuAchat.add(la);
+                        if (ControleurPrincipal.listeLieuAchat.indexOf(la) == -1) {
+                            ControleurPrincipal.listeLieuAchat.add(la);
                         }
                     }
                     break;
@@ -269,8 +268,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         long idLieu = Long.parseLong(jsonobject.getString("id_lieu_stockage"));
                         String lieu = jsonobject.getString("lieu_stockage");
                         LieuStockage ls = new LieuStockage(idLieu, lieu);
-                        if (listeLieuStockage.indexOf(ls) == -1) {
-                            listeLieuStockage.add(ls);
+                        if (ControleurPrincipal.listeLieuStockage.indexOf(ls) == -1) {
+                            ControleurPrincipal.listeLieuStockage.add(ls);
                         }
                     }
                     break;
@@ -279,26 +278,34 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         long idPlat = Long.parseLong(jsonobject.getString("id_plat"));
                         String plat = jsonobject.getString("type_plat");
                         Plat p = new Plat(idPlat, plat);
-                        if (listePlat.indexOf(p) == -1) {
-                            listePlat.add(p);
+                        if (ControleurPrincipal.listePlat.indexOf(p) == -1) {
+                            ControleurPrincipal.listePlat.add(p);
                         }
                     }
                     break;
                 }
             }
+            switch(typeSelect)
+            {
+                case "select_vins" : new BackTask(mActivity).execute("select_regions");
+                    break;
+                case "select_regions" : new BackTask(mActivity).execute("select_aoc");
+                    break;
+                case "select_aoc" : new BackTask(mActivity).execute("select_lieu_achat");
+                    break;
+                case "select_lieu_achat" : new BackTask(mActivity).execute("select_lieu_stockage");
+                    break;
+                case "select_lieu_stockage" : new BackTask(mActivity).execute("select_plat");
+                    break;
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        /*setResult(Activity.RESULT_OK);
-        finish();
-        */
+        mActivity.setResult(Activity.RESULT_OK);
+        mActivity.finish();
     }
 
     private String connectWbs(String url) {
-        InputStream is = null;
-        String line;
-        String result = null;
-
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);

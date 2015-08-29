@@ -3,13 +3,14 @@ package com.example.pboguet.macaveonline.Class;
 import com.example.pboguet.macaveonline.Activities.WebService;
 import com.example.pboguet.macaveonline.Utils.Utilisateur;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 
 /**
  * Created by pboguet on 19/06/15.
  */
-public class Vin {
+public class Vin implements Serializable {
     protected long idVin;
     protected String nom;
     protected int annee;
@@ -22,7 +23,7 @@ public class Vin {
     protected Date consoPartir;
     protected Date consoAvant;
     protected int typePlat;
-    protected int note;
+    protected float note;
     protected int nbBouteilles;
     protected boolean suiviStock;
     protected boolean favori;
@@ -66,11 +67,11 @@ public class Vin {
         estModifie = true;
     }
 
-    public int getNote() {
+    public float getNote() {
         return note;
     }
 
-    public void setNote(int note) {
+    public void setNote(float note) {
         this.note = note;
         estModifie = true;
     }
@@ -219,17 +220,5 @@ public class Vin {
         }
 
         return res;
-    }
-
-    public String getNomRegion(int idRegion)
-    {
-        for (int i = 0; i < ControleurPrincipal.listeRegion.size(); i++) {
-            Region reg = ControleurPrincipal.listeRegion.get(i);
-            if(idRegion == reg.getId())
-            {
-                return reg.getNom();
-            }
-        }
-        return null;
     }
 }

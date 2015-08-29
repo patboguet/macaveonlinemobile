@@ -31,6 +31,10 @@
             android:name=".Activities.WebService">
 
         </activity>
+        <activity
+            android:name=".Activities.FicheVin">
+
+        </activity>
     </application>
 
 </manifest>
