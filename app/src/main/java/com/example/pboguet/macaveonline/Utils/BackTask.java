@@ -3,8 +3,8 @@ package com.example.pboguet.macaveonline.Utils;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.example.pboguet.macaveonline.Activities.WebService;
 import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.LieuAchat;
@@ -112,7 +112,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
         }
         else
         {
-            connectWbs(ControleurPrincipal.urlWS, params[1]);
+            liste = connectWbs(ControleurPrincipal.urlWS, params[1]);
         }
         ControleurPrincipal.urlWS = "http://www.macaveonline.fr/webservice/";
 
@@ -289,7 +289,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         }
                     }
                     break;
-                    // liste Plat
+                    /*/ liste Plat
                     case "select_plat": {
                         long idPlat = Long.parseLong(jsonobject.getString("id_plat"));
                         String plat = jsonobject.getString("type_plat");
@@ -298,7 +298,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             ControleurPrincipal.listePlat.add(p);
                         }
                     }
-                    break;
+                    break;*/
                     // insérer un vin
                     case "insert": {
                         long idPlat = Long.parseLong(jsonobject.getString("id_plat"));
@@ -321,11 +321,38 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     break;
                     // liste Plat
                     case "delete": {
-                        long idPlat = Long.parseLong(jsonobject.getString("id_plat"));
-                        String plat = jsonobject.getString("type_plat");
-                        Plat p = new Plat(idPlat, plat);
-                        if (ControleurPrincipal.listePlat.indexOf(p) == -1) {
-                            ControleurPrincipal.listePlat.add(p);
+                        String msg = jsonobject.getString("idVin");
+                        if(msg != "false")
+                        {
+                            ArrayList vins = ControleurPrincipal.listeVins;
+                            int size = vins.size();
+                            long idVin = Long.parseLong(msg);
+                            outerloop:
+                            for (int j = 0; j < size; j++) {
+                                Vin v = (Vin) vins.get(j);
+                                long id = v.getIdVin();
+                                String type = v.getType();
+                                if(id == idVin)
+                                {
+                                    ControleurPrincipal.listeVins.remove(j);
+                                    switch(type)
+                                    {
+                                        case "1": ControleurPrincipal.listeVinsBlanc.remove(getVin(ControleurPrincipal.listeVinsBlanc, idVin));
+                                            break;
+                                        case "2": ControleurPrincipal.listeVinsRouge.remove(getVin(ControleurPrincipal.listeVinsRouge, idVin));
+                                            break;
+                                        case "3": ControleurPrincipal.listeVinsRose.remove(getVin(ControleurPrincipal.listeVinsRose, idVin));
+                                            break;
+                                        case "4": ControleurPrincipal.listeMousseux.remove(getVin(ControleurPrincipal.listeMousseux, idVin));
+                                            break;
+                                    }
+                                    break outerloop;
+                                }
+
+                            }
+                        }
+                        else {
+                            Toast.makeText(mActivity.getApplicationContext(), "FAIL", Toast.LENGTH_LONG);
                         }
                     }
                     break;
@@ -341,14 +368,28 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     break;
                 case "select_lieu_achat" : new BackTask(mActivity).execute("select_lieu_stockage");
                     break;
-                case "select_lieu_stockage" : new BackTask(mActivity).execute("select_plat");
-                    break;
+                //case "select_lieu_stockage" : new BackTask(mActivity).execute("select_plat");                    break;
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         mActivity.setResult(Activity.RESULT_OK);
         mActivity.finish();
+    }
+
+    protected int getVin(ArrayList listeVins, long idVin) {
+        int index = -1;
+        outerloop:
+        for (int i = 0; i < listeVins.size(); i++) {
+            Vin v = (Vin) listeVins.get(i);
+            long id = v.getIdVin();
+            if(id == idVin)
+            {
+                index = i;
+                break outerloop;
+            }
+        }
+        return index;
     }
 
     protected String connectWbs(String url, String vin) {
@@ -358,7 +399,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
             List nameValuePairs = new ArrayList(1);
             // TODO : erreur avec LoginActivity.myUtilisateur.userId
             //nameValuePairs.add(new BasicNameValuePair("idUtilisateur", Long.toString(LoginActivity.myUtilisateur.userId)));
-            nameValuePairs.add(new BasicNameValuePair("idUtilisateur", "2"));
+            nameValuePairs.add(new BasicNameValuePair("idUtilisateur", "3"));
             nameValuePairs.add(new BasicNameValuePair("donneesVin", vin));
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpClient.execute(httpPost);

@@ -26,7 +26,10 @@ import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuAchatAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuStockageAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.RegionAdapter;
+import com.example.pboguet.macaveonline.Utils.BackTask;
 import com.example.pboguet.macaveonline.Utils.GestionListes;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -94,7 +97,8 @@ public class FicheVin extends Activity {
         menu = (ListView) findViewById(R.id.menu);
         dialog = new Dialog(this);
 
-        Vin vin = (Vin) getIntent().getExtras().get("Vin");
+        // Affectation des données du vin
+        final Vin vin = (Vin) getIntent().getExtras().get("Vin");
         nom.setText(vin.getNom());
         nbBouteilles.setText(Integer.toString(vin.getNbBouteilles()));
         annee.setText(Integer.toString(vin.getAnnee()));
@@ -114,9 +118,10 @@ public class FicheVin extends Activity {
         lieuAchat.setText(GestionListes.getNomLieuAchat(vin.getLieuAchat()));
         consoAvant.setText((CharSequence) vin.getConsoAvant());
         lieuStockage.setText(GestionListes.getNomLieuStockage(vin.getLieuStockage()));
-        note.setRating(vin.getNote());
+        note.setRating(vin.getNote()/4);
         commentaires.setText(vin.getCommentaires());
 
+        // Listeners de click sur les éléments de la vue
         moins.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,7 +196,7 @@ public class FicheVin extends Activity {
                 ListView listeChoix = (ListView) dialog.findViewById(R.id.listeChoix);
                 final ArrayList listeType = new ArrayList(4);
                 listeType.add(0,"Blanc");
-                listeType.add(1,"Rouge");
+                listeType.add(1, "Rouge");
                 listeType.add(2, "Rosé");
                 listeType.add(3, "Mousseux");
                 ArrayAdapter typeAda = new ArrayAdapter<String>(getApplicationContext(),R.layout.liste_types,R.id.nomType, listeType);
@@ -250,11 +255,18 @@ public class FicheVin extends Activity {
                 listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        lieuStockage.setText(GestionListes.getNomLieuStockage(position+1));
+                        lieuStockage.setText(GestionListes.getNomLieuStockage(position + 1));
                         dialog.dismiss();
                     }
                 });
                 dialog.show();
+            }
+        });
+
+        supprimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebService.deleteVin(vin);
             }
         });
     }
@@ -273,9 +285,9 @@ public class FicheVin extends Activity {
             @Override
             public void onClick(View v) {
                 if (conso == "partir") {
-                    consoPartir.setText("01/" + Integer.toString(listeAnnee.getMonth()+1) + "/" + Integer.toString(listeAnnee.getYear()));
+                    consoPartir.setText("01/" + Integer.toString(listeAnnee.getMonth() + 1) + "/" + Integer.toString(listeAnnee.getYear()));
                 } else {
-                    consoAvant.setText("01/" + Integer.toString(listeAnnee.getMonth()+1) + "/" + Integer.toString(listeAnnee.getYear()));
+                    consoAvant.setText("01/" + Integer.toString(listeAnnee.getMonth() + 1) + "/" + Integer.toString(listeAnnee.getYear()));
                 }
                 dialog.dismiss();
             }

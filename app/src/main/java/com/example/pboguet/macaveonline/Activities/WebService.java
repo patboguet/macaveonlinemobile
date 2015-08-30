@@ -39,7 +39,7 @@ public class WebService extends Activity {
         new BackTask(mActivity).execute("update", vinJson.toString());
     }
 
-    public void deleteVin(Vin vin)
+    public static void deleteVin(Vin vin)
     {
         new BackTask(mActivity).execute("delete", Long.toString(vin.getIdVin()));
     }
