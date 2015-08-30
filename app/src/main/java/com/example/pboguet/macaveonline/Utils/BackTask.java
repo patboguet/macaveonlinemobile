@@ -43,7 +43,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
     private String line;
     private String result;
     private String liste;
-    private String typeSelect;
+    private String typeService;
     private int aoc;
     private float degre;
     private Date conso_partir;
@@ -75,8 +75,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground (String...params){
         String finUrl = null;
-        typeSelect = params[0];
-        switch (typeSelect) {
+        typeService = params[0];
+        switch (typeService) {
             case "select_vins":
                 finUrl = "webservice_select_vins.php";
                 break;
@@ -95,9 +95,25 @@ public class BackTask extends AsyncTask<String, Void, String> {
             case "select_plat":
                 finUrl = "webservice_select_plat.php";
                 break;
+            case "insert":
+                finUrl = "webservice_insert.php";
+                break;
+            case "update":
+                finUrl = "webservice_update.php";
+                break;
+            case "delete":
+                finUrl = "webservice_delete.php";
+                break;
         }
         ControleurPrincipal.urlWS = ControleurPrincipal.urlWS + finUrl;
-        liste = connectWbs(ControleurPrincipal.urlWS);
+        if(typeService != "insert" && typeService != "update" && typeService != "delete")
+        {
+            liste = connectWbs(ControleurPrincipal.urlWS, null);
+        }
+        else
+        {
+            connectWbs(ControleurPrincipal.urlWS, params[1]);
+        }
         ControleurPrincipal.urlWS = "http://www.macaveonline.fr/webservice/";
 
         return liste;
@@ -110,7 +126,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
             JSONArray ar = new JSONArray(res);
             for (int i = 0; i < ar.length(); i++) {
                 JSONObject jsonobject = ar.getJSONObject(i);
-                switch (typeSelect) {
+                switch (typeService) {
                     case "select_vins": {
                         if (jsonobject.getString("id_vin") != "null") {
                             long idVin = Long.parseLong(jsonobject.getString("id_vin"));
@@ -283,9 +299,39 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         }
                     }
                     break;
+                    // insérer un vin
+                    case "insert": {
+                        long idPlat = Long.parseLong(jsonobject.getString("id_plat"));
+                        String plat = jsonobject.getString("type_plat");
+                        Plat p = new Plat(idPlat, plat);
+                        if (ControleurPrincipal.listePlat.indexOf(p) == -1) {
+                            ControleurPrincipal.listePlat.add(p);
+                        }
+                    }
+                    break;
+                    // liste Plat
+                    case "update": {
+                        long idPlat = Long.parseLong(jsonobject.getString("id_plat"));
+                        String plat = jsonobject.getString("type_plat");
+                        Plat p = new Plat(idPlat, plat);
+                        if (ControleurPrincipal.listePlat.indexOf(p) == -1) {
+                            ControleurPrincipal.listePlat.add(p);
+                        }
+                    }
+                    break;
+                    // liste Plat
+                    case "delete": {
+                        long idPlat = Long.parseLong(jsonobject.getString("id_plat"));
+                        String plat = jsonobject.getString("type_plat");
+                        Plat p = new Plat(idPlat, plat);
+                        if (ControleurPrincipal.listePlat.indexOf(p) == -1) {
+                            ControleurPrincipal.listePlat.add(p);
+                        }
+                    }
+                    break;
                 }
             }
-            switch(typeSelect)
+            switch(typeService)
             {
                 case "select_vins" : new BackTask(mActivity).execute("select_regions");
                     break;
@@ -305,7 +351,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
         mActivity.finish();
     }
 
-    private String connectWbs(String url) {
+    protected String connectWbs(String url, String vin) {
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
@@ -313,6 +359,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
             // TODO : erreur avec LoginActivity.myUtilisateur.userId
             //nameValuePairs.add(new BasicNameValuePair("idUtilisateur", Long.toString(LoginActivity.myUtilisateur.userId)));
             nameValuePairs.add(new BasicNameValuePair("idUtilisateur", "2"));
+            nameValuePairs.add(new BasicNameValuePair("donneesVin", vin));
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpClient.execute(httpPost);
             HttpEntity entity = response.getEntity();
@@ -322,7 +369,6 @@ public class BackTask extends AsyncTask<String, Void, String> {
             Log.e("Webservice 1", e.toString());
         }
         try {
-
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
             StringBuilder sb = new StringBuilder();
             while((line = reader.readLine()) != null)
@@ -338,6 +384,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
 
         return result;
     }
+
 }
 
 

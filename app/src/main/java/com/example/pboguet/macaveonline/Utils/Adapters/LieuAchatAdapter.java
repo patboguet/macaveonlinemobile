@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.pboguet.macaveonline.Class.Region;
+import com.example.pboguet.macaveonline.Class.LieuAchat;
 import com.example.pboguet.macaveonline.R;
 
 import java.util.ArrayList;
@@ -15,34 +15,34 @@ import java.util.ArrayList;
 /**
  * Created by pbogu_000 on 29/08/2015.
  */
-public class RegionAdapter extends ArrayAdapter<Region> {
-    private ArrayList<Region> regions;
+public class LieuAchatAdapter extends ArrayAdapter<LieuAchat> {
+    private ArrayList<LieuAchat> lieuxAchat;
     private Context mContext;
     private TextView id;
     private TextView nom;
 
 
-    public RegionAdapter(Context context, int textViewResourceID, ArrayList<Region> regions) {
-        super(context,textViewResourceID,regions);
+    public LieuAchatAdapter(Context context, int textViewResourceID, ArrayList<LieuAchat> lieux) {
+        super(context,textViewResourceID,lieux);
         mContext = context;
-        this.regions = regions;
+        this.lieuxAchat = lieux;
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View v = convertView;
-        final Region reg = regions.get(position);
+        final LieuAchat lieu = lieuxAchat.get(position);
         if (v == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = inflater.inflate(R.layout.liste_choix_item, null);
         }
-        if(regions.size() > 0) {
+        if(lieuxAchat.size() > 0) {
             id = (TextView) v.findViewById(R.id.id);
             nom = (TextView) v.findViewById(R.id.nom);
             if(id != null)
             {
-                id.setText(Long.toString(reg.getId()));
-                nom.setText(reg.getNom());
+                id.setText(Long.toString(lieu.getId()));
+                nom.setText(lieu.getNom());
             }
         }
         return v;

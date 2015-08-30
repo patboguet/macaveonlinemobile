@@ -218,7 +218,16 @@
                 android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/prixVin"
-                android:textColor="#a52323" />
+                android:textColor="#a52323"
+                android:numeric="decimal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="€"
+                android:id="@+id/devisePrix"
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow

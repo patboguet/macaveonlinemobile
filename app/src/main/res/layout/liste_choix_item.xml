@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:id="@+id/nomLieuStockage"
+        android:id="@+id/nom"
         android:layout_gravity="center_horizontal"
         android:textColor="#a52323"
         android:textSize="@dimen/sizePopup" />
@@ -15,6 +15,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/idLieuStockage"
+        android:id="@+id/id"
         android:visibility="invisible" />
 </LinearLayout>

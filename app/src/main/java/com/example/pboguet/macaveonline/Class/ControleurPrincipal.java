@@ -17,4 +17,5 @@ public class ControleurPrincipal {
     public static ArrayList<LieuAchat> listeLieuAchat = new ArrayList<>();
     public static ArrayList<LieuStockage> listeLieuStockage = new ArrayList<>();
     public static ArrayList<Plat> listePlat = new ArrayList<>();
+
 }
