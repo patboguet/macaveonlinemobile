@@ -10,21 +10,21 @@ import java.util.ArrayList;
 /**
  * Created by pboguet on 19/06/15.
  */
-public class Vin implements Serializable {
+public class Vin implements Serializable{
     protected long idVin;
     protected String nom;
     protected int annee;
-    protected int region;
+    protected long region;
     protected int appellation;
     protected String type;
     protected float degreAlcool;
-    protected int lieuStockage;
-    protected int lieuAchat;
+    protected long lieuStockage;
+    protected long lieuAchat;
     protected Date consoPartir;
     protected Date consoAvant;
-    protected int typePlat;
+    protected long typePlat;
     protected float note;
-    protected int nbBouteilles;
+    protected long nbBouteilles;
     protected boolean suiviStock;
     protected boolean favori;
     protected float prixAchat;
@@ -33,9 +33,9 @@ public class Vin implements Serializable {
     protected long utilisateur;
     protected boolean estModifie = false;
 
-    public int getRegion() { return region; }
+    public long getRegion() { return region; }
 
-    public void setRegion(int region) {
+    public void setRegion(long region) {
         this.region = region;
         estModifie = true;
     }
@@ -49,20 +49,20 @@ public class Vin implements Serializable {
         estModifie = true;
     }
 
-    public int getLieuStockage() {
+    public long getLieuStockage() {
         return lieuStockage;
     }
 
-    public void setLieuStockage(int lieuStockage) {
+    public void setLieuStockage(long lieuStockage) {
         this.lieuStockage = lieuStockage;
         estModifie = true;
     }
 
-    public int getLieuAchat() {
+    public long getLieuAchat() {
         return lieuAchat;
     }
 
-    public void setLieuAchat(int lieuAchat) {
+    public void setLieuAchat(long lieuAchat) {
         this.lieuAchat = lieuAchat;
         estModifie = true;
     }
@@ -125,11 +125,11 @@ public class Vin implements Serializable {
         estModifie = true;
     }
 
-    public int getTypePlat() {
+    public long getTypePlat() {
         return typePlat;
     }
 
-    public void setTypePlat(int typePlat) {
+    public void setTypePlat(long typePlat) {
         this.typePlat = typePlat;
         estModifie = true;
     }
@@ -152,11 +152,11 @@ public class Vin implements Serializable {
         estModifie = true;
     }
 
-    public int getNbBouteilles() {
+    public long getNbBouteilles() {
         return nbBouteilles;
     }
 
-    public void setNbBouteilles(int nbBouteilles) {
+    public void setNbBouteilles(long nbBouteilles) {
         this.nbBouteilles = nbBouteilles;
         estModifie = true;
     }
@@ -206,7 +206,7 @@ public class Vin implements Serializable {
         estModifie = true;
     }
 
-    public boolean getModifie() {return estModifie;}
+    public boolean getModifier() {return estModifie;}
 
     @Override
     public boolean equals(Object objetAComparer) {

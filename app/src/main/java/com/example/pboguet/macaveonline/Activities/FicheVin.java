@@ -15,22 +15,20 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
-import com.example.pboguet.macaveonline.Class.LieuAchat;
-import com.example.pboguet.macaveonline.Class.LieuStockage;
-import com.example.pboguet.macaveonline.Class.Region;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuAchatAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuStockageAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.RegionAdapter;
-import com.example.pboguet.macaveonline.Utils.BackTask;
 import com.example.pboguet.macaveonline.Utils.GestionListes;
 
-import org.json.JSONObject;
-
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
@@ -100,7 +98,7 @@ public class FicheVin extends Activity {
         // Affectation des données du vin
         final Vin vin = (Vin) getIntent().getExtras().get("Vin");
         nom.setText(vin.getNom());
-        nbBouteilles.setText(Integer.toString(vin.getNbBouteilles()));
+        nbBouteilles.setText(Long.toString(vin.getNbBouteilles()));
         annee.setText(Integer.toString(vin.getAnnee()));
         suivi.setChecked(vin.isSuiviStock());
         region.setText(GestionListes.getNomRegion(vin.getRegion()));
@@ -118,7 +116,7 @@ public class FicheVin extends Activity {
         lieuAchat.setText(GestionListes.getNomLieuAchat(vin.getLieuAchat()));
         consoAvant.setText((CharSequence) vin.getConsoAvant());
         lieuStockage.setText(GestionListes.getNomLieuStockage(vin.getLieuStockage()));
-        note.setRating(vin.getNote()/4);
+        note.setRating(vin.getNote() / 4);
         commentaires.setText(vin.getCommentaires());
 
         // Listeners de click sur les éléments de la vue
@@ -149,8 +147,7 @@ public class FicheVin extends Activity {
                 listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String reg = GestionListes.getNomRegion(position + 1);
-                        region.setText(GestionListes.getNomRegion(position+1));
+                        region.setText(GestionListes.getNomRegion(position + 1));
                         dialog.dismiss();
                     }
                 });
@@ -236,7 +233,7 @@ public class FicheVin extends Activity {
                 listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        lieuAchat.setText(GestionListes.getNomLieuAchat(position+1));
+                        lieuAchat.setText(GestionListes.getNomLieuAchat(position + 1));
                         dialog.dismiss();
                     }
                 });
@@ -267,6 +264,35 @@ public class FicheVin extends Activity {
             @Override
             public void onClick(View v) {
                 WebService.deleteVin(vin);
+            }
+        });
+
+        modifier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vin.setNom(nom.getText().toString());
+                vin.setAnnee(Integer.parseInt(annee.getText().toString()));
+                vin.setRegion(GestionListes.getIdRegion(region.getText().toString()));
+                //appellation
+                vin.setType(type.getText().toString());
+                vin.setDegreAlcool(Float.parseFloat(degre.getText().toString()));
+                vin.setLieuStockage(GestionListes.getIdLieuStockage(lieuStockage.getText().toString()));
+                vin.setLieuAchat(GestionListes.getIdLieuAchat(lieuAchat.getText().toString()));
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    vin.setConsoPartir((Date) format.parse(consoPartir.getText().toString()));
+                    vin.setConsoAvant((Date) format.parse(consoAvant.getText().toString()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                vin.setNote(note.getRating() * 4);
+                vin.setNbBouteilles(Long.parseLong(nbBouteilles.getText().toString()));
+                vin.setSuiviStock(suivi.isChecked());
+                vin.setFavori(favori.isChecked());
+                vin.setPrixAchat(Float.parseFloat(prix.getText().toString()));
+                vin.setOffertPar(offert.getText().toString());
+                vin.setCommentaires(commentaires.getText().toString());
+                WebService.updateVin(vin);
             }
         });
     }

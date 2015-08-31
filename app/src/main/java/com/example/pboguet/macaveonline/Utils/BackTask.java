@@ -16,6 +16,7 @@ import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Class.VinBlanc;
 import com.example.pboguet.macaveonline.Class.VinRose;
 import com.example.pboguet.macaveonline.Class.VinRouge;
+import com.example.pboguet.macaveonline.Utils.Adapters.VinBlancAdapter;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -309,21 +310,22 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         }
                     }
                     break;
-                    // liste Plat
+                    // vin mis à jour
                     case "update": {
-                        long idPlat = Long.parseLong(jsonobject.getString("id_plat"));
-                        String plat = jsonobject.getString("type_plat");
-                        Plat p = new Plat(idPlat, plat);
-                        if (ControleurPrincipal.listePlat.indexOf(p) == -1) {
-                            ControleurPrincipal.listePlat.add(p);
+                        String msg = jsonobject.getString("idVin");
+                        if(msg != "false")
+                        {
+                            // on notifie le changement à l'utilisateur
+                            Toast.makeText(mActivity.getBaseContext(), "Le vin a bien été modifié", Toast.LENGTH_LONG);
                         }
                     }
                     break;
-                    // liste Plat
+                    // retour suppression
                     case "delete": {
                         String msg = jsonobject.getString("idVin");
                         if(msg != "false")
                         {
+                            // on recherche le vin supprimé pour le retirer de la listeVins
                             ArrayList vins = ControleurPrincipal.listeVins;
                             int size = vins.size();
                             long idVin = Long.parseLong(msg);
@@ -335,6 +337,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 if(id == idVin)
                                 {
                                     ControleurPrincipal.listeVins.remove(j);
+                                    // on le retire aussi de la listeVins de son type
                                     switch(type)
                                     {
                                         case "1": ControleurPrincipal.listeVinsBlanc.remove(getVin(ControleurPrincipal.listeVinsBlanc, idVin));

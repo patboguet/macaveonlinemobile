@@ -27,13 +27,13 @@ public class WebService extends Activity {
         return mActivity;
     }
 
-    public void insertVin(Vin vin)
+    public static void insertVin(Vin vin)
     {
         JSONObject vinJson = vinToJson(vin);
         new BackTask(mActivity).execute("insert", vinJson.toString());
     }
 
-    public void updateVin(Vin vin)
+    public static void updateVin(Vin vin)
     {
         JSONObject vinJson = vinToJson(vin);
         new BackTask(mActivity).execute("update", vinJson.toString());
@@ -44,7 +44,7 @@ public class WebService extends Activity {
         new BackTask(mActivity).execute("delete", Long.toString(vin.getIdVin()));
     }
 
-    private JSONObject vinToJson(Vin vin) {
+    private static JSONObject vinToJson(Vin vin) {
         JSONObject json = new JSONObject();
         try {
             json.put("idVin", vin.getIdVin());

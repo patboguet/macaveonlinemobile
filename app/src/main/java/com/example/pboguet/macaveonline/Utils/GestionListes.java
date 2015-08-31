@@ -9,7 +9,7 @@ import com.example.pboguet.macaveonline.Class.Region;
  * Created by pbogu_000 on 26/08/2015.
  */
 public class GestionListes {
-    public static String getNomRegion(int idRegion)
+    public static String getNomRegion(long idRegion)
     {
         for (int i = 0; i < ControleurPrincipal.listeRegion.size(); i++) {
             Region reg = ControleurPrincipal.listeRegion.get(i);
@@ -20,8 +20,20 @@ public class GestionListes {
         }
         return "";
     }
+    public static long getIdRegion(String nomRegion)
+    {
+        for (int i = 0; i < ControleurPrincipal.listeRegion.size(); i++) {
+            Region reg = ControleurPrincipal.listeRegion.get(i);
+            if(nomRegion == reg.getNom())
+            {
+                return reg.getId();
+            }
+        }
+        return 0;
+    }
 
-    public static String getNomLieuAchat(int idLieu)
+
+    public static String getNomLieuAchat(long idLieu)
     {
         for (int i = 0; i < ControleurPrincipal.listeLieuAchat.size(); i++) {
             LieuAchat lieu = ControleurPrincipal.listeLieuAchat.get(i);
@@ -33,7 +45,7 @@ public class GestionListes {
         return "";
     }
 
-    public static String getNomLieuStockage(int idLieu) {
+    public static String getNomLieuStockage(long idLieu) {
         for (int i = 0; i < ControleurPrincipal.listeLieuStockage.size(); i++) {
             LieuStockage lieu = ControleurPrincipal.listeLieuStockage.get(i);
             if(idLieu == lieu.getId())
@@ -42,6 +54,16 @@ public class GestionListes {
             }
         }
         return "";
+    }
+    public static long getIdLieuStockage(String nomLieu) {
+        for (int i = 0; i < ControleurPrincipal.listeLieuStockage.size(); i++) {
+            LieuStockage lieu = ControleurPrincipal.listeLieuStockage.get(i);
+            if(nomLieu == lieu.getNom())
+            {
+                return lieu.getId();
+            }
+        }
+        return 0;
     }
 
     public static String getNomType(String idType)
@@ -59,5 +81,16 @@ public class GestionListes {
                 break;
         }
         return type;
+    }
+
+    public static long getIdLieuAchat(String nomLieu) {
+        for (int i = 0; i < ControleurPrincipal.listeLieuAchat.size(); i++) {
+            LieuAchat lieu = ControleurPrincipal.listeLieuAchat.get(i);
+            if(nomLieu == lieu.getNom())
+            {
+                return lieu.getId();
+            }
+        }
+        return 0;
     }
 }

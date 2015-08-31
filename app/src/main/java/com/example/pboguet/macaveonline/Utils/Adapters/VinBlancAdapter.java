@@ -57,7 +57,7 @@ public class VinBlancAdapter extends ArrayAdapter<VinBlanc> {
                 nom.setText(vin.getNom());
                 region.setText(GestionListes.getNomRegion(vin.getRegion()));
                 annee.setText(Integer.toString(vin.getAnnee()));
-                nbBt.setText(Integer.toString(vin.getNbBouteilles()));
+                nbBt.setText(Long.toString(vin.getNbBouteilles()));
                 plus.setText("+");
                 moins.setText("-");
             }

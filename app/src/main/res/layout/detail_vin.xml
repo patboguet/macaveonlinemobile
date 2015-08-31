@@ -17,7 +17,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_toRightOf="@+id/menu"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:id="@+id/fiche">
 
         <TableRow
             android:layout_width="match_parent"
@@ -376,20 +377,19 @@
                 android:layout_height="wrap_content"
                 android:text="Enregistrer"
                 android:id="@+id/btnModifier"
-                android:visibility="gone"
                 android:layout_weight="1" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Supprimer ce vin"
+                android:text="Supprimer"
                 android:id="@+id/supprimerVin"
                 android:layout_weight="1" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Créer un vin à partir de cette fiche"
+                android:text="Copier"
                 android:id="@+id/copierVin"
                 android:layout_weight="1" />
 
