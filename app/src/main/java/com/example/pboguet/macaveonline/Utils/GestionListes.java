@@ -9,7 +9,7 @@ import com.example.pboguet.macaveonline.Class.Region;
  * Created by pbogu_000 on 26/08/2015.
  */
 public class GestionListes {
-    public static String getNomRegion(long idRegion)
+    public static String getNomRegion(int idRegion)
     {
         for (int i = 0; i < ControleurPrincipal.listeRegion.size(); i++) {
             Region reg = ControleurPrincipal.listeRegion.get(i);
@@ -20,7 +20,7 @@ public class GestionListes {
         }
         return "";
     }
-    public static long getIdRegion(String nomRegion)
+    public static int getIdRegion(String nomRegion)
     {
         for (int i = 0; i < ControleurPrincipal.listeRegion.size(); i++) {
             Region reg = ControleurPrincipal.listeRegion.get(i);
@@ -33,7 +33,7 @@ public class GestionListes {
     }
 
 
-    public static String getNomLieuAchat(long idLieu)
+    public static String getNomLieuAchat(int idLieu)
     {
         for (int i = 0; i < ControleurPrincipal.listeLieuAchat.size(); i++) {
             LieuAchat lieu = ControleurPrincipal.listeLieuAchat.get(i);
@@ -45,7 +45,7 @@ public class GestionListes {
         return "";
     }
 
-    public static String getNomLieuStockage(long idLieu) {
+    public static String getNomLieuStockage(int idLieu) {
         for (int i = 0; i < ControleurPrincipal.listeLieuStockage.size(); i++) {
             LieuStockage lieu = ControleurPrincipal.listeLieuStockage.get(i);
             if(idLieu == lieu.getId())
@@ -55,7 +55,7 @@ public class GestionListes {
         }
         return "";
     }
-    public static long getIdLieuStockage(String nomLieu) {
+    public static int getIdLieuStockage(String nomLieu) {
         for (int i = 0; i < ControleurPrincipal.listeLieuStockage.size(); i++) {
             LieuStockage lieu = ControleurPrincipal.listeLieuStockage.get(i);
             if(nomLieu == lieu.getNom())
@@ -83,7 +83,7 @@ public class GestionListes {
         return type;
     }
 
-    public static long getIdLieuAchat(String nomLieu) {
+    public static int getIdLieuAchat(String nomLieu) {
         for (int i = 0; i < ControleurPrincipal.listeLieuAchat.size(); i++) {
             LieuAchat lieu = ControleurPrincipal.listeLieuAchat.get(i);
             if(nomLieu == lieu.getNom())

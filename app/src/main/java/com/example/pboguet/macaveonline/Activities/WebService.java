@@ -2,12 +2,16 @@ package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Base64;
 
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Utils.BackTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by pboguet on 18/06/15.
@@ -37,6 +41,7 @@ public class WebService extends Activity {
     {
         JSONObject vinJson = vinToJson(vin);
         new BackTask(mActivity).execute("update", vinJson.toString());
+
     }
 
     public static void deleteVin(Vin vin)
@@ -48,7 +53,7 @@ public class WebService extends Activity {
         JSONObject json = new JSONObject();
         try {
             json.put("idVin", vin.getIdVin());
-            json.put("nom", vin.getNom());
+            json.put("nom", vin.getNom().replaceAll("\\s", "&nbsp;"));
             json.put("annee", vin.getAnnee());
             json.put("region", vin.getRegion());
             json.put("appellation", vin.getAppellation());
@@ -65,7 +70,7 @@ public class WebService extends Activity {
             json.put("favori", vin.isFavori());
             json.put("prixAchat", vin.getPrixAchat());
             json.put("offertPar", vin.getOffertPar());
-            json.put("commentaires", vin.getCommentaires());
+            json.put("commentaires", vin.getCommentaires().replaceAll("\\s", "&nbsp;"));
             json.put("utilisateur", vin.getUtilisateur());
         } catch (JSONException e) {
             e.printStackTrace();

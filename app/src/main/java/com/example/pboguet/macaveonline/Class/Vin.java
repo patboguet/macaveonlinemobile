@@ -11,31 +11,31 @@ import java.util.ArrayList;
  * Created by pboguet on 19/06/15.
  */
 public class Vin implements Serializable{
-    protected long idVin;
+    protected int idVin;
     protected String nom;
     protected int annee;
-    protected long region;
+    protected int region;
     protected int appellation;
     protected String type;
     protected float degreAlcool;
-    protected long lieuStockage;
-    protected long lieuAchat;
+    protected int lieuStockage;
+    protected int lieuAchat;
     protected Date consoPartir;
     protected Date consoAvant;
-    protected long typePlat;
-    protected float note;
-    protected long nbBouteilles;
+    protected int typePlat;
+    protected int note;
+    protected int nbBouteilles;
     protected boolean suiviStock;
     protected boolean favori;
     protected float prixAchat;
     protected String offertPar;
     protected String commentaires;
-    protected long utilisateur;
+    protected int utilisateur;
     protected boolean estModifie = false;
 
-    public long getRegion() { return region; }
+    public int getRegion() { return region; }
 
-    public void setRegion(long region) {
+    public void setRegion(int region) {
         this.region = region;
         estModifie = true;
     }
@@ -49,34 +49,34 @@ public class Vin implements Serializable{
         estModifie = true;
     }
 
-    public long getLieuStockage() {
+    public int getLieuStockage() {
         return lieuStockage;
     }
 
-    public void setLieuStockage(long lieuStockage) {
+    public void setLieuStockage(int lieuStockage) {
         this.lieuStockage = lieuStockage;
         estModifie = true;
     }
 
-    public long getLieuAchat() {
+    public int getLieuAchat() {
         return lieuAchat;
     }
 
-    public void setLieuAchat(long lieuAchat) {
+    public void setLieuAchat(int lieuAchat) {
         this.lieuAchat = lieuAchat;
         estModifie = true;
     }
 
-    public float getNote() {
+    public int getNote() {
         return note;
     }
 
-    public void setNote(float note) {
+    public void setNote(int note) {
         this.note = note;
         estModifie = true;
     }
 
-    public long getIdVin() {
+    public int getIdVin() {
         return idVin;
     }
 
@@ -125,11 +125,11 @@ public class Vin implements Serializable{
         estModifie = true;
     }
 
-    public long getTypePlat() {
+    public int getTypePlat() {
         return typePlat;
     }
 
-    public void setTypePlat(long typePlat) {
+    public void setTypePlat(int typePlat) {
         this.typePlat = typePlat;
         estModifie = true;
     }
@@ -143,20 +143,20 @@ public class Vin implements Serializable{
         estModifie = true;
     }
 
-    public long getUtilisateur() {
+    public int getUtilisateur() {
         return utilisateur;
     }
 
-    public void setUtilisateur(long utilisateur) {
+    public void setUtilisateur(int utilisateur) {
         this.utilisateur = utilisateur;
         estModifie = true;
     }
 
-    public long getNbBouteilles() {
+    public int getNbBouteilles() {
         return nbBouteilles;
     }
 
-    public void setNbBouteilles(long nbBouteilles) {
+    public void setNbBouteilles(int nbBouteilles) {
         this.nbBouteilles = nbBouteilles;
         estModifie = true;
     }
@@ -205,8 +205,6 @@ public class Vin implements Serializable{
         this.commentaires = commentaires;
         estModifie = true;
     }
-
-    public boolean getModifier() {return estModifie;}
 
     @Override
     public boolean equals(Object objetAComparer) {

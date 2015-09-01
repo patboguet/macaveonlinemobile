@@ -62,7 +62,7 @@
                 android:text="Nom"
                 android:id="@+id/labNom" />
 
-            <EditText
+            <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/nomVin"
@@ -243,7 +243,7 @@
                 android:id="@+id/labDegre"
                 />
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
@@ -349,7 +349,9 @@
             <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/noteVin" />
+                android:id="@+id/noteVin"
+                android:numStars="5"
+                android:stepSize="0.5" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -400,6 +402,12 @@
                 android:id="@+id/annuler"
                 android:layout_weight="1" />
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/idVin"
+            android:visibility="invisible" />
 
     </TableLayout>
 

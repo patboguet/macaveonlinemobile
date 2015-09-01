@@ -6,20 +6,20 @@ import java.util.HashMap;
  * Created by pboguet on 19/06/15.
  */
 public class LieuAchat {
-    private long id;
+    private int id;
     private String nom;
 
-    public LieuAchat(long id, String lieu)
+    public LieuAchat(int id, String lieu)
     {
         this.id = id;
         this.nom = lieu;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

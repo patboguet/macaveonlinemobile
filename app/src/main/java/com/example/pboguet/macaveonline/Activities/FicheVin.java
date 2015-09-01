@@ -15,7 +15,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RatingBar;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
@@ -37,7 +36,8 @@ import java.util.ArrayList;
  */
 public class FicheVin extends Activity {
 
-    private EditText nom;
+    private TextView id;
+    private TextView nom;
     private Button moins;
     private EditText nbBouteilles;
     private Button plus;
@@ -48,7 +48,7 @@ public class FicheVin extends Activity {
     private CheckBox favori;
     private TextView type;
     private EditText prix;
-    private EditText degre;
+    private TextView degre;
     private EditText offert;
     private TextView consoPartir;
     private TextView lieuAchat;
@@ -69,7 +69,8 @@ public class FicheVin extends Activity {
 
         setContentView(R.layout.detail_vin);
 
-        nom = (EditText)findViewById(R.id.nomVin);
+        id = (TextView) findViewById(R.id.idVin);
+        nom = (TextView)findViewById(R.id.nomVin);
         moins = (Button) findViewById(R.id.nbMoins);
         nbBouteilles = (EditText)findViewById(R.id.nbBouteilles);
         plus = (Button) findViewById(R.id.nbPlus);
@@ -80,7 +81,7 @@ public class FicheVin extends Activity {
         favori = (CheckBox)findViewById(R.id.favoriVin);
         type = (TextView)findViewById(R.id.typeVin);
         prix = (EditText)findViewById(R.id.prixVin);
-        degre = (EditText)findViewById(R.id.degre);
+        degre = (TextView)findViewById(R.id.degre);
         offert = (EditText)findViewById(R.id.offert);
         consoPartir = (TextView)findViewById(R.id.consoPartirVin);
         lieuAchat = (TextView)findViewById(R.id.lieuAchatVin);
@@ -97,8 +98,9 @@ public class FicheVin extends Activity {
 
         // Affectation des données du vin
         final Vin vin = (Vin) getIntent().getExtras().get("Vin");
+        id.setText(Integer.toString(vin.getIdVin()));
         nom.setText(vin.getNom());
-        nbBouteilles.setText(Long.toString(vin.getNbBouteilles()));
+        nbBouteilles.setText(Integer.toString(vin.getNbBouteilles()));
         annee.setText(Integer.toString(vin.getAnnee()));
         suivi.setChecked(vin.isSuiviStock());
         region.setText(GestionListes.getNomRegion(vin.getRegion()));
@@ -136,7 +138,7 @@ public class FicheVin extends Activity {
             }
         });
 
-        region.setOnClickListener(new View.OnClickListener() {
+        /*region.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.setContentView(R.layout.liste_choix_popup);
@@ -184,7 +186,6 @@ public class FicheVin extends Activity {
                 dialog.show();
             }
         });
-
         type.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,7 +208,7 @@ public class FicheVin extends Activity {
                 });
                 dialog.show();
             }
-        });
+        });*/
 
         consoPartir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -270,12 +271,20 @@ public class FicheVin extends Activity {
         modifier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vin.setNom(nom.getText().toString());
-                vin.setAnnee(Integer.parseInt(annee.getText().toString()));
-                vin.setRegion(GestionListes.getIdRegion(region.getText().toString()));
+
+                //String deg = degre.getText().toString();
+                String nb = nbBouteilles.getText().toString();
+                String prixA = prix.getText().toString();
+
+                /*vin.setNom(nom.getText().toString());
+                //vin.setAnnee(Integer.parseInt(annee.getText().toString()));
+                //vin.setRegion(GestionListes.getIdRegion(region.getText().toString()));
                 //appellation
-                vin.setType(type.getText().toString());
-                vin.setDegreAlcool(Float.parseFloat(degre.getText().toString()));
+               // vin.setType(type.getText().toString());
+                if(deg.isEmpty())
+                    vin.setDegreAlcool(0);
+                else
+                    vin.setDegreAlcool(Float.parseFloat(deg));*/
                 vin.setLieuStockage(GestionListes.getIdLieuStockage(lieuStockage.getText().toString()));
                 vin.setLieuAchat(GestionListes.getIdLieuAchat(lieuAchat.getText().toString()));
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -285,11 +294,17 @@ public class FicheVin extends Activity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                vin.setNote(note.getRating() * 4);
-                vin.setNbBouteilles(Long.parseLong(nbBouteilles.getText().toString()));
+                vin.setNote((int) (note.getRating() * 4));
+                if(nb.isEmpty())
+                    vin.setNbBouteilles(0);
+                else
+                    vin.setNbBouteilles(Integer.parseInt((nb)));
                 vin.setSuiviStock(suivi.isChecked());
                 vin.setFavori(favori.isChecked());
-                vin.setPrixAchat(Float.parseFloat(prix.getText().toString()));
+                if(prixA.isEmpty())
+                    vin.setPrixAchat(0);
+                else
+                    vin.setPrixAchat(Float.parseFloat(prixA));
                 vin.setOffertPar(offert.getText().toString());
                 vin.setCommentaires(commentaires.getText().toString());
                 WebService.updateVin(vin);

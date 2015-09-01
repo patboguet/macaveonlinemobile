@@ -2,6 +2,7 @@ package com.example.pboguet.macaveonline.Utils;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -130,7 +131,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                 switch (typeService) {
                     case "select_vins": {
                         if (jsonobject.getString("id_vin") != "null") {
-                            long idVin = Long.parseLong(jsonobject.getString("id_vin"));
+                            int idVin = Integer.parseInt(jsonobject.getString("id_vin"));
                             int region = Integer.parseInt(jsonobject.getString("FK_region"));
                             String type = jsonobject.getString("FK_type");
                             if (jsonobject.getString("FK_appellation") != "null") {
@@ -251,7 +252,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     }
                     // liste Régions
                     case "select_regions": {
-                        long idRegion = Long.parseLong(jsonobject.getString("id_region"));
+                        int idRegion = Integer.parseInt(jsonobject.getString("id_region"));
                         String region = jsonobject.getString("region");
                         Region reg = new Region(idRegion, region);
                         if (ControleurPrincipal.listeRegion.indexOf(reg) == -1) {
@@ -261,9 +262,9 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     break;
                     // liste Appellations
                     case "select_aoc": {
-                        long idAoc = Long.parseLong(jsonobject.getString("id_appellation"));
+                        int idAoc = Integer.parseInt(jsonobject.getString("id_appellation"));
                         String aoc = jsonobject.getString("appellation");
-                        long idRegion = Long.parseLong(jsonobject.getString("FK_region"));
+                        int idRegion = Integer.parseInt(jsonobject.getString("FK_region"));
                         Appellation app = new Appellation(idAoc, aoc, idRegion);
                         if (ControleurPrincipal.listeAppellation.indexOf(app) == -1) {
                             ControleurPrincipal.listeAppellation.add(app);
@@ -272,7 +273,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     break;
                     // liste Lieu Achat
                     case "select_lieu_achat": {
-                        long idLieu = Long.parseLong(jsonobject.getString("id_lieu_achat"));
+                        int idLieu = Integer.parseInt(jsonobject.getString("id_lieu_achat"));
                         String lieu = jsonobject.getString("lieu_achat");
                         LieuAchat la = new LieuAchat(idLieu, lieu);
                         if (ControleurPrincipal.listeLieuAchat.indexOf(la) == -1) {
@@ -282,7 +283,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     break;
                     // liste Lieu Stockage
                     case "select_lieu_stockage": {
-                        long idLieu = Long.parseLong(jsonobject.getString("id_lieu_stockage"));
+                        int idLieu = Integer.parseInt(jsonobject.getString("id_lieu_stockage"));
                         String lieu = jsonobject.getString("lieu_stockage");
                         LieuStockage ls = new LieuStockage(idLieu, lieu);
                         if (ControleurPrincipal.listeLieuStockage.indexOf(ls) == -1) {
