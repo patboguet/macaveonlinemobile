@@ -172,13 +172,14 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             } else {
                                 nb_bt = 0;
                             }
-                            if (jsonobject.getString("suivi_stock") != "null") {
-                                suivi = Boolean.parseBoolean(jsonobject.getString("suivi_stock"));
+                            if (jsonobject.getString("suivi_stock").toString() == "1") {
+                                suivi = true;
                             } else {
+                                String sui = jsonobject.getString("suivi_stock");
                                 suivi = false;
                             }
-                            if (jsonobject.getString("meilleur_vin") != "null") {
-                                favori = Boolean.parseBoolean(jsonobject.getString("meilleur_vin"));
+                            if (jsonobject.getString("meilleur_vin") == "1") {
+                                favori = true;
                             } else {
                                 favori = false;
                             }
