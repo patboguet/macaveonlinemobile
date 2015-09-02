@@ -20,8 +20,8 @@ public class Vin implements Serializable{
     protected float degreAlcool;
     protected int lieuStockage;
     protected int lieuAchat;
-    protected Date consoPartir;
-    protected Date consoAvant;
+    protected String consoPartir;
+    protected String consoAvant;
     protected int typePlat;
     protected int note;
     protected int nbBouteilles;
@@ -107,20 +107,20 @@ public class Vin implements Serializable{
         estModifie = true;
     }
 
-    public Date getConsoPartir() {
+    public String getConsoPartir() {
         return consoPartir;
     }
 
-    public void setConsoPartir(Date consoPartir) {
+    public void setConsoPartir(String consoPartir) {
         this.consoPartir = consoPartir;
         estModifie = true;
     }
 
-    public Date getConsoAvant() {
+    public String getConsoAvant() {
         return consoAvant;
     }
 
-    public void setConsoAvant(Date consoAvant) {
+    public void setConsoAvant(String consoAvant) {
         this.consoAvant = consoAvant;
         estModifie = true;
     }

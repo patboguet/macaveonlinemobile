@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class VinBlanc extends Vin{
 
-    public VinBlanc(int idVin, String nom, int annee, int region, int appellation, String type, float degreAlcool, int lieuStockage, int lieuAchat, Date consoPartir, Date consoAvant, int typePlat, int note, int nbBouteilles, boolean suiviStock, boolean favori, float prixAchat, String offertPar, String commentaires, int utilisateur)
+    public VinBlanc(int idVin, String nom, int annee, int region, int appellation, String type, float degreAlcool, int lieuStockage, int lieuAchat, String consoPartir, String consoAvant, int typePlat, int note, int nbBouteilles, boolean suiviStock, boolean favori, float prixAchat, String offertPar, String commentaires, int utilisateur)
     {
         super();
         this.idVin = idVin;

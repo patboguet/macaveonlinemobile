@@ -114,7 +114,7 @@ public class FicheVin extends Activity {
             degre.setText(Float.toString(vin.getDegreAlcool()));}
         else degre.setText("");
         offert.setText(vin.getOffertPar());
-        consoPartir.setText((CharSequence) vin.getConsoPartir());
+        consoPartir.setText(vin.getConsoPartir());
         lieuAchat.setText(GestionListes.getNomLieuAchat(vin.getLieuAchat()));
         consoAvant.setText((CharSequence) vin.getConsoAvant());
         lieuStockage.setText(GestionListes.getNomLieuStockage(vin.getLieuStockage()));
@@ -287,13 +287,8 @@ public class FicheVin extends Activity {
                     vin.setDegreAlcool(Float.parseFloat(deg));*/
                 vin.setLieuStockage(GestionListes.getIdLieuStockage(lieuStockage.getText().toString()));
                 vin.setLieuAchat(GestionListes.getIdLieuAchat(lieuAchat.getText().toString()));
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    vin.setConsoPartir((Date) format.parse(consoPartir.getText().toString()));
-                    vin.setConsoAvant((Date) format.parse(consoAvant.getText().toString()));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                vin.setConsoPartir(consoPartir.getText().toString());
+                vin.setConsoAvant(consoAvant.getText().toString());
                 vin.setNote((int) (note.getRating() * 4));
                 if(nb.isEmpty())
                     vin.setNbBouteilles(0);

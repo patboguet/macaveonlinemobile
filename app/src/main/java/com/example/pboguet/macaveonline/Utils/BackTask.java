@@ -48,9 +48,9 @@ public class BackTask extends AsyncTask<String, Void, String> {
     private String typeService;
     private int aoc;
     private float degre;
-    private Date conso_partir;
+    private String conso_partir;
     private String commentaires;
-    private Date conso_avant;
+    private String conso_avant;
     private int type_plat;
     private int note;
     private int nb_bt;
@@ -61,6 +61,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
     private int lieu_achat;
     private int lieu_stockage;
     private Activity mActivity;
+    private int idUtilisateur;
 
     public BackTask(Activity a) {
         mActivity = a;
@@ -147,12 +148,12 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 degre = 0;
                             }
                             if (jsonobject.getString("conso_partir") != "null") {
-                                conso_partir = Date.valueOf(jsonobject.getString("conso_partir"));
+                                conso_partir = jsonobject.getString("conso_partir");
                             } else {
                                 conso_partir = null;
                             }
                             if (jsonobject.getString("conso_avant") != "null") {
-                                conso_avant = Date.valueOf(jsonobject.getString("conso_avant"));
+                                conso_avant = jsonobject.getString("conso_avant");
                             } else {
                                 conso_avant = null;
                             }
@@ -207,10 +208,17 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 commentaires = "";
                             }
 
+                            if (jsonobject.getString("FK_utilisateur") != "null") {
+                                idUtilisateur = Integer.parseInt(jsonobject.getString("FK_utilisateur"));
+                            } else {
+                                idUtilisateur = 3;
+                            }
+
+
                             switch (type) {
                                 // Blanc
                                 case "1": {
-                                    VinBlanc vinB = new VinBlanc(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, 2);
+                                    VinBlanc vinB = new VinBlanc(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
                                     if (!(ControleurPrincipal.listeVins.contains(vinB))) {
                                         ControleurPrincipal.listeVinsBlanc.add(vinB);
                                         ControleurPrincipal.listeVins.add(vinB);
@@ -219,7 +227,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 break;
                                 // Rouge
                                 case "2": {
-                                    VinRouge vinR = new VinRouge(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, 2);
+                                    VinRouge vinR = new VinRouge(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
                                     if (!(ControleurPrincipal.listeVins.contains(vinR))) {
                                         ControleurPrincipal.listeVinsRouge.add(vinR);
                                         ControleurPrincipal.listeVins.add(vinR);
@@ -228,7 +236,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 break;
                                 // Rosé
                                 case "3": {
-                                    VinRose vinRos = new VinRose(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, 2);
+                                    VinRose vinRos = new VinRose(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
                                     if(!(ControleurPrincipal.listeVins.contains(vinRos)))
                                     {
                                         ControleurPrincipal.listeVinsRose.add(vinRos);
@@ -238,7 +246,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 break;
                                 // Mousseux
                                 case "4": {
-                                    Mousseux mousseux = new Mousseux(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, 2);
+                                    Mousseux mousseux = new Mousseux(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
                                     if(!(ControleurPrincipal.listeVins.contains(mousseux)))
                                     {
                                         ControleurPrincipal.listeMousseux.add(mousseux);
@@ -313,9 +321,12 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     break;
                     // vin mis à jour
                     case "update": {
-                        String msg = jsonobject.getString("idVin");
-                        if(msg != "false")
+                        String msg = jsonobject.getString("message");
+                        if(msg == "erreur")
                         {
+                            Toast.makeText(mActivity.getBaseContext(), "Une erreur est survenue", Toast.LENGTH_LONG);
+                        }
+                        else {
                             // on notifie le changement à l'utilisateur
                             Toast.makeText(mActivity.getBaseContext(), "Le vin a bien été modifié", Toast.LENGTH_LONG);
                         }
