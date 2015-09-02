@@ -75,7 +75,6 @@ public class WebService extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return json;
     }
 }

@@ -24,7 +24,7 @@ public class GestionListes {
     {
         for (int i = 0; i < ControleurPrincipal.listeRegion.size(); i++) {
             Region reg = ControleurPrincipal.listeRegion.get(i);
-            if(nomRegion == reg.getNom())
+            if(nomRegion.equals(reg.getNom()))
             {
                 return reg.getId();
             }
@@ -58,7 +58,7 @@ public class GestionListes {
     public static int getIdLieuStockage(String nomLieu) {
         for (int i = 0; i < ControleurPrincipal.listeLieuStockage.size(); i++) {
             LieuStockage lieu = ControleurPrincipal.listeLieuStockage.get(i);
-            if(nomLieu == lieu.getNom())
+            if(nomLieu.equals(lieu.getNom()))
             {
                 return lieu.getId();
             }
@@ -86,7 +86,7 @@ public class GestionListes {
     public static int getIdLieuAchat(String nomLieu) {
         for (int i = 0; i < ControleurPrincipal.listeLieuAchat.size(); i++) {
             LieuAchat lieu = ControleurPrincipal.listeLieuAchat.get(i);
-            if(nomLieu == lieu.getNom())
+            if(nomLieu.equals(lieu.getNom()))
             {
                 return lieu.getId();
             }

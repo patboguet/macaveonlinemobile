@@ -6,6 +6,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.pboguet.macaveonline.Activities.FicheVin;
+import com.example.pboguet.macaveonline.Activities.MyMainActivity;
 import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.LieuAchat;
@@ -18,6 +20,7 @@ import com.example.pboguet.macaveonline.Class.VinBlanc;
 import com.example.pboguet.macaveonline.Class.VinRose;
 import com.example.pboguet.macaveonline.Class.VinRouge;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinBlancAdapter;
+import com.example.pboguet.macaveonline.Utils.Adapters.VinRougeAdapter;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -33,6 +36,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +56,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
     private String commentaires;
     private String conso_avant;
     private int type_plat;
-    private int note;
+    private float note;
     private int nb_bt;
     private boolean suivi;
     private boolean favori;
@@ -66,6 +70,12 @@ public class BackTask extends AsyncTask<String, Void, String> {
     public BackTask(Activity a) {
         mActivity = a;
     }
+    
+    public Activity getInstance() {
+        return mActivity;
+    }
+
+
 
     @Override
     protected void onPreExecute () {
@@ -131,90 +141,88 @@ public class BackTask extends AsyncTask<String, Void, String> {
                 JSONObject jsonobject = ar.getJSONObject(i);
                 switch (typeService) {
                     case "select_vins": {
-                        if (jsonobject.getString("id_vin") != "null") {
+                        if (!jsonobject.getString("id_vin").equals("null")) {
                             int idVin = Integer.parseInt(jsonobject.getString("id_vin"));
                             int region = Integer.parseInt(jsonobject.getString("FK_region"));
                             String type = jsonobject.getString("FK_type");
-                            if (jsonobject.getString("FK_appellation") != "null") {
+                            if (!jsonobject.getString("FK_appellation").equals("null")) {
                                 aoc = Integer.parseInt(jsonobject.getString("FK_appellation"));
                             } else {
                                 aoc = 0;
                             }
                             String nom = jsonobject.getString("nom");
                             int annee = Integer.parseInt(jsonobject.getString("annee"));
-                            if (jsonobject.getString("degre_alcool") != "null") {
+                            if (!jsonobject.getString("degre_alcool").equals("null")) {
                                 degre = Integer.parseInt(jsonobject.getString("degre_alcool"));
                             } else {
                                 degre = 0;
                             }
-                            if (jsonobject.getString("conso_partir") != "null") {
-                                conso_partir = jsonobject.getString("conso_partir");
+                            if (!jsonobject.getString("conso_partir").equals("null")) {
+                                conso_partir = formatDate(jsonobject.getString("conso_partir"));
                             } else {
                                 conso_partir = null;
                             }
-                            if (jsonobject.getString("conso_avant") != "null") {
-                                conso_avant = jsonobject.getString("conso_avant");
+                            if (!jsonobject.getString("conso_avant").equals("null")) {
+                                conso_avant = formatDate(jsonobject.getString("conso_avant"));
                             } else {
                                 conso_avant = null;
                             }
-                            if (jsonobject.getString("FK_type_plat") != "null") {
+                            if (!jsonobject.getString("FK_type_plat").equals("null")) {
                                 type_plat = Integer.parseInt(jsonobject.getString("FK_type_plat"));
                             } else {
                                 type_plat = 0;
                             }
-                            if (jsonobject.getString("note") != "null") {
-                                note = Integer.parseInt(jsonobject.getString("note"));
+                            if (!jsonobject.getString("note").equals("null")) {
+                                note = Float.parseFloat(jsonobject.getString("note"));
                             } else {
                                 note = 0;
                             }
-                            if (jsonobject.getString("nb_bouteilles") != "null") {
+                            if (!jsonobject.getString("nb_bouteilles").equals("null")) {
                                 nb_bt = Integer.parseInt(jsonobject.getString("nb_bouteilles"));
                             } else {
                                 nb_bt = 0;
                             }
-                            if (jsonobject.getString("suivi_stock").toString() == "1") {
+                            if (jsonobject.getString("suivi_stock").equals("1")) {
                                 suivi = true;
                             } else {
-                                String sui = jsonobject.getString("suivi_stock");
                                 suivi = false;
                             }
-                            if (jsonobject.getString("meilleur_vin") == "1") {
+                            if (jsonobject.getString("meilleur_vin").equals("1")) {
                                 favori = true;
                             } else {
                                 favori = false;
                             }
-                            if (jsonobject.getString("prix_achat") != "null") {
+                            if (!jsonobject.getString("prix_achat").equals("null")) {
                                 prix = Float.parseFloat(jsonobject.getString("prix_achat"));
                             } else {
                                 prix = 0;
                             }
-                            if (jsonobject.getString("offert_par") != "null") {
+                            if (!jsonobject.getString("offert_par").equals("null")) {
                                 offert = jsonobject.getString("offert_par");
                             } else {
                                 offert = "";
                             }
-                            if (jsonobject.getString("FK_lieu_achat") != "null") {
+                            if (!jsonobject.getString("FK_lieu_achat").equals("null")) {
                                 lieu_achat = Integer.parseInt(jsonobject.getString("FK_lieu_achat"));
                             } else {
                                 lieu_achat = 0;
                             }
-                            if (jsonobject.getString("FK_lieu_stockage") != "null") {
+                            if (!jsonobject.getString("FK_lieu_stockage").equals("null")) {
                                 lieu_stockage = Integer.parseInt(jsonobject.getString("FK_lieu_stockage"));
                             } else {
                                 lieu_stockage = 0;
                             }
-                            if (jsonobject.getString("commentaires") != "null") {
+                            if (!jsonobject.getString("commentaires").equals("null")) {
                                 commentaires = jsonobject.getString("commentaires");
                             } else {
                                 commentaires = "";
                             }
 
-                            if (jsonobject.getString("FK_utilisateur") != "null") {
+                            if (!jsonobject.getString("FK_utilisateur").equals("null")) {
                                 idUtilisateur = Integer.parseInt(jsonobject.getString("FK_utilisateur"));
                             } else {
                                 idUtilisateur = 3;
                             }
-
 
                             switch (type) {
                                 // Blanc
@@ -323,20 +331,20 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     // vin mis à jour
                     case "update": {
                         String msg = jsonobject.getString("message");
-                        if(msg == "erreur")
+                        if(msg.equals("erreur"))
                         {
-                            Toast.makeText(mActivity.getBaseContext(), "Une erreur est survenue", Toast.LENGTH_LONG);
+                            Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
                         }
                         else {
                             // on notifie le changement à l'utilisateur
-                            Toast.makeText(mActivity.getBaseContext(), "Le vin a bien été modifié", Toast.LENGTH_LONG);
+                            Toast.makeText(mActivity.getApplicationContext(), "Le vin a bien été modifié", Toast.LENGTH_LONG).show();
                         }
                     }
                     break;
                     // retour suppression
                     case "delete": {
                         String msg = jsonobject.getString("idVin");
-                        if(msg != "false")
+                        if(!msg.equals("false"))
                         {
                             // on recherche le vin supprimé pour le retirer de la listeVins
                             ArrayList vins = ControleurPrincipal.listeVins;
@@ -364,11 +372,11 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                     }
                                     break outerloop;
                                 }
-
                             }
+                            Toast.makeText(mActivity.getApplicationContext(), "Le vin a bien été supprimé", Toast.LENGTH_LONG).show();
                         }
                         else {
-                            Toast.makeText(mActivity.getApplicationContext(), "FAIL", Toast.LENGTH_LONG);
+                            Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
                         }
                     }
                     break;
@@ -391,6 +399,12 @@ public class BackTask extends AsyncTask<String, Void, String> {
         }
         mActivity.setResult(Activity.RESULT_OK);
         mActivity.finish();
+    }
+
+    // date : yyyy-mm-dd
+    private String formatDate(String date) {
+        String[] date_explo = date.split("-");
+        return date_explo[2]+"-"+date_explo[1]+"-"+date_explo[0];
     }
 
     protected int getVin(ArrayList listeVins, long idVin) {

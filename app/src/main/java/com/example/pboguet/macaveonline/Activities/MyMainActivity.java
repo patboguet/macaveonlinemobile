@@ -34,13 +34,19 @@ public class MyMainActivity extends Activity {
     private TextView tvTriRoseRegion;
     private TextView tvTriRoseDate;
     private TextView nomVin;
+    private static Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mActivity = this;
         setContentView(R.layout.ma_cave);
         Intent intent = new Intent(this, WebService.class);
         startActivityForResult(intent, 0311);
+    }
+
+    public static Activity getInstance() {
+        return mActivity;
     }
 
     @Override

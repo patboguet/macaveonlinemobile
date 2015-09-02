@@ -22,13 +22,7 @@ import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuAchatAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuStockageAdapter;
-import com.example.pboguet.macaveonline.Utils.Adapters.RegionAdapter;
 import com.example.pboguet.macaveonline.Utils.GestionListes;
-
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 
 /**
@@ -62,11 +56,13 @@ public class FicheVin extends Activity {
     private Button annuler;
     private ListView menu;
     private Dialog dialog;
+    private static Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mActivity = this;
         setContentView(R.layout.detail_vin);
 
         id = (TextView) findViewById(R.id.idVin);
@@ -114,9 +110,21 @@ public class FicheVin extends Activity {
             degre.setText(Float.toString(vin.getDegreAlcool()));}
         else degre.setText("");
         offert.setText(vin.getOffertPar());
-        consoPartir.setText(vin.getConsoPartir());
+        if(vin.getConsoPartir() != null) {
+            String[] consoP = vin.getConsoPartir().split("-");
+            consoPartir.setText(consoP[1]+"/"+consoP[2]);
+        }
+        else
+            consoPartir.setText(vin.getConsoPartir());
+
+        if(vin.getConsoAvant() != null) {
+            String[] consoA = vin.getConsoAvant().split("-");
+            consoAvant.setText(consoA[1]+"/"+consoA[2]);
+        }
+        else
+            consoAvant.setText(vin.getConsoAvant());
+
         lieuAchat.setText(GestionListes.getNomLieuAchat(vin.getLieuAchat()));
-        consoAvant.setText((CharSequence) vin.getConsoAvant());
         lieuStockage.setText(GestionListes.getNomLieuStockage(vin.getLieuStockage()));
         note.setRating(vin.getNote() / 4);
         commentaires.setText(vin.getCommentaires());
@@ -289,7 +297,7 @@ public class FicheVin extends Activity {
                 vin.setLieuAchat(GestionListes.getIdLieuAchat(lieuAchat.getText().toString()));
                 vin.setConsoPartir(consoPartir.getText().toString());
                 vin.setConsoAvant(consoAvant.getText().toString());
-                vin.setNote((int) (note.getRating() * 4));
+                vin.setNote(note.getRating() * 4);
                 if(nb.isEmpty())
                     vin.setNbBouteilles(0);
                 else
@@ -305,6 +313,15 @@ public class FicheVin extends Activity {
                 WebService.updateVin(vin);
             }
         });
+
+        // COPIER VIN
+
+        annuler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.finish();
+            }
+        });
     }
 
     private void listeDateConso(final String conso, final Dialog dialog) {
@@ -314,13 +331,13 @@ public class FicheVin extends Activity {
         Button annuler = (Button) dialog.findViewById(R.id.annuler);
         final DatePicker listeAnnee = (DatePicker) dialog.findViewById(R.id.datePicker);
         // on cache le jour ansi que le calendrier
-        ((ViewGroup) listeAnnee).findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
+        listeAnnee.findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
         listeAnnee.setCalendarViewShown(false);
 
         valider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (conso == "partir") {
+                if (conso.equals("partir")) {
                     consoPartir.setText("01/" + Integer.toString(listeAnnee.getMonth() + 1) + "/" + Integer.toString(listeAnnee.getYear()));
                 } else {
                     consoAvant.setText("01/" + Integer.toString(listeAnnee.getMonth() + 1) + "/" + Integer.toString(listeAnnee.getYear()));
@@ -335,6 +352,10 @@ public class FicheVin extends Activity {
             }
         });
         dialog.show();
+    }
+
+    public static Activity getActivity() {
+        return mActivity;
     }
 }
 

@@ -23,7 +23,7 @@ public class Vin implements Serializable{
     protected String consoPartir;
     protected String consoAvant;
     protected int typePlat;
-    protected int note;
+    protected float note;
     protected int nbBouteilles;
     protected boolean suiviStock;
     protected boolean favori;
@@ -67,11 +67,11 @@ public class Vin implements Serializable{
         estModifie = true;
     }
 
-    public int getNote() {
+    public float getNote() {
         return note;
     }
 
-    public void setNote(int note) {
+    public void setNote(float note) {
         this.note = note;
         estModifie = true;
     }

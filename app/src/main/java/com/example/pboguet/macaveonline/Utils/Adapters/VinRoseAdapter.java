@@ -76,7 +76,6 @@ public class VinRoseAdapter extends ArrayAdapter<VinRose> {
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext.getApplicationContext(), "Click " + position, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(v.getContext(), FicheVin.class);
                 intent.putExtra("Vin", vin);
                 mContext.startActivity(intent);

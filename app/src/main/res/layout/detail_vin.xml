@@ -86,21 +86,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    android:id="@+id/nbMoins" />
+                    android:id="@+id/nbMoins"
+                    android:layout_weight="1" />
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
-                    android:id="@+id/nbBouteilles" />
+                    android:id="@+id/nbBouteilles"
+                    android:layout_weight="3" />
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+"
-                    android:id="@+id/nbPlus" />
+                    android:id="@+id/nbPlus"
+                    android:layout_weight="1" />
             </LinearLayout>
 
         </TableRow>
@@ -398,7 +401,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Annuler"
+                android:text="Retour"
                 android:id="@+id/annuler"
                 android:layout_weight="1" />
         </LinearLayout>
