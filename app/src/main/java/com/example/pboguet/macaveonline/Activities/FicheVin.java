@@ -3,6 +3,7 @@ package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -234,38 +235,14 @@ public class FicheVin extends Activity {
         lieuAchat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.setContentView(R.layout.liste_choix_popup);
-                dialog.setTitle("Type de vin");
-                ListView listeChoix = (ListView) dialog.findViewById(R.id.listeChoix);
-                ArrayAdapter achatAda = new LieuAchatAdapter(getApplicationContext(),R.layout.liste_choix_item,ControleurPrincipal.listeLieuAchat);
-                listeChoix.setAdapter(achatAda);
-                listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        lieuAchat.setText(GestionListes.getNomLieuAchat(position + 1));
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                listePopUp("achat", dialog);
             }
         });
 
         lieuStockage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.setContentView(R.layout.liste_choix_popup);
-                dialog.setTitle("Lieu stockage");
-                ListView listeChoix = (ListView) dialog.findViewById(R.id.listeChoix);
-                ArrayAdapter stockageAda = new LieuStockageAdapter(getApplicationContext(),R.layout.liste_choix_item,ControleurPrincipal.listeLieuStockage);
-                listeChoix.setAdapter(stockageAda);
-                listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        lieuStockage.setText(GestionListes.getNomLieuStockage(position + 1));
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                listePopUp("stockage", dialog);
             }
         });
 
@@ -315,6 +292,16 @@ public class FicheVin extends Activity {
         });
 
         // COPIER VIN
+        copier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AjoutVin.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("Vin", vin);
+                mActivity.getApplicationContext().startActivity(intent);
+                mActivity.getParent().finish();
+            }
+        });
 
         annuler.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -322,6 +309,37 @@ public class FicheVin extends Activity {
                 mActivity.finish();
             }
         });
+    }
+
+    private void listePopUp(final String type, final Dialog dialog) {
+        dialog.setContentView(R.layout.liste_choix_popup);
+        ListView listeChoix = (ListView) dialog.findViewById(R.id.listeChoix);
+        if(type.equals("achat")) {
+                dialog.setTitle("Lieu d'achat");
+                ArrayAdapter achatAda = new LieuAchatAdapter(getApplicationContext(),R.layout.liste_choix_item,ControleurPrincipal.listeLieuAchat);
+                listeChoix.setAdapter(achatAda);
+            }
+        else
+        {
+            dialog.setTitle("Lieu de stockage");
+            ArrayAdapter stockageAda = new LieuStockageAdapter(getApplicationContext(),R.layout.liste_choix_item,ControleurPrincipal.listeLieuStockage);
+            listeChoix.setAdapter(stockageAda);
+        }
+        listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(type.equals("achat"))
+                {
+                    lieuAchat.setText(GestionListes.getNomLieuAchat(position + 1));
+                }
+                else
+                {
+                    lieuStockage.setText(GestionListes.getNomLieuStockage(position + 1));
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void listeDateConso(final String conso, final Dialog dialog) {

@@ -21,7 +21,6 @@ public class LieuAchatAdapter extends ArrayAdapter<LieuAchat> {
     private TextView id;
     private TextView nom;
 
-
     public LieuAchatAdapter(Context context, int textViewResourceID, ArrayList<LieuAchat> lieux) {
         super(context,textViewResourceID,lieux);
         mContext = context;

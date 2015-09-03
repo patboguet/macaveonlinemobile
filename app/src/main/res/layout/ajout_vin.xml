@@ -96,26 +96,45 @@
                     android:id="@+id/labAnnee"
                     />
 
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="numberSigned"
                     android:ems="10"
                     android:id="@+id/anneeVin"
-                    android:textColor="#a52323" />
+                    android:textColor="#a52323"
+                    android:hint="Choisir année" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Suivi stock"
-                    android:id="@+id/labSuivi"
-                    android:singleLine="false"
-                    />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/suiviVin" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Suivi stock"
+                        android:id="@+id/labSuivi"
+                        android:singleLine="false"
+                        />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/suiviVin" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vin favori"
+                        android:id="@+id/labFavori"
+                        />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/favoriVin" />
+                </LinearLayout>
 
             </TableRow>
 
@@ -131,23 +150,24 @@
                     android:id="@+id/labRegion"
                     />
 
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/regionVin"
-                    android:textColor="#a52323" />
+                    android:textColor="#a52323"
+                    android:hint="Choisir région" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Vin favori"
-                    android:id="@+id/labFavori"
-                    />
+                    android:text="Appellation"
+                    android:id="@+id/labAoc" />
 
-                <CheckBox
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/favoriVin" />
+                    android:id="@+id/appellation"
+                    android:hint="Choisir appellation" />
 
             </TableRow>
 
@@ -163,11 +183,12 @@
                     android:id="@+id/labType"
                     />
 
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/typeVin"
-                    android:textColor="#a52323" />
+                    android:textColor="#a52323"
+                    android:hint="Choisir type" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -231,13 +252,14 @@
                     android:id="@+id/labConsoPartir"
                     />
 
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
                     android:id="@+id/consoPartirVin"
-                    android:textColor="#a52323" />
+                    android:textColor="#a52323"
+                    android:hint="Choisir année" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -246,11 +268,12 @@
                     android:id="@+id/labLieuAchat"
                     />
 
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/lieuAchatVin"
-                    android:textColor="#a52323" />
+                    android:textColor="#a52323"
+                    android:hint="Choisir lieu d&apos;achat" />
 
             </TableRow>
 
@@ -266,13 +289,14 @@
                     android:id="@+id/labConsoAvant"
                     />
 
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
                     android:id="@+id/consoAvantVin"
-                    android:textColor="#a52323" />
+                    android:textColor="#a52323"
+                    android:hint="Choisir année" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -281,11 +305,12 @@
                     android:id="@+id/labLieuStockage"
                     />
 
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/lieuStockageVin"
-                    android:textColor="#a52323" />
+                    android:textColor="#a52323"
+                    android:hint="Choisir lieu stockage" />
             </TableRow>
 
             <TableRow
@@ -339,7 +364,43 @@
                     android:text="Annuler"
                     android:id="@+id/annuler"
                     android:layout_weight="1" />
+
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/idRegion"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/idAoc"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/idType"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/idLieuAchat"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/idLieuStockage"
+                android:visibility="gone" />
 
         </TableLayout>
 
