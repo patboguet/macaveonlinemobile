@@ -35,6 +35,10 @@
             android:name=".Activities.FicheVin">
 
         </activity>
+        <activity
+            android:name=".Activities.AjoutVin">
+
+        </activity>
     </application>
 
 </manifest>

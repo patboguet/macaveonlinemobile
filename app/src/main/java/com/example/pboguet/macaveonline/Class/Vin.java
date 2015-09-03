@@ -16,7 +16,7 @@ public class Vin implements Serializable{
     protected int annee;
     protected int region;
     protected int appellation;
-    protected String type;
+    protected int type;
     protected float degreAlcool;
     protected int lieuStockage;
     protected int lieuAchat;
@@ -134,11 +134,11 @@ public class Vin implements Serializable{
         estModifie = true;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
         estModifie = true;
     }

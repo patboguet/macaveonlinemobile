@@ -66,18 +66,18 @@ public class GestionListes {
         return 0;
     }
 
-    public static String getNomType(String idType)
+    public static String getNomType(int idType)
     {
         String type = "";
         switch (idType)
         {
-            case "1" : type = "Blanc";
+            case 1 : type = "Blanc";
                 break;
-            case "2" : type = "Rouge";
+            case 2 : type = "Rouge";
                 break;
-            case "3" : type = "Rosé";
+            case 3 : type = "Rosé";
                 break;
-            case "4" : type = "Mousseux";
+            case 4 : type = "Mousseux";
                 break;
         }
         return type;

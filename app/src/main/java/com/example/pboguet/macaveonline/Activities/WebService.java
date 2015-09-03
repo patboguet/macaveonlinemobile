@@ -52,7 +52,9 @@ public class WebService extends Activity {
     private static JSONObject vinToJson(Vin vin) {
         JSONObject json = new JSONObject();
         try {
-            json.put("idVin", vin.getIdVin());
+            if(vin.getIdVin() > 0) {
+                json.put("idVin", vin.getIdVin());
+            }
             json.put("nom", vin.getNom().replaceAll("\\s", "&nbsp;"));
             json.put("annee", vin.getAnnee());
             json.put("region", vin.getRegion());
@@ -69,7 +71,7 @@ public class WebService extends Activity {
             json.put("suiviStock", vin.isSuiviStock());
             json.put("favori", vin.isFavori());
             json.put("prixAchat", vin.getPrixAchat());
-            json.put("offertPar", vin.getOffertPar());
+            json.put("offertPar", vin.getOffertPar().replaceAll("\\s", "&nbsp;"));
             json.put("commentaires", vin.getCommentaires().replaceAll("\\s", "&nbsp;"));
             json.put("utilisateur", vin.getUtilisateur());
         } catch (JSONException e) {

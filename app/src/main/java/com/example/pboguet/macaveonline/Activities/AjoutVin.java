@@ -16,11 +16,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
+import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuAchatAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuStockageAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.RegionAdapter;
 import com.example.pboguet.macaveonline.Utils.GestionListes;
+import com.example.pboguet.macaveonline.Utils.Utilisateur;
 
 import org.w3c.dom.Text;
 
@@ -63,6 +65,7 @@ public class AjoutVin extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.ajout_vin);
 
         mActivity = this;
         nom = (EditText)findViewById(R.id.nomVin);
@@ -92,11 +95,126 @@ public class AjoutVin extends Activity {
         menu = (ListView) findViewById(R.id.menu);
         dialog = new Dialog(this);
 
+        Vin vinInitial = (Vin) getIntent().getExtras().get("Vin");
+        // Copie d'un vin
+        if(vinInitial != null) {
+            nom.setText(vinInitial.getNom());
+            nbBouteilles.setText(Integer.toString(vinInitial.getNbBouteilles()));
+            annee.setText(Integer.toString(vinInitial.getAnnee()));
+            suivi.setChecked(vinInitial.isSuiviStock());
+            favori.setChecked(vinInitial.isFavori());
+            int reg = vinInitial.getRegion();
+            region.setText(GestionListes.getNomRegion(reg));
+            idRegion.setText(Integer.toString(reg));
+            //appellation.setText(GestionListes);
+            //idAppellation
+            int type = vinInitial.getType();
+            typeVin.setText(GestionListes.getNomType(type));
+            idType.setText(Integer.toString(type));
+            prix.setText(Float.toString(vinInitial.getPrixAchat()));
+            degre.setText(Float.toString(vinInitial.getDegreAlcool()));
+            offert.setText(vinInitial.getOffertPar());
+            consoPartir.setText(vinInitial.getConsoPartir());
+            int lieuA = vinInitial.getLieuAchat();
+            lieuAchat.setText(GestionListes.getNomLieuAchat(lieuA));
+            idLieuAchat.setText(Integer.toString(lieuA));
+            consoAvant.setText(vinInitial.getConsoAvant());
+            int lieuS = vinInitial.getLieuStockage();
+            lieuStockage.setText(GestionListes.getNomLieuStockage(lieuS));
+            idLieuStockage.setText(Integer.toString(lieuS));
+            note.setRating(vinInitial.getNote()/4);
+            commentaires.setText(vinInitial.getCommentaires());
+        }
+
+
         // Traitement des clicks
         annee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listeAnnee("annee", dialog);
+            }
+        });
+        consoAvant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listeAnnee("avant", dialog);
+            }
+        });
+        consoPartir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listeAnnee("partir", dialog);
+            }
+        });
+        region.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listePopUp("region", dialog);
+            }
+        });
+        /*appellation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listePopUp("appellation", dialog);
+            }
+        });*/
+        typeVin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listePopUp("type", dialog);
+            }
+        });
+        lieuAchat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listePopUp("achat", dialog);
+            }
+        });
+        lieuStockage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listePopUp("stockage", dialog);
+            }
+        });
+
+        ajouter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Vin vin = new Vin();
+
+                String deg = degre.getText().toString();
+                String nb = nbBouteilles.getText().toString();
+                String prixA = prix.getText().toString();
+
+                vin.setNom(nom.getText().toString());
+                vin.setAnnee(Integer.parseInt(annee.getText().toString()));
+                vin.setRegion(Integer.parseInt(idRegion.getText().toString()));
+                //appellation
+                vin.setType(Integer.parseInt(idType.getText().toString()));
+                if(deg.isEmpty() || deg.equals("0.0"))
+                    vin.setDegreAlcool(0.0f);
+                else
+                    vin.setDegreAlcool(Float.parseFloat(deg));
+                vin.setLieuStockage(Integer.parseInt(idLieuStockage.getText().toString()));
+                vin.setLieuAchat(Integer.parseInt(idLieuAchat.getText().toString()));
+                vin.setConsoPartir(consoPartir.getText().toString());
+                vin.setConsoAvant(consoAvant.getText().toString());
+                vin.setNote(note.getRating() * 4);
+                if(nb.isEmpty())
+                    vin.setNbBouteilles(0);
+                else
+                    vin.setNbBouteilles(Integer.parseInt((nb)));
+                vin.setSuiviStock(suivi.isChecked());
+                vin.setFavori(favori.isChecked());
+                if(prixA.isEmpty() || prixA.equals("0.0"))
+                    vin.setPrixAchat(0);
+                else
+                    vin.setPrixAchat(Float.parseFloat(prixA));
+                vin.setOffertPar(offert.getText().toString());
+                vin.setCommentaires(commentaires.getText().toString());
+                //vin.setUtilisateur(LoginActivity.myUtilisateur.getUserId());
+                vin.setUtilisateur(3);
+                WebService.insertVin(vin);
             }
         });
     }
@@ -148,6 +266,7 @@ public class AjoutVin extends Activity {
                 dialog.dismiss();
             }
         });
+        dialog.show();
     }
 
     private void listePopUp(final String type, final Dialog dialog) {
@@ -189,6 +308,7 @@ public class AjoutVin extends Activity {
                 ArrayAdapter typeAda = new ArrayAdapter<>(getApplicationContext(),R.layout.liste_types,R.id.nomType, listeType);
                 listeChoix.setAdapter(typeAda);
             }
+
             listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

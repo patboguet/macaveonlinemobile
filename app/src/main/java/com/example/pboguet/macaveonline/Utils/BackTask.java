@@ -227,7 +227,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             switch (type) {
                                 // Blanc
                                 case "1": {
-                                    VinBlanc vinB = new VinBlanc(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
+                                    VinBlanc vinB = new VinBlanc(idVin, nom, annee, region, aoc, Integer.parseInt(type), degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
                                     if (!(ControleurPrincipal.listeVins.contains(vinB))) {
                                         ControleurPrincipal.listeVinsBlanc.add(vinB);
                                         ControleurPrincipal.listeVins.add(vinB);
@@ -236,7 +236,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 break;
                                 // Rouge
                                 case "2": {
-                                    VinRouge vinR = new VinRouge(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
+                                    VinRouge vinR = new VinRouge(idVin, nom, annee, region, aoc, Integer.parseInt(type), degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
                                     if (!(ControleurPrincipal.listeVins.contains(vinR))) {
                                         ControleurPrincipal.listeVinsRouge.add(vinR);
                                         ControleurPrincipal.listeVins.add(vinR);
@@ -245,7 +245,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 break;
                                 // Rosé
                                 case "3": {
-                                    VinRose vinRos = new VinRose(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
+                                    VinRose vinRos = new VinRose(idVin, nom, annee, region, aoc, Integer.parseInt(type), degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
                                     if(!(ControleurPrincipal.listeVins.contains(vinRos)))
                                     {
                                         ControleurPrincipal.listeVinsRose.add(vinRos);
@@ -255,7 +255,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 break;
                                 // Mousseux
                                 case "4": {
-                                    Mousseux mousseux = new Mousseux(idVin, nom, annee, region, aoc, type, degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
+                                    Mousseux mousseux = new Mousseux(idVin, nom, annee, region, aoc, Integer.parseInt(type), degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, type_plat, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
                                     if(!(ControleurPrincipal.listeVins.contains(mousseux)))
                                     {
                                         ControleurPrincipal.listeMousseux.add(mousseux);
@@ -354,20 +354,20 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             for (int j = 0; j < size; j++) {
                                 Vin v = (Vin) vins.get(j);
                                 long id = v.getIdVin();
-                                String type = v.getType();
+                                int type = v.getType();
                                 if(id == idVin)
                                 {
                                     ControleurPrincipal.listeVins.remove(j);
                                     // on le retire aussi de la listeVins de son type
                                     switch(type)
                                     {
-                                        case "1": ControleurPrincipal.listeVinsBlanc.remove(getVin(ControleurPrincipal.listeVinsBlanc, idVin));
+                                        case 1: ControleurPrincipal.listeVinsBlanc.remove(getVin(ControleurPrincipal.listeVinsBlanc, idVin));
                                             break;
-                                        case "2": ControleurPrincipal.listeVinsRouge.remove(getVin(ControleurPrincipal.listeVinsRouge, idVin));
+                                        case 2: ControleurPrincipal.listeVinsRouge.remove(getVin(ControleurPrincipal.listeVinsRouge, idVin));
                                             break;
-                                        case "3": ControleurPrincipal.listeVinsRose.remove(getVin(ControleurPrincipal.listeVinsRose, idVin));
+                                        case 3: ControleurPrincipal.listeVinsRose.remove(getVin(ControleurPrincipal.listeVinsRose, idVin));
                                             break;
-                                        case "4": ControleurPrincipal.listeMousseux.remove(getVin(ControleurPrincipal.listeMousseux, idVin));
+                                        case 4: ControleurPrincipal.listeMousseux.remove(getVin(ControleurPrincipal.listeMousseux, idVin));
                                             break;
                                     }
                                     break outerloop;

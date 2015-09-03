@@ -298,8 +298,8 @@ public class FicheVin extends Activity {
                 Intent intent = new Intent(v.getContext(), AjoutVin.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("Vin", vin);
-                mActivity.getApplicationContext().startActivity(intent);
-                mActivity.getParent().finish();
+                mActivity.startActivity(intent);
+                mActivity.finish();
             }
         });
 

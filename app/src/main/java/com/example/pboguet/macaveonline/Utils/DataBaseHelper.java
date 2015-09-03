@@ -73,7 +73,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         values.put(KEY_NOM, queryValues.nom);
         values.put(KEY_PRENOM, queryValues.prenom);
         values.put(KEY_MAIL, queryValues.mail);
-        queryValues.userId=db.insert(TABLE, null, values);
+        queryValues.userId= (int) db.insert(TABLE, null, values);
         db.close();
         return queryValues;
     }
@@ -86,7 +86,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         values.put(KEY_NOM, queryValues.nom);
         values.put(KEY_PRENOM, queryValues.prenom);
         values.put(KEY_MAIL, queryValues.mail);
-        queryValues.userId=db.insert(TABLE, null, values);
+        queryValues.userId= (int) db.insert(TABLE, null, values);
         db.close();
         return db.update(TABLE, values, KEY_ID + " = ?", new String[] {String.valueOf(queryValues.userId)});
     }
@@ -98,7 +98,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()){
             do {
-                myUtilisateur.userId=cursor.getLong(0);
+                myUtilisateur.userId=cursor.getInt(0);
                 myUtilisateur.password=cursor.getString(1);
 
             } while (cursor.moveToNext());

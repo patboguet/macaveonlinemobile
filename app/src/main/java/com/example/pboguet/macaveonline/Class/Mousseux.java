@@ -9,7 +9,7 @@ import java.util.HashMap;
  */
 public class Mousseux extends Vin {
 
-    public Mousseux(int idVin, String nom, int annee, int region, int appellation, String type, float degreAlcool, int lieuStockage, int lieuAchat, String consoPartir, String consoAvant, int typePlat, float note, int nbBouteilles, boolean suiviStock, boolean favori, float prixAchat, String offertPar, String commentaires, int utilisateur)
+    public Mousseux(int idVin, String nom, int annee, int region, int appellation, int type, float degreAlcool, int lieuStockage, int lieuAchat, String consoPartir, String consoAvant, int typePlat, float note, int nbBouteilles, boolean suiviStock, boolean favori, float prixAchat, String offertPar, String commentaires, int utilisateur)
     {
         super();
         this.idVin = idVin;
