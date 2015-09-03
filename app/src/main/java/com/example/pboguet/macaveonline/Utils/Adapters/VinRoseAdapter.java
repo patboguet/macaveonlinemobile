@@ -26,6 +26,7 @@ public class VinRoseAdapter extends ArrayAdapter<VinRose> {
 
     private ArrayList<VinRose> vins;
     private Context mContext;
+    private TextView id;
     private TextView nom;
     private TextView region;
     private TextView annee;
@@ -55,6 +56,7 @@ public class VinRoseAdapter extends ArrayAdapter<VinRose> {
 
         }
         if(vins.size() > 0) {
+            id = (TextView) v.findViewById(R.id.idVin);
             nom = (TextView) v.findViewById(R.id.nomVin);
             region = (TextView) v.findViewById(R.id.regionVin);
             annee = (TextView) v.findViewById(R.id.annee);
@@ -63,6 +65,7 @@ public class VinRoseAdapter extends ArrayAdapter<VinRose> {
             moins = (TextView) v.findViewById(R.id.moins);
 
             if (nom != null) {
+                id.setText(Integer.toString(vin.getIdVin()));
                 nom.setText(vin.getNom());
                 region.setText(GestionListes.getNomRegion(vin.getRegion()));
                 annee.setText(Integer.toString(vin.getAnnee()));

@@ -32,6 +32,7 @@ public class MousseuxAdapter extends ArrayAdapter<Mousseux> {
     private TextView nbBt;
     private TextView plus;
     private TextView moins;
+    private TextView id;
 
     public MousseuxAdapter(Context context, int textViewResourceID, ArrayList<Mousseux> vins) {
         super(context,textViewResourceID,vins);
@@ -49,6 +50,7 @@ public class MousseuxAdapter extends ArrayAdapter<Mousseux> {
         }
 
         if(vins.size() > 0) {
+            id = (TextView) v.findViewById(R.id.idVin);
             nom = (TextView) v.findViewById(R.id.nomVin);
             region = (TextView) v.findViewById(R.id.regionVin);
             annee = (TextView) v.findViewById(R.id.annee);
@@ -57,6 +59,7 @@ public class MousseuxAdapter extends ArrayAdapter<Mousseux> {
             moins = (TextView) v.findViewById(R.id.moins);
 
             if (nom != null) {
+                id.setText(Integer.toString(vin.getIdVin()));
                 nom.setText(vin.getNom());
                 region.setText(GestionListes.getNomRegion(vin.getRegion()));
                 annee.setText(Integer.toString(vin.getAnnee()));

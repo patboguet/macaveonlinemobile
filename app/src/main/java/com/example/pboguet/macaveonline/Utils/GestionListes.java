@@ -3,7 +3,14 @@ package com.example.pboguet.macaveonline.Utils;
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.LieuAchat;
 import com.example.pboguet.macaveonline.Class.LieuStockage;
+import com.example.pboguet.macaveonline.Class.Mousseux;
 import com.example.pboguet.macaveonline.Class.Region;
+import com.example.pboguet.macaveonline.Class.Vin;
+import com.example.pboguet.macaveonline.Class.VinBlanc;
+import com.example.pboguet.macaveonline.Class.VinRose;
+import com.example.pboguet.macaveonline.Class.VinRouge;
+
+import java.util.ArrayList;
 
 /**
  * Created by pbogu_000 on 26/08/2015.
@@ -92,5 +99,48 @@ public class GestionListes {
             }
         }
         return 0;
+    }
+
+    public static Vin getVinById(int id, int type) {
+        // retour de l'id dans la liste des Vins par type
+        if(type > 0)
+        {
+            ArrayList liste = null;
+            switch(type) {
+                // blanc
+                case 1 : liste = ControleurPrincipal.listeVinsBlanc;
+                    break;
+                // rouge
+                case 2 : liste = ControleurPrincipal.listeVinsRouge;
+                    break;
+                // rosé
+                case 3 : liste = ControleurPrincipal.listeVinsRose;
+                    break;
+                // mousseux
+                case 4 : liste = ControleurPrincipal.listeMousseux;
+                    break;
+            }
+            for (int i = 0; i < liste.size(); i++)
+            {
+                Vin vin = (Vin) liste.get(i);
+                if(vin.getIdVin() == id)
+                {
+                    return vin;
+                }
+            }
+        }
+        // retour de l'id dans la liste des Vins
+        else {
+            ArrayList<Vin> listeVins = ControleurPrincipal.listeVins;
+            for (int i = 0; i < listeVins.size();)
+            {
+                Vin vin = listeVins.get(i);
+                if(vin.getIdVin() == id)
+                {
+                    return vin;
+                }
+            }
+        }
+        return null;
     }
 }

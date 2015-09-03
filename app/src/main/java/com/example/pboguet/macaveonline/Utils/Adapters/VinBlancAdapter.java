@@ -30,6 +30,7 @@ public class VinBlancAdapter extends ArrayAdapter<VinBlanc> {
     private TextView nbBt;
     private TextView plus;
     private TextView moins;
+    private TextView id;
 
     public VinBlancAdapter(Context context, int textViewResourceID, ArrayList<VinBlanc> vins) {
         super(context,textViewResourceID,vins);
@@ -46,6 +47,7 @@ public class VinBlancAdapter extends ArrayAdapter<VinBlanc> {
         }
 
         if(vins.size() > 0) {
+            id = (TextView) v.findViewById(R.id.idVin);
             nom = (TextView) v.findViewById(R.id.nomVin);
             region = (TextView) v.findViewById(R.id.regionVin);
             annee = (TextView) v.findViewById(R.id.annee);
@@ -54,6 +56,7 @@ public class VinBlancAdapter extends ArrayAdapter<VinBlanc> {
             moins = (TextView) v.findViewById(R.id.moins);
 
             if (nom != null) {
+                id.setText(Integer.toString(vin.getIdVin()));
                 nom.setText(vin.getNom());
                 region.setText(GestionListes.getNomRegion(vin.getRegion()));
                 annee.setText(Integer.toString(vin.getAnnee()));

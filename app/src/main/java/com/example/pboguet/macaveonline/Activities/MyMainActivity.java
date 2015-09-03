@@ -1,20 +1,27 @@
 package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.media.Rating;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
+import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.Adapters.MousseuxAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinBlancAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinRoseAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinRougeAdapter;
+import com.example.pboguet.macaveonline.Utils.GestionListes;
 
 /**
  * Created by pboguet on 16/04/15.
@@ -34,7 +41,6 @@ public class MyMainActivity extends Activity {
     private TextView tvTriRoseNom;
     private TextView tvTriRoseRegion;
     private TextView tvTriRoseDate;
-    private TextView nomVin;
     private static Activity mActivity;
 
     @Override
@@ -81,7 +87,6 @@ public class MyMainActivity extends Activity {
                 tvTriMousseuxRegion = (TextView) findViewById(R.id.triMousseuxRegion);
                 tvTriMousseuxDate = (TextView) findViewById(R.id.triMousseuxDate);
                 tvPasVin = (TextView) findViewById(R.id.tvPasVin);
-                nomVin = (TextView) findViewById(R.id.nomVin);
 
                 tabs = (TabHost) findViewById(R.id.tabHost);
                 tabs.setup();
@@ -131,6 +136,7 @@ public class MyMainActivity extends Activity {
                     tvTriRougeNom.setVisibility(View.VISIBLE);
                     tvTriRougeRegion.setVisibility(View.VISIBLE);
                     tvTriRougeDate.setVisibility(View.VISIBLE);
+
                 } else {
                     MyMainActivity.affichePasVin();
                     tvTriRougeNom.setVisibility(View.GONE);
@@ -138,7 +144,6 @@ public class MyMainActivity extends Activity {
                     tvTriRougeDate.setVisibility(View.GONE);
                 }
                 if (ControleurPrincipal.listeVinsBlanc.size() > 0) {
-
                     VinBlancAdapter blancAda = new VinBlancAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsBlanc);
                     ListView lvB = (ListView) findViewById(R.id.listeVinsBlancs);
                     lvB.setAdapter(blancAda);
