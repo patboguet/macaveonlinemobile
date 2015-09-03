@@ -99,10 +99,10 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
                 final TextView noteVingt = (TextView) dialog.findViewById(R.id.noteVingt);
                 Button valider = (Button) dialog.findViewById((R.id.valider));
                 Button annuler = (Button) dialog.findViewById(R.id.annuler);
-                rating.setOnClickListener(new View.OnClickListener() {
+                rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                     @Override
-                    public void onClick(View v) {
-                        noteVingt.setText(Float.toString(rating.getRating()*4));
+                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                        noteVingt.setText(Float.toString(rating*4));
                     }
                 });
                 valider.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +110,7 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
                     public void onClick(View v) {
                         Vin vin = GestionListes.getVinById(id, 2);
                         vin.setNote(rating.getRating()*4);
+                        dialog.dismiss();
                     }
                 });
                 annuler.setOnClickListener(new View.OnClickListener() {
