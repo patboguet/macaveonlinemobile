@@ -2,16 +2,12 @@ package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Base64;
 
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Utils.BackTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 
 /**
  * Created by pboguet on 18/06/15.

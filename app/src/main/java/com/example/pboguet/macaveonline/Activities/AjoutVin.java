@@ -22,9 +22,6 @@ import com.example.pboguet.macaveonline.Utils.Adapters.LieuAchatAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuStockageAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.RegionAdapter;
 import com.example.pboguet.macaveonline.Utils.GestionListes;
-import com.example.pboguet.macaveonline.Utils.Utilisateur;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -215,6 +212,12 @@ public class AjoutVin extends Activity {
                 //vin.setUtilisateur(LoginActivity.myUtilisateur.getUserId());
                 vin.setUtilisateur(3);
                 WebService.insertVin(vin);
+            }
+        });
+        annuler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.finish();
             }
         });
     }

@@ -320,12 +320,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     break;*/
                     // insérer un vin
                     case "insert": {
-                        long idPlat = Long.parseLong(jsonobject.getString("id_plat"));
-                        String plat = jsonobject.getString("type_plat");
-                        Plat p = new Plat(idPlat, plat);
-                        if (ControleurPrincipal.listePlat.indexOf(p) == -1) {
-                            ControleurPrincipal.listePlat.add(p);
-                        }
+                        // TODO gestion retour WS
                     }
                     break;
                     // vin mis à jour
@@ -338,6 +333,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         else {
                             // on notifie le changement à l'utilisateur
                             Toast.makeText(mActivity.getApplicationContext(), "Le vin a bien été modifié", Toast.LENGTH_LONG).show();
+                            // TODO on rafraichi la liste des vins
                         }
                     }
                     break;
@@ -374,6 +370,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 }
                             }
                             Toast.makeText(mActivity.getApplicationContext(), "Le vin a bien été supprimé", Toast.LENGTH_LONG).show();
+                            // TODO rafraichir la liste des vins
                         }
                         else {
                             Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
