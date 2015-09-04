@@ -16,7 +16,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
+import com.example.pboguet.macaveonline.Class.Mousseux;
 import com.example.pboguet.macaveonline.Class.Vin;
+import com.example.pboguet.macaveonline.Class.VinBlanc;
+import com.example.pboguet.macaveonline.Class.VinRose;
+import com.example.pboguet.macaveonline.Class.VinRouge;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuAchatAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuStockageAdapter;
@@ -182,12 +186,13 @@ public class AjoutVin extends Activity {
                 String deg = degre.getText().toString();
                 String nb = nbBouteilles.getText().toString();
                 String prixA = prix.getText().toString();
+                int idT = Integer.parseInt(idType.getText().toString());
 
                 vin.setNom(nom.getText().toString());
                 vin.setAnnee(Integer.parseInt(annee.getText().toString()));
                 vin.setRegion(Integer.parseInt(idRegion.getText().toString()));
                 //appellation
-                vin.setType(Integer.parseInt(idType.getText().toString()));
+                vin.setType(idT);
                 if(deg.isEmpty() || deg.equals("0.0"))
                     vin.setDegreAlcool(0.0f);
                 else
@@ -211,6 +216,18 @@ public class AjoutVin extends Activity {
                 vin.setCommentaires(commentaires.getText().toString());
                 //vin.setUtilisateur(LoginActivity.myUtilisateur.getUserId());
                 vin.setUtilisateur(3);
+
+                ControleurPrincipal.listeVins.add(vin);
+                switch (idT) {
+                    case 1 : ControleurPrincipal.listeVinsBlanc.add((VinBlanc) vin);
+                        break;
+                    case 2 : ControleurPrincipal.listeVinsRouge.add((VinRouge) vin);
+                        break;
+                    case 3 : ControleurPrincipal.listeVinsRose.add((VinRose) vin);
+                        break;
+                    case 4 : ControleurPrincipal.listeMousseux.add((Mousseux) vin);
+                        break;
+                }
                 WebService.insertVin(vin);
             }
         });

@@ -94,6 +94,7 @@ public class FicheVin extends Activity {
 
         // Affectation des données du vin
         final Vin vin = (Vin) getIntent().getExtras().get("Vin");
+
         id.setText(Integer.toString(vin.getIdVin()));
         nom.setText(vin.getNom());
         nbBouteilles.setText(Integer.toString(vin.getNbBouteilles()));
@@ -146,78 +147,6 @@ public class FicheVin extends Activity {
             }
         });
 
-        /*region.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.setContentView(R.layout.liste_choix_popup);
-                dialog.setTitle("Région");
-                ListView listeChoix = (ListView) dialog.findViewById(R.id.listeChoix);
-                ArrayAdapter regionAda = new RegionAdapter(getApplicationContext(),R.layout.liste_choix_item, ControleurPrincipal.listeRegion);
-                listeChoix.setAdapter(regionAda);
-                listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        region.setText(GestionListes.getNomRegion(position + 1));
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-            }
-        });
-
-        annee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.setContentView(R.layout.liste_annees);
-                dialog.setTitle("Année");
-                Button valider = (Button) dialog.findViewById(R.id.validerDate);
-                Button annuler = (Button) dialog.findViewById(R.id.annuler);
-                final DatePicker listeAnnee = (DatePicker) dialog.findViewById(R.id.datePicker);
-                // on cache le jour et le mois ansi que le calendrier
-                ((ViewGroup) listeAnnee).findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
-                ((ViewGroup) listeAnnee).findViewById(Resources.getSystem().getIdentifier("month", "id", "android")).setVisibility(View.GONE);
-                listeAnnee.setCalendarViewShown(false);
-
-                valider.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        annee.setText(Integer.toString(listeAnnee.getYear()));
-                        dialog.dismiss();
-                    }
-                });
-                annuler.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-            }
-        });
-        type.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.setContentView(R.layout.liste_choix_popup);
-                dialog.setTitle("Type de vin");
-                ListView listeChoix = (ListView) dialog.findViewById(R.id.listeChoix);
-                final ArrayList listeType = new ArrayList(4);
-                listeType.add(0,"Blanc");
-                listeType.add(1, "Rouge");
-                listeType.add(2, "Rosé");
-                listeType.add(3, "Mousseux");
-                ArrayAdapter typeAda = new ArrayAdapter<String>(getApplicationContext(),R.layout.liste_types,R.id.nomType, listeType);
-                listeChoix.setAdapter(typeAda);
-                listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        type.setText((CharSequence) listeType.get(position));
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-            }
-        });*/
-
         consoPartir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -255,38 +184,44 @@ public class FicheVin extends Activity {
         modifier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Vin vinModifie = new Vin();
 
-                //String deg = degre.getText().toString();
-                String nb = nbBouteilles.getText().toString();
-                String prixA = prix.getText().toString();
-
-                /*vin.setNom(nom.getText().toString());
-                //vin.setAnnee(Integer.parseInt(annee.getText().toString()));
-                //vin.setRegion(GestionListes.getIdRegion(region.getText().toString()));
-                //appellation
-               // vin.setType(type.getText().toString());
-                if(deg.isEmpty())
-                    vin.setDegreAlcool(0);
-                else
-                    vin.setDegreAlcool(Float.parseFloat(deg));*/
-                vin.setLieuStockage(GestionListes.getIdLieuStockage(lieuStockage.getText().toString()));
-                vin.setLieuAchat(GestionListes.getIdLieuAchat(lieuAchat.getText().toString()));
-                vin.setConsoPartir(consoPartir.getText().toString());
-                vin.setConsoAvant(consoAvant.getText().toString());
-                vin.setNote(note.getRating() * 4);
-                if(nb.isEmpty())
-                    vin.setNbBouteilles(0);
-                else
-                    vin.setNbBouteilles(Integer.parseInt((nb)));
-                vin.setSuiviStock(suivi.isChecked());
-                vin.setFavori(favori.isChecked());
-                if(prixA.isEmpty())
-                    vin.setPrixAchat(0);
-                else
-                    vin.setPrixAchat(Float.parseFloat(prixA));
-                vin.setOffertPar(offert.getText().toString());
-                vin.setCommentaires(commentaires.getText().toString());
-                WebService.updateVin(vin);
+                String typeV = type.getText().toString();
+                int idType = 0;
+                switch(typeV) {
+                    case "Blanc" : idType = 1;
+                        break;
+                    case "Rouge" : idType = 2;
+                        break;
+                    case "Rose" : idType = 3;
+                        break;
+                    case "Mousseux" : idType = 4;
+                        break;
+                }
+                vinModifie.setIdVin(Integer.parseInt(id.getText().toString()));
+                vinModifie.setType(idType);
+                vinModifie.setLieuStockage(GestionListes.getIdLieuStockage(lieuStockage.getText().toString()));
+                vinModifie.setLieuAchat(GestionListes.getIdLieuAchat(lieuAchat.getText().toString()));
+                vinModifie.setConsoPartir(consoPartir.getText().toString());
+                vinModifie.setConsoAvant(consoAvant.getText().toString());
+                vinModifie.setNote(note.getRating() * 4);
+                if(nbBouteilles.getText().toString().isEmpty()) {
+                    vinModifie.setNbBouteilles(0);
+                }
+                else {
+                    vinModifie.setNbBouteilles(Integer.parseInt((nbBouteilles.getText().toString())));
+                }
+                vinModifie.setSuiviStock(suivi.isChecked());
+                vinModifie.setFavori(favori.isChecked());
+                if(prix.getText().toString().isEmpty()) {
+                    vinModifie.setPrixAchat(0);
+                }
+                else {
+                    vinModifie.setPrixAchat(Float.parseFloat(prix.getText().toString()));
+                }
+                vinModifie.setOffertPar(offert.getText().toString());
+                vinModifie.setCommentaires(commentaires.getText().toString());
+                WebService.updateVin(vinModifie);
             }
         });
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.pboguet.macaveonline.Activities.FicheVin;
@@ -19,7 +20,9 @@ import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Class.VinBlanc;
 import com.example.pboguet.macaveonline.Class.VinRose;
 import com.example.pboguet.macaveonline.Class.VinRouge;
+import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinBlancAdapter;
+import com.example.pboguet.macaveonline.Utils.Adapters.VinRoseAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinRougeAdapter;
 
 import org.apache.http.HttpEntity;
@@ -66,6 +69,11 @@ public class BackTask extends AsyncTask<String, Void, String> {
     private int lieu_stockage;
     private Activity mActivity;
     private int idUtilisateur;
+    private ArrayAdapter<Vin> adaVin;
+    private ArrayAdapter<VinRouge> adaRouge;
+    private ArrayAdapter<VinBlanc> adaBlanc;
+    private ArrayAdapter<VinRose> adaRose;
+    private ArrayAdapter<Mousseux> adaMousseux;
 
     public BackTask(Activity a) {
         mActivity = a;
@@ -326,13 +334,86 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     // vin mis à jour
                     case "update": {
                         String msg = jsonobject.getString("message");
-                        if(msg.equals("erreur"))
+                        if(msg.equals("NOKR") || msg.equals("NOKD"))
                         {
                             Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
                         }
                         else {
+                            // on récupère les données du vin
+                            int id = Integer.parseInt(jsonobject.getString("idVin"));
+                            int idType = Integer.parseInt(jsonobject.getString("idType"));
+                            float note = 0.0f;
+                            if(!jsonobject.getString("note").equals("null"))
+                            {
+                                note = Float.parseFloat(jsonobject.getString("note"));
+                            }
+                            int nbBt = Integer.parseInt(jsonobject.getString("nbBouteilles"));
+                            boolean suivi = false;
+                            if(jsonobject.getString("suiviStock").equals("1")) {
+                                suivi = true;
+                            }
+                            boolean favori = false;
+                            if(jsonobject.getString("favori").equals("1")){
+                                favori = true;
+                            }
+                            float prix = 0.0f;
+                            if(!jsonobject.getString("prixAchat").equals("null")) {
+                                prix = Float.parseFloat(jsonobject.getString("prixAchat"));
+                            }
+                            String offert = "";
+                            if(!jsonobject.getString("offertPar").equals("null"))
+                            {
+                                offert = jsonobject.getString("offertPar");
+                            }
+                            int lieuAchat = 0;
+                            if(!jsonobject.getString("lieuAchat").equals("null")) {
+                                lieuAchat = Integer.parseInt(jsonobject.getString("lieuAchat"));
+                            }
+                            int lieuStockage = 0;
+                            if(!jsonobject.getString("lieuStockage").equals("null")) {
+                                lieuStockage = Integer.parseInt(jsonobject.getString("lieuAchat"));
+                            }
+                            String consoAvant = null;
+                            if(!jsonobject.getString("consoAvant").equals("null")) {
+                                consoAvant = jsonobject.getString("consoAvant");
+                            }
+                            String consoPartir = null;
+                            if(!jsonobject.getString("consoPartir").equals("null")) {
+                                consoPartir = jsonobject.getString("consoPartir");
+                            }
+                            String commentaires = null;
+                            if(!jsonobject.getString("commentaires").equals("null")) {
+                                commentaires = jsonobject.getString("commentaires");
+                            }
+
+                            // on modifie les valeurs du vin
+                            Vin vin = GestionListes.getVinById(id, 0);
+                            updateDonnees(vin,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
+                            switch (idType) {
+                                case 1 : {
+                                    VinBlanc vinB = (VinBlanc) GestionListes.getVinById(id, idType);
+                                    updateDonnees(vinB,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
+                                }
+                                    break;
+                                case 2 : {
+                                    VinRouge vinR = (VinRouge) GestionListes.getVinById(id, idType);
+                                    updateDonnees(vinR,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
+                                }
+                                    break;
+                                case 3 : {
+                                    VinRose vinRo = (VinRose) GestionListes.getVinById(id, idType);
+                                    updateDonnees(vinRo,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
+                                }
+                                    break;
+                                case 4 : {
+                                    Mousseux mousseux = (Mousseux) GestionListes.getVinById(id, idType);
+                                    updateDonnees(mousseux,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
+                                }
+                                    break;
+                            }
                             // on notifie le changement à l'utilisateur
                             Toast.makeText(mActivity.getApplicationContext(), "Le vin a bien été modifié", Toast.LENGTH_LONG).show();
+
                             // TODO on rafraichi la liste des vins
                         }
                     }
@@ -397,6 +478,21 @@ public class BackTask extends AsyncTask<String, Void, String> {
         mActivity.setResult(Activity.RESULT_OK);
         mActivity.finish();
     }
+
+    private void updateDonnees(Vin vin, float note, int nbBt, boolean suivi, boolean favori, float prix, String offert, int lieuAchat, int lieuStockage, String consoAvant, String consoPartir, String commentaires) {
+        vin.setNote(note);
+        vin.setNbBouteilles(nbBt);
+        vin.setSuiviStock(suivi);
+        vin.setFavori(favori);
+        vin.setPrixAchat(prix);
+        vin.setOffertPar(offert);
+        vin.setLieuAchat(lieuAchat);
+        vin.setLieuStockage(lieuStockage);
+        vin.setConsoAvant(consoAvant);
+        vin.setConsoPartir(consoPartir);
+        vin.setCommentaires(commentaires);
+    }
+
 
     // date : yyyy-mm-dd
     private String formatDate(String date) {

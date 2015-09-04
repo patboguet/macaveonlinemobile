@@ -219,4 +219,8 @@ public class Vin implements Serializable{
 
         return res;
     }
+
+    public void setIdVin(int id) {
+        this.idVin = id;
+    }
 }

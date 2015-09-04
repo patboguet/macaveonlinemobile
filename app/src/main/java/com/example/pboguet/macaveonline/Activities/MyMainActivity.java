@@ -1,27 +1,19 @@
 package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
-import android.media.Rating;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
-import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.Adapters.MousseuxAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinBlancAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinRoseAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinRougeAdapter;
-import com.example.pboguet.macaveonline.Utils.GestionListes;
 
 /**
  * Created by pboguet on 16/04/15.
@@ -73,7 +65,6 @@ public class MyMainActivity extends Activity {
 
         if(requestCode == 0311) {
             if (resultCode == RESULT_OK) {
-
                 tvTriRougeNom = (TextView) findViewById(R.id.triRougeNom);
                 tvTriRougeRegion = (TextView) findViewById(R.id.triRougeRegion);
                 tvTriRougeDate = (TextView) findViewById(R.id.triRougeDate);

@@ -103,42 +103,29 @@ public class GestionListes {
 
     public static Vin getVinById(int id, int type) {
         // retour de l'id dans la liste des Vins par type
-        if(type > 0)
-        {
-            ArrayList liste = null;
-            switch(type) {
-                // blanc
-                case 1 : liste = ControleurPrincipal.listeVinsBlanc;
-                    break;
-                // rouge
-                case 2 : liste = ControleurPrincipal.listeVinsRouge;
-                    break;
-                // rosé
-                case 3 : liste = ControleurPrincipal.listeVinsRose;
-                    break;
-                // mousseux
-                case 4 : liste = ControleurPrincipal.listeMousseux;
-                    break;
-            }
-            for (int i = 0; i < liste.size(); i++)
-            {
-                Vin vin = (Vin) liste.get(i);
-                if(vin.getIdVin() == id)
-                {
-                    return vin;
-                }
-            }
+        ArrayList liste = null;
+        switch(type) {
+            // blanc
+            case 1 : liste = ControleurPrincipal.listeVinsBlanc;
+                break;
+            // rouge
+            case 2 : liste = ControleurPrincipal.listeVinsRouge;
+                break;
+            // rosé
+            case 3 : liste = ControleurPrincipal.listeVinsRose;
+                break;
+            // mousseux
+            case 4 : liste = ControleurPrincipal.listeMousseux;
+                break;
+            case 0 : liste = ControleurPrincipal.listeVins;
+                break;
         }
-        // retour de l'id dans la liste des Vins
-        else {
-            ArrayList<Vin> listeVins = ControleurPrincipal.listeVins;
-            for (int i = 0; i < listeVins.size();)
+        for (int i = 0; i < liste.size(); i++)
+        {
+            Vin vin = (Vin) liste.get(i);
+            if(vin.getIdVin() == id)
             {
-                Vin vin = listeVins.get(i);
-                if(vin.getIdVin() == id)
-                {
-                    return vin;
-                }
+                return vin;
             }
         }
         return null;

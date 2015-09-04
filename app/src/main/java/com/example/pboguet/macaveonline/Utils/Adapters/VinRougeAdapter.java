@@ -1,9 +1,11 @@
 package com.example.pboguet.macaveonline.Utils.Adapters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +67,7 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
             annee = (TextView) v.findViewById(R.id.annee);
             nbBt = (TextView) v.findViewById(R.id.nbBouteilles);
             note = (ImageView) v.findViewById((R.id.note));
+            favori = (ImageView) v.findViewById((R.id.favori));
             plus = (TextView) v.findViewById(R.id.plus);
             moins = (TextView) v.findViewById(R.id.moins);
 
@@ -75,6 +78,12 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
                 region.setText(GestionListes.getNomRegion(vin.getRegion()));
                 annee.setText(Integer.toString(vin.getAnnee()));
                 nbBt.setText(Long.toString(vin.getNbBouteilles()));
+                if(vin.isFavori())
+                {
+                    favori.setImageResource(R.mipmap.ic_favori_oui);
+                }
+                else
+                    favori.setImageResource(R.mipmap.ic_favori_no);
                 plus.setText("+");
                 moins.setText("-");
             }
@@ -90,7 +99,7 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
         });
    
         note.setOnClickListener(new View.OnClickListener() {
-            int id = vin.getIdVin();
+            //int id = vin.getIdVin();
             @Override
             public void onClick(View v) {
                 dialog.setContentView(R.layout.note_rapide);
@@ -102,13 +111,13 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
                 rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                        noteVingt.setText(Float.toString(rating*4));
+                        noteVingt.setText(Integer.toString((int) (rating*4)));
                     }
                 });
                 valider.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Vin vin = GestionListes.getVinById(id, 2);
+                        //GestionListes.getVinById(vin.getIdVin(), 2);
                         vin.setNote(rating.getRating()*4);
                         dialog.dismiss();
                     }
@@ -122,9 +131,27 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
                 dialog.show();
             }
         });
-   
+
+        favori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(vin.isFavori()){
+                    vin.setFavori(false);
+                    favori.setImageResource(R.mipmap.ic_favori_no);
+                }
+                else {
+                    vin.setFavori(true);
+                    favori.setImageResource(R.mipmap.ic_favori_oui);
+                }
+            }
+        });
 
         return v;
+    }
+
+    public void setList(ArrayList<VinRouge> liste) {
+        this.vins = liste;
+        this.notifyDataSetChanged();
     }
 
 }
