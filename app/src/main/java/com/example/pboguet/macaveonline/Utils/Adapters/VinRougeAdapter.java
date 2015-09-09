@@ -141,17 +141,12 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
                 }
                 else {
                     vin.setFavori(true);
-                    favori.setImageResource(R.mipmap.ic_favori_oui);
+                    //favori.setImageResource(R.mipmap.ic_favori_oui);
+                    favori.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.ic_favori_oui));
                 }
             }
         });
 
         return v;
     }
-
-    public void setList(ArrayList<VinRouge> liste) {
-        this.vins = liste;
-        this.notifyDataSetChanged();
-    }
-
 }
