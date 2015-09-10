@@ -44,12 +44,14 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
     private TextView plus;
     private TextView moins;
     private Dialog dialog;
+    private boolean[] coeurs;
 
     public VinRougeAdapter(Context context, int textViewResourceID, ArrayList<VinRouge> vins) {
         super(context,textViewResourceID,vins);
         mContext = context;
         this.vins = vins;
         this.dialog = new Dialog(context);
+        this.coeurs = new boolean[vins.size()];
     }
 
     @Override
@@ -78,9 +80,10 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
                 region.setText(GestionListes.getNomRegion(vin.getRegion()));
                 annee.setText(Integer.toString(vin.getAnnee()));
                 nbBt.setText(Long.toString(vin.getNbBouteilles()));
-                if(vin.isFavori())
+                if(vin.isFavori() || coeurs[position])
                 {
                     favori.setImageResource(R.mipmap.ic_favori_oui);
+
                 }
                 else
                     favori.setImageResource(R.mipmap.ic_favori_no);
@@ -137,13 +140,12 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
             public void onClick(View v) {
                 if(vin.isFavori()){
                     vin.setFavori(false);
-                    favori.setImageResource(R.mipmap.ic_favori_no);
                 }
                 else {
                     vin.setFavori(true);
-                    //favori.setImageResource(R.mipmap.ic_favori_oui);
-                    favori.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.ic_favori_oui));
                 }
+                coeurs[position] = !coeurs[position];
+                notifyDataSetInvalidated();
             }
         });
 

@@ -198,6 +198,7 @@ public class FicheVin extends Activity {
                     case "Mousseux" : idType = 4;
                         break;
                 }
+                vinModifie.setUtilisateur(vin.getUtilisateur());
                 vinModifie.setIdVin(Integer.parseInt(id.getText().toString()));
                 vinModifie.setType(idType);
                 vinModifie.setLieuStockage(GestionListes.getIdLieuStockage(lieuStockage.getText().toString()));

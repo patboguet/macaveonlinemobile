@@ -50,42 +50,42 @@ public class WebService extends Activity {
         try {
             // update
             if(vin.getIdVin() > 0) {
-                json.put("idVin", vin.getIdVin());
-                json.put("type", vin.getType());
-                json.put("utilisateur", vin.getUtilisateur());
+                json.put("id_vin", vin.getIdVin());
+                json.put("FK_type", vin.getType());
+                json.put("FK_utilisateur", vin.getUtilisateur());
                 json.put("note", vin.getNote());
-                json.put("nbBouteilles", vin.getNbBouteilles());
-                json.put("suiviStock", vin.isSuiviStock());
+                json.put("nb_bouteilles", vin.getNbBouteilles());
+                json.put("suivi_stock", vin.isSuiviStock());
                 json.put("favori", vin.isFavori());
-                json.put("prixAchat", vin.getPrixAchat());
-                json.put("offertPar", vin.getOffertPar().replaceAll("\\s", "&nbsp;"));
-                json.put("lieuStockage", vin.getLieuStockage());
-                json.put("lieuAchat", vin.getLieuAchat());
-                json.put("consoPartir", vin.getConsoPartir());
-                json.put("consoAvant", vin.getConsoAvant());
+                json.put("prix_achat", vin.getPrixAchat());
+                json.put("offert_par", vin.getOffertPar().replaceAll("\\s", "&nbsp;"));
+                json.put("FK_lieu_stockage", vin.getLieuStockage());
+                json.put("FK_lieu_achat", vin.getLieuAchat());
+                json.put("conso_partir", vin.getConsoPartir());
+                json.put("conso_avant", vin.getConsoAvant());
                 json.put("commentaires", vin.getCommentaires().replaceAll("\\s", "&nbsp;"));
             }
             // insert
             else {
                 json.put("nom", vin.getNom().replaceAll("\\s", "&nbsp;"));
                 json.put("annee", vin.getAnnee());
-                json.put("region", vin.getRegion());
-                json.put("appellation", vin.getAppellation());
-                json.put("type", vin.getType());
-                json.put("degreAlcool", vin.getDegreAlcool());
-                json.put("lieuStockage", vin.getLieuStockage());
-                json.put("lieuAchat", vin.getLieuAchat());
-                json.put("consoPartir", vin.getConsoPartir());
-                json.put("consoAvant", vin.getConsoAvant());
-                json.put("typePlat", vin.getTypePlat());
+                json.put("FK_region", vin.getRegion());
+                json.put("FK_appellation", vin.getAppellation());
+                json.put("FK_type", vin.getType());
+                json.put("degre_alcool", vin.getDegreAlcool());
+                json.put("FK_lieu_stockage", vin.getLieuStockage());
+                json.put("FK_lieu_achat", vin.getLieuAchat());
+                json.put("conso_partir", vin.getConsoPartir());
+                json.put("conso_pvant", vin.getConsoAvant());
+                json.put("FK_type_plat", vin.getTypePlat());
                 json.put("note", vin.getNote());
-                json.put("nbBouteilles", vin.getNbBouteilles());
-                json.put("suiviStock", vin.isSuiviStock());
+                json.put("nb_bouteilles", vin.getNbBouteilles());
+                json.put("suivi_stock", vin.isSuiviStock());
                 json.put("favori", vin.isFavori());
-                json.put("prixAchat", vin.getPrixAchat());
-                json.put("offertPar", vin.getOffertPar().replaceAll("\\s", "&nbsp;"));
+                json.put("prix_achat", vin.getPrixAchat());
+                json.put("offert_par", vin.getOffertPar().replaceAll("\\s", "&nbsp;"));
                 json.put("commentaires", vin.getCommentaires().replaceAll("\\s", "&nbsp;"));
-                json.put("utilisateur", vin.getUtilisateur());
+                json.put("FK_utilisateur", vin.getUtilisateur());
             }
         } catch (JSONException e) {
             e.printStackTrace();

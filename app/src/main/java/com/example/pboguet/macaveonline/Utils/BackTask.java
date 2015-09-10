@@ -226,7 +226,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 commentaires = "";
                             }
 
-                            if (!jsonobject.getString("FK_utilisateur").equals("null")) {
+                            if (!jsonobject.getString("FK_utilisateur").equals("null") || !jsonobject.getString("FK_utilisateur").equals("0")) {
                                 idUtilisateur = Integer.parseInt(jsonobject.getString("FK_utilisateur"));
                             } else {
                                 idUtilisateur = 3;
@@ -334,11 +334,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     // vin mis à jour
                     case "update": {
                         String msg = jsonobject.getString("message");
-                        if(msg.equals("NOKR") || msg.equals("NOKD"))
+                        if(msg.equals("OK"))
                         {
-                            Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
-                        }
-                        else {
                             // on récupère les données du vin
                             int id = Integer.parseInt(jsonobject.getString("idVin"));
                             int idType = Integer.parseInt(jsonobject.getString("idType"));
@@ -371,7 +368,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             }
                             int lieuStockage = 0;
                             if(!jsonobject.getString("lieuStockage").equals("null")) {
-                                lieuStockage = Integer.parseInt(jsonobject.getString("lieuAchat"));
+                                lieuStockage = Integer.parseInt(jsonobject.getString("lieuStockage"));
                             }
                             String consoAvant = null;
                             if(!jsonobject.getString("consoAvant").equals("null")) {
@@ -394,25 +391,28 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                     VinBlanc vinB = (VinBlanc) GestionListes.getVinById(id, idType);
                                     updateDonnees(vinB,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
                                 }
-                                    break;
+                                break;
                                 case 2 : {
                                     VinRouge vinR = (VinRouge) GestionListes.getVinById(id, idType);
                                     updateDonnees(vinR,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
                                 }
-                                    break;
+                                break;
                                 case 3 : {
                                     VinRose vinRo = (VinRose) GestionListes.getVinById(id, idType);
                                     updateDonnees(vinRo,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
                                 }
-                                    break;
+                                break;
                                 case 4 : {
                                     Mousseux mousseux = (Mousseux) GestionListes.getVinById(id, idType);
                                     updateDonnees(mousseux,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
                                 }
-                                    break;
+                                break;
                             }
                             // on notifie le changement à l'utilisateur
                             Toast.makeText(mActivity.getApplicationContext(), "Le vin a bien été modifié", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
 
                             // TODO on rafraichi la liste des vins
                         }

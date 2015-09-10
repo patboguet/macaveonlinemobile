@@ -24,19 +24,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.MyMainActivity">
+            android:name=".Activities.MyMainActivity"
+            android:screenOrientation="landscape">
 
         </activity>
         <activity
-            android:name=".Activities.WebService">
+            android:name=".Activities.WebService"
+            android:screenOrientation="landscape">
 
         </activity>
         <activity
-            android:name=".Activities.FicheVin">
+            android:name=".Activities.FicheVin"
+            android:screenOrientation="landscape">
 
         </activity>
         <activity
-            android:name=".Activities.AjoutVin">
+            android:name=".Activities.AjoutVin"
+            android:screenOrientation="landscape">
 
         </activity>
     </application>
