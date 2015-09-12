@@ -4,16 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
+import com.example.pboguet.macaveonline.Class.Menu;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.Adapters.MousseuxAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinBlancAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinRoseAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinRougeAdapter;
+
+import java.util.ArrayList;
 
 /**
  * Created by pboguet on 16/04/15.
@@ -39,7 +44,16 @@ public class MyMainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
+        if(ControleurPrincipal.menu.size() < 4) {
+            ControleurPrincipal.menu.add(0, "Ma Cave");
+            ControleurPrincipal.menu.add(1, "Recherche");
+            ControleurPrincipal.menu.add(2, "Ajouter");
+            ControleurPrincipal.menu.add(3, "Suivi");
+            ControleurPrincipal.menu.add(4, "Paramètres");
+        }
         setContentView(R.layout.ma_cave);
+        new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
+
         Intent intent = new Intent(this, WebService.class);
         startActivityForResult(intent, 0311);
     }
@@ -59,10 +73,13 @@ public class MyMainActivity extends Activity {
     }
 
     @Override
-     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        setContentView(R.layout.ma_cave);
+        //setContentView(R.layout.ma_cave);
+        afficheCave(requestCode, resultCode, data);
+    }
 
+    private void afficheCave(int requestCode, int resultCode, Intent data) {
         if(requestCode == 0311) {
             if (resultCode == RESULT_OK) {
                 tvTriRougeNom = (TextView) findViewById(R.id.triRougeNom);
@@ -175,8 +192,8 @@ public class MyMainActivity extends Activity {
                     tvTriMousseuxRegion.setVisibility(View.GONE);
                     tvTriMousseuxDate.setVisibility(View.GONE);
                 }
-            }
-        }
+    }
+}
     }
 
     protected void createTab(TabHost tabs)

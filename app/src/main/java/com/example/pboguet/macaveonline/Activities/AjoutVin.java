@@ -2,6 +2,7 @@ package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -96,9 +97,9 @@ public class AjoutVin extends Activity {
         menu = (ListView) findViewById(R.id.menu);
         dialog = new Dialog(this);
 
-        Vin vinInitial = (Vin) getIntent().getExtras().get("Vin");
         // Copie d'un vin
-        if(vinInitial != null) {
+        if(getIntent().hasExtra("Vin")) {
+            Vin vinInitial = (Vin) getIntent().getExtras().get("Vin");
             nom.setText(vinInitial.getNom());
             nbBouteilles.setText(Integer.toString(vinInitial.getNbBouteilles()));
             annee.setText(Integer.toString(vinInitial.getAnnee()));

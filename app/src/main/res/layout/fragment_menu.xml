@@ -2,4 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:choiceMode="singleChoice"
     android:dividerHeight="0dp"
-    tools:context=".NavigationDrawerFragment" />
+    tools:context=".NavigationDrawerFragment"
+    android:id="@+id/menu"
+    android:background="#eec78d" />

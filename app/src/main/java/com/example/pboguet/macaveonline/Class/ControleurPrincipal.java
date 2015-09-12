@@ -1,5 +1,7 @@
 package com.example.pboguet.macaveonline.Class;
 
+import android.widget.ListView;
+
 import java.util.ArrayList;
 
 /**
@@ -17,5 +19,5 @@ public class ControleurPrincipal {
     public static ArrayList<LieuAchat> listeLieuAchat = new ArrayList<>();
     public static ArrayList<LieuStockage> listeLieuStockage = new ArrayList<>();
     public static ArrayList<Plat> listePlat = new ArrayList<>();
-
+    public static ArrayList<String> menu = new ArrayList<String>(4);
 }
