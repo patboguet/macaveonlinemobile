@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Activities.FicheVin;
 import com.example.pboguet.macaveonline.Class.Vin;
-import com.example.pboguet.macaveonline.Class.VinRouge;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.GestionListes;
 import com.example.pboguet.macaveonline.Utils.NoteRapide;
@@ -23,9 +22,10 @@ import java.util.ArrayList;
 /**
  * Created by pboguet on 19/06/15.
  */
-public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
-    private ArrayList<VinRouge> vins;
+public class VinAdapter extends ArrayAdapter<Vin> {
+    private ArrayList<Vin> vins;
     private Context mContext;
+    private VinAdapter adapter;
     private TextView id;
     private TextView nom;
     private TextView region;
@@ -37,9 +37,8 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
     private TextView moins;
     private Dialog dialog;
     private boolean[] coeurs;
-    private VinRougeAdapter adapter;
 
-    public VinRougeAdapter(Context context, int textViewResourceID, ArrayList<VinRouge> vins) {
+    public VinAdapter(Context context, int textViewResourceID, ArrayList<Vin> vins) {
         super(context,textViewResourceID,vins);
         adapter = this;
         mContext = context;
@@ -91,10 +90,11 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), FicheVin.class);
                 intent.putExtra("Vin", vin);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }
         });
-
+   
         note.setOnClickListener(new NoteRapide(vin));
 
         favori.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +110,7 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
                 }
             }
         });
+
         return v;
     }
 }

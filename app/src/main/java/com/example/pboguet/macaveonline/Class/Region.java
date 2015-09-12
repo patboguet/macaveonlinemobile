@@ -1,7 +1,6 @@
 package com.example.pboguet.macaveonline.Class;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,7 +9,7 @@ import java.util.List;
 public class Region {
     private int id;
     private String nom;
-    public List<Appellation> listeAppellation;
+    public List<String> listeAppellation;
 
     public Region(int id, String nom)
     {
@@ -35,11 +34,21 @@ public class Region {
         this.nom = nom;
     }
 
-    public List<Appellation> getListeAppellation() {
+    public List<String> getListeAppellation() {
         return listeAppellation;
     }
 
-    public void setListeAppellation(List<Appellation> listeAppellation) {
-        this.listeAppellation = listeAppellation;
+    @Override
+    public boolean equals(Object objetAComparer) {
+        boolean res = false;
+
+        if (objetAComparer instanceof Region)
+        {
+            Region regionAComparer = (Region) objetAComparer;
+            if(regionAComparer.getId() == this.getId())
+                res = true;
+        }
+
+        return res;
     }
 }

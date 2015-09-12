@@ -30,4 +30,17 @@ public class LieuStockage {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
+    public boolean equals(Object objetAComparer) {
+        boolean res = false;
+
+        if (objetAComparer instanceof LieuStockage)
+        {
+            LieuStockage lieuAComparer = (LieuStockage) objetAComparer;
+            if(lieuAComparer.getId() == this.getId())
+                res = true;
+        }
+
+        return res;
+    }
 }

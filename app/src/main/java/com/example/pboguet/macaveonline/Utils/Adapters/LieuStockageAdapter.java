@@ -22,14 +22,23 @@ public class LieuStockageAdapter extends ArrayAdapter<LieuStockage> {
     private TextView nom;
 
 
-    public LieuStockageAdapter(Context context, int textViewResourceID, ArrayList<LieuStockage> lieux) {
-        super(context,textViewResourceID,lieux);
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        return constructionListe(position, convertView);
+    }
+
+    public LieuStockageAdapter(Context context, int layoutID, int textViewResourceID, ArrayList<LieuStockage> lieux) {
+        super(context,layoutID,textViewResourceID,lieux);
         mContext = context;
         this.lieuxStockage = lieux;
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        return constructionListe(position, convertView);
+    }
+
+    public View constructionListe(final int position, View convertView){
         View v = convertView;
         final LieuStockage lieu = lieuxStockage.get(position);
         if (v == null) {

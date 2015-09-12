@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Activities.AjoutVin;
 import com.example.pboguet.macaveonline.Activities.MyMainActivity;
+import com.example.pboguet.macaveonline.Activities.Recherche;
 import com.example.pboguet.macaveonline.R;
 
 /**
@@ -34,17 +35,18 @@ public class Menu {
                     case "Ma Cave":
                         intent = new Intent(a, MyMainActivity.class);
                         break;
-                    //case "Recherche": intent = new Intent(act, Recherche.class);
-                    //    break;
+                    case "Recherche": intent = new Intent(a, Recherche.class);
+                        break;
                     case "Ajouter":
                         intent = new Intent(a, AjoutVin.class);
                         break;
                     /*case "Suivi" : act.setContentView(R.layout.liste_vins);
                     break;
-                    case "Paramètres" : act.setContentView(R.layout.liste_vins);
+                    case "Parametres" : act.setContentView(R.layout.liste_vins);
                     break;*/
                 }
                 if (intent != null) {
+                    a.finish();
                     a.startActivity(intent);
                 }
             }

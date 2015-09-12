@@ -18,6 +18,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
+import com.example.pboguet.macaveonline.Class.Menu;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuAchatAdapter;
@@ -64,6 +65,7 @@ public class FicheVin extends Activity {
 
         mActivity = this;
         setContentView(R.layout.detail_vin);
+        new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
 
         id = (TextView) findViewById(R.id.idVin);
         nom = (TextView)findViewById(R.id.nomVin);
@@ -101,6 +103,7 @@ public class FicheVin extends Activity {
         annee.setText(Integer.toString(vin.getAnnee()));
         suivi.setChecked(vin.isSuiviStock());
         region.setText(GestionListes.getNomRegion(vin.getRegion()));
+        appellation.setText(GestionListes.getNomAppellation(vin.getAppellation()));
         favori.setChecked(vin.isFavori());
         type.setText(GestionListes.getNomType(vin.getType()));
         if(vin.getPrixAchat() > 0.0f) {
@@ -233,8 +236,8 @@ public class FicheVin extends Activity {
                 Intent intent = new Intent(v.getContext(), AjoutVin.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("Vin", vin);
-                mActivity.startActivity(intent);
                 mActivity.finish();
+                mActivity.startActivity(intent);
             }
         });
 
@@ -257,7 +260,7 @@ public class FicheVin extends Activity {
         else
         {
             dialog.setTitle("Lieu de stockage");
-            ArrayAdapter stockageAda = new LieuStockageAdapter(getApplicationContext(),R.layout.liste_choix_item,ControleurPrincipal.listeLieuStockage);
+            ArrayAdapter stockageAda = new LieuStockageAdapter(getApplicationContext(),R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuStockage);
             listeChoix.setAdapter(stockageAda);
         }
         listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {

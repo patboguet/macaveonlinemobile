@@ -1,8 +1,9 @@
 package com.example.pboguet.macaveonline.Class;
 
-import android.widget.ListView;
-
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by pboguet on 26/08/2015.
@@ -20,4 +21,5 @@ public class ControleurPrincipal {
     public static ArrayList<LieuStockage> listeLieuStockage = new ArrayList<>();
     public static ArrayList<Plat> listePlat = new ArrayList<>();
     public static ArrayList<String> menu = new ArrayList<String>(4);
+    public static Map<Integer, List<String>> listeRegionAoc = new HashMap<Integer, List<String>>();
 }

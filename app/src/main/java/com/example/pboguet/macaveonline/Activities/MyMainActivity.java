@@ -1,6 +1,7 @@
 package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +11,11 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
+import com.example.pboguet.macaveonline.Class.LieuStockage;
 import com.example.pboguet.macaveonline.Class.Menu;
+import com.example.pboguet.macaveonline.Class.Region;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.Adapters.MousseuxAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinBlancAdapter;
@@ -19,6 +23,7 @@ import com.example.pboguet.macaveonline.Utils.Adapters.VinRoseAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinRougeAdapter;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * Created by pboguet on 16/04/15.
@@ -51,11 +56,20 @@ public class MyMainActivity extends Activity {
             ControleurPrincipal.menu.add(3, "Suivi");
             ControleurPrincipal.menu.add(4, "Paramètres");
         }
+        initControleuPrincipal();
         setContentView(R.layout.ma_cave);
         new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
 
         Intent intent = new Intent(this, WebService.class);
         startActivityForResult(intent, 0311);
+    }
+
+    // Pour l'affichage des spinner de la recherche
+    private void initControleuPrincipal() {
+        Region reg = new Region(0, "Région");
+        ControleurPrincipal.listeRegion.add(0,reg);
+        LieuStockage ls = new LieuStockage(0, "Lieu Stockage");
+        ControleurPrincipal.listeLieuStockage.add(0,ls);
     }
 
     public static Activity getInstance() {

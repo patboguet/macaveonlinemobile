@@ -1,5 +1,6 @@
 package com.example.pboguet.macaveonline.Utils;
 
+import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.LieuAchat;
 import com.example.pboguet.macaveonline.Class.LieuStockage;
@@ -111,7 +112,7 @@ public class GestionListes {
             // rouge
             case 2 : liste = ControleurPrincipal.listeVinsRouge;
                 break;
-            // rosé
+            // rose
             case 3 : liste = ControleurPrincipal.listeVinsRose;
                 break;
             // mousseux
@@ -129,5 +130,16 @@ public class GestionListes {
             }
         }
         return null;
+    }
+
+    public static String getNomAppellation(int idAoc) {
+        for (int i = 0; i < ControleurPrincipal.listeAppellation.size(); i++) {
+            Appellation aoc = ControleurPrincipal.listeAppellation.get(i);
+            if(idAoc == aoc.getId())
+            {
+                return aoc.getNom();
+            }
+        }
+        return "";
     }
 }

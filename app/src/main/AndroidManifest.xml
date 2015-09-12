@@ -43,6 +43,11 @@
             android:screenOrientation="landscape">
 
         </activity>
+        <activity
+            android:name=".Activities.Recherche"
+            android:screenOrientation="landscape">
+
+        </activity>
     </application>
 
 </manifest>

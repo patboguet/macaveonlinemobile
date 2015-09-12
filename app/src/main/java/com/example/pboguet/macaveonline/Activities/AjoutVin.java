@@ -2,7 +2,6 @@ package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +16,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
+import com.example.pboguet.macaveonline.Class.Menu;
 import com.example.pboguet.macaveonline.Class.Mousseux;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Class.VinBlanc;
@@ -68,6 +68,7 @@ public class AjoutVin extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ajout_vin);
+        new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
 
         mActivity = this;
         nom = (EditText)findViewById(R.id.nomVin);
@@ -297,7 +298,7 @@ public class AjoutVin extends Activity {
         {
             case "region" : {
                 dialog.setTitle("Région");
-                ArrayAdapter regionAda = new RegionAdapter(getApplicationContext(),R.layout.liste_choix_item, ControleurPrincipal.listeRegion);
+                ArrayAdapter regionAda = new RegionAdapter(getApplicationContext(),R.layout.liste_choix_item, 0, ControleurPrincipal.listeRegion);
                 listeChoix.setAdapter(regionAda);
             }
             break;
@@ -315,7 +316,7 @@ public class AjoutVin extends Activity {
             break;
             case "stockage" : {
                 dialog.setTitle("Lieu de stockage");
-                ArrayAdapter stockageAda = new LieuStockageAdapter(getApplicationContext(),R.layout.liste_choix_item,ControleurPrincipal.listeLieuStockage);
+                ArrayAdapter stockageAda = new LieuStockageAdapter(getApplicationContext(),R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuStockage);
                 listeChoix.setAdapter(stockageAda);
             }
             break;

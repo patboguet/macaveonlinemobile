@@ -30,4 +30,17 @@ public class LieuAchat {
     public void setNom(String lieu) {
         this.nom = lieu;
     }
+
+    public boolean equals(Object objetAComparer) {
+        boolean res = false;
+
+        if (objetAComparer instanceof LieuAchat)
+        {
+            LieuAchat lieuAComparer = (LieuAchat) objetAComparer;
+            if(lieuAComparer.getId() == this.getId())
+                res = true;
+        }
+
+        return res;
+    }
 }

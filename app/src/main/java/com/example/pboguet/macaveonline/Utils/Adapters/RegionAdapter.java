@@ -22,14 +22,23 @@ public class RegionAdapter extends ArrayAdapter<Region> {
     private TextView nom;
 
 
-    public RegionAdapter(Context context, int textViewResourceID, ArrayList<Region> regions) {
-        super(context,textViewResourceID,regions);
+    public RegionAdapter(Context context, int layoutID, int textViewID, ArrayList<Region> regions) {
+        super(context,layoutID,textViewID,regions);
         mContext = context;
         this.regions = regions;
     }
 
     @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        return constructionListe(position, convertView);
+    }
+
+    @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+       return constructionListe(position, convertView);
+    }
+
+    private View constructionListe(int position, View convertView) {
         View v = convertView;
         final Region reg = regions.get(position);
         if (v == null) {

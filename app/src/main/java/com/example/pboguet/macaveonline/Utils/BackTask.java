@@ -2,28 +2,20 @@ package com.example.pboguet.macaveonline.Utils;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.example.pboguet.macaveonline.Activities.FicheVin;
-import com.example.pboguet.macaveonline.Activities.MyMainActivity;
 import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.LieuAchat;
 import com.example.pboguet.macaveonline.Class.LieuStockage;
 import com.example.pboguet.macaveonline.Class.Mousseux;
-import com.example.pboguet.macaveonline.Class.Plat;
 import com.example.pboguet.macaveonline.Class.Region;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Class.VinBlanc;
 import com.example.pboguet.macaveonline.Class.VinRose;
 import com.example.pboguet.macaveonline.Class.VinRouge;
-import com.example.pboguet.macaveonline.R;
-import com.example.pboguet.macaveonline.Utils.Adapters.VinBlancAdapter;
-import com.example.pboguet.macaveonline.Utils.Adapters.VinRoseAdapter;
-import com.example.pboguet.macaveonline.Utils.Adapters.VinRougeAdapter;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -39,8 +31,6 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -280,7 +270,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         int idRegion = Integer.parseInt(jsonobject.getString("id_region"));
                         String region = jsonobject.getString("region");
                         Region reg = new Region(idRegion, region);
-                        if (ControleurPrincipal.listeRegion.indexOf(reg) == -1) {
+                        if (!ControleurPrincipal.listeRegion.contains(reg)) {
                             ControleurPrincipal.listeRegion.add(reg);
                         }
                     }
@@ -291,7 +281,20 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         String aoc = jsonobject.getString("appellation");
                         int idRegion = Integer.parseInt(jsonobject.getString("FK_region"));
                         Appellation app = new Appellation(idAoc, aoc, idRegion);
-                        if (ControleurPrincipal.listeAppellation.indexOf(app) == -1) {
+                        for (int j = 0; j < ControleurPrincipal.listeRegion.size(); j++)
+                        {
+                            Region r = ControleurPrincipal.listeRegion.get(j);
+                            if(idRegion == r.getId())
+                            {
+                                if(r.listeAppellation.size() == 0) {
+                                    r.listeAppellation.add(0, "Appellation");
+                                }
+
+                                r.listeAppellation.add(aoc);
+                                ControleurPrincipal.listeRegionAoc.put(idRegion, r.getListeAppellation());
+                            }
+                        }
+                        if (!ControleurPrincipal.listeAppellation.contains(app)) {
                             ControleurPrincipal.listeAppellation.add(app);
                         }
                     }
@@ -301,7 +304,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         int idLieu = Integer.parseInt(jsonobject.getString("id_lieu_achat"));
                         String lieu = jsonobject.getString("lieu_achat");
                         LieuAchat la = new LieuAchat(idLieu, lieu);
-                        if (ControleurPrincipal.listeLieuAchat.indexOf(la) == -1) {
+                        if (!ControleurPrincipal.listeLieuAchat.contains(la)) {
                             ControleurPrincipal.listeLieuAchat.add(la);
                         }
                     }
@@ -311,7 +314,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         int idLieu = Integer.parseInt(jsonobject.getString("id_lieu_stockage"));
                         String lieu = jsonobject.getString("lieu_stockage");
                         LieuStockage ls = new LieuStockage(idLieu, lieu);
-                        if (ControleurPrincipal.listeLieuStockage.indexOf(ls) == -1) {
+                        if (!ControleurPrincipal.listeLieuStockage.contains(ls)) {
                             ControleurPrincipal.listeLieuStockage.add(ls);
                         }
                     }
