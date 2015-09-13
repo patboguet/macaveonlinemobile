@@ -254,7 +254,7 @@ public class FicheVin extends Activity {
         ListView listeChoix = (ListView) dialog.findViewById(R.id.listeChoix);
         if(type.equals("achat")) {
                 dialog.setTitle("Lieu d'achat");
-                ArrayAdapter achatAda = new LieuAchatAdapter(getApplicationContext(),R.layout.liste_choix_item,ControleurPrincipal.listeLieuAchat);
+                ArrayAdapter achatAda = new LieuAchatAdapter(getApplicationContext(),R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuAchat);
                 listeChoix.setAdapter(achatAda);
             }
         else

@@ -5,8 +5,8 @@
 
         <include layout="@layout/fragment_menu"
             android:id="@+id/menu"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="fill_parent"
             android:layout_alignParentLeft="false"
             android:layout_marginLeft="0dp"
             android:layout_alignParentTop="false"
@@ -350,7 +350,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <Button
                     android:layout_width="wrap_content"
@@ -367,6 +367,26 @@
                     android:layout_weight="1" />
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/erreurNom" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/erreurAnnee" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/erreurRegion" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/erreurType" />
 
             <TextView
                 android:layout_width="wrap_content"

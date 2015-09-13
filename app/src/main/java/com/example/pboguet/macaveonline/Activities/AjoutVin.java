@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.Menu;
 import com.example.pboguet.macaveonline.Class.Mousseux;
+import com.example.pboguet.macaveonline.Class.Region;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Class.VinBlanc;
 import com.example.pboguet.macaveonline.Class.VinRose;
@@ -28,6 +29,7 @@ import com.example.pboguet.macaveonline.Utils.Adapters.LieuStockageAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.RegionAdapter;
 import com.example.pboguet.macaveonline.Utils.GestionListes;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -44,7 +46,7 @@ public class AjoutVin extends Activity {
     private TextView idRegion;
     private TextView appellation;
     private TextView idAppellation;
-    private TextView typeVin;
+    private TextView type;
     private TextView idType;
     private EditText prix;
     private EditText degre;
@@ -62,6 +64,11 @@ public class AjoutVin extends Activity {
     private ListView menu;
     private Dialog dialog;
     private Activity mActivity;
+    private ArrayList listeType = new ArrayList(5);
+    private TextView erreurNom;
+    private TextView erreurRegion;
+    private TextView erreurAnnee;
+    private TextView erreurType;
 
 
     @Override
@@ -69,6 +76,11 @@ public class AjoutVin extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ajout_vin);
         new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
+        listeType.add(0, "Type de vin");
+        listeType.add(1, "Blanc");
+        listeType.add(2, "Rouge");
+        listeType.add(3, "Rosé");
+        listeType.add(4, "Mousseux");
 
         mActivity = this;
         nom = (EditText)findViewById(R.id.nomVin);
@@ -77,10 +89,10 @@ public class AjoutVin extends Activity {
         suivi = (CheckBox)findViewById(R.id.suiviVin);
         region = (TextView)findViewById(R.id.regionVin);
         idRegion = (TextView)findViewById(R.id.idRegion);
-        appellation = (TextView)findViewById(R.id.aocVin);
+        appellation = (TextView)findViewById(R.id.appellation);
         idAppellation = (TextView) findViewById(R.id.idAoc);
         favori = (CheckBox)findViewById(R.id.favoriVin);
-        typeVin = (TextView)findViewById(R.id.typeVin);
+        type = (TextView)findViewById(R.id.typeVin);
         idType = (TextView) findViewById(R.id.idType);
         prix = (EditText)findViewById(R.id.prixVin);
         degre = (EditText) findViewById(R.id.degre);
@@ -97,6 +109,10 @@ public class AjoutVin extends Activity {
         annuler = (Button) findViewById(R.id.annuler);
         menu = (ListView) findViewById(R.id.menu);
         dialog = new Dialog(this);
+        erreurNom = (TextView) findViewById(R.id.erreurNom);
+        erreurAnnee = (TextView) findViewById(R.id.erreurAnnee);
+        erreurRegion = (TextView) findViewById(R.id.erreurRegion);
+        erreurType = (TextView) findViewById(R.id.erreurType);
 
         // Copie d'un vin
         if(getIntent().hasExtra("Vin")) {
@@ -109,11 +125,12 @@ public class AjoutVin extends Activity {
             int reg = vinInitial.getRegion();
             region.setText(GestionListes.getNomRegion(reg));
             idRegion.setText(Integer.toString(reg));
-            //appellation.setText(GestionListes);
-            //idAppellation
-            int type = vinInitial.getType();
-            typeVin.setText(GestionListes.getNomType(type));
-            idType.setText(Integer.toString(type));
+            int aoc = vinInitial.getAppellation();
+            appellation.setText(GestionListes.getNomAppellation(aoc));
+            idAppellation.setText(Integer.toString(aoc));
+            int typeV = vinInitial.getType();
+            type.setText(GestionListes.getNomType(typeV));
+            idType.setText(Integer.toString(typeV));
             prix.setText(Float.toString(vinInitial.getPrixAchat()));
             degre.setText(Float.toString(vinInitial.getDegreAlcool()));
             offert.setText(vinInitial.getOffertPar());
@@ -155,13 +172,13 @@ public class AjoutVin extends Activity {
                 listePopUp("region", dialog);
             }
         });
-        /*appellation.setOnClickListener(new View.OnClickListener() {
+        appellation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listePopUp("appellation", dialog);
             }
-        });*/
-        typeVin.setOnClickListener(new View.OnClickListener() {
+        });
+        type.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listePopUp("type", dialog);
@@ -183,54 +200,58 @@ public class AjoutVin extends Activity {
         ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Vin vin = new Vin();
+                boolean erreur = verifChamps();
 
-                String deg = degre.getText().toString();
-                String nb = nbBouteilles.getText().toString();
-                String prixA = prix.getText().toString();
-                int idT = Integer.parseInt(idType.getText().toString());
+                if(!erreur) {
+                    Vin vin = new Vin();
 
-                vin.setNom(nom.getText().toString());
-                vin.setAnnee(Integer.parseInt(annee.getText().toString()));
-                vin.setRegion(Integer.parseInt(idRegion.getText().toString()));
-                //appellation
-                vin.setType(idT);
-                if(deg.isEmpty() || deg.equals("0.0"))
-                    vin.setDegreAlcool(0.0f);
-                else
-                    vin.setDegreAlcool(Float.parseFloat(deg));
-                vin.setLieuStockage(Integer.parseInt(idLieuStockage.getText().toString()));
-                vin.setLieuAchat(Integer.parseInt(idLieuAchat.getText().toString()));
-                vin.setConsoPartir(consoPartir.getText().toString());
-                vin.setConsoAvant(consoAvant.getText().toString());
-                vin.setNote(note.getRating() * 4);
-                if(nb.isEmpty())
-                    vin.setNbBouteilles(0);
-                else
-                    vin.setNbBouteilles(Integer.parseInt((nb)));
-                vin.setSuiviStock(suivi.isChecked());
-                vin.setFavori(favori.isChecked());
-                if(prixA.isEmpty() || prixA.equals("0.0"))
-                    vin.setPrixAchat(0);
-                else
-                    vin.setPrixAchat(Float.parseFloat(prixA));
-                vin.setOffertPar(offert.getText().toString());
-                vin.setCommentaires(commentaires.getText().toString());
-                //vin.setUtilisateur(LoginActivity.myUtilisateur.getUserId());
-                vin.setUtilisateur(3);
+                    String deg = degre.getText().toString();
+                    String nb = nbBouteilles.getText().toString();
+                    String prixA = prix.getText().toString();
+                    int idT = Integer.parseInt(idType.getText().toString());
 
-                ControleurPrincipal.listeVins.add(vin);
-                switch (idT) {
-                    case 1 : ControleurPrincipal.listeVinsBlanc.add((VinBlanc) vin);
-                        break;
-                    case 2 : ControleurPrincipal.listeVinsRouge.add((VinRouge) vin);
-                        break;
-                    case 3 : ControleurPrincipal.listeVinsRose.add((VinRose) vin);
-                        break;
-                    case 4 : ControleurPrincipal.listeMousseux.add((Mousseux) vin);
-                        break;
+                    vin.setNom(nom.getText().toString());
+                    vin.setAnnee(Integer.parseInt(annee.getText().toString()));
+                    vin.setRegion(Integer.parseInt(idRegion.getText().toString()));
+                    //appellation
+                    vin.setType(idT);
+                    if(deg.isEmpty() || deg.equals("0.0"))
+                        vin.setDegreAlcool(0.0f);
+                    else
+                        vin.setDegreAlcool(Float.parseFloat(deg));
+                    vin.setLieuStockage(Integer.parseInt(idLieuStockage.getText().toString()));
+                    vin.setLieuAchat(Integer.parseInt(idLieuAchat.getText().toString()));
+                    vin.setConsoPartir(consoPartir.getText().toString());
+                    vin.setConsoAvant(consoAvant.getText().toString());
+                    vin.setNote(note.getRating() * 4);
+                    if(nb.isEmpty())
+                        vin.setNbBouteilles(0);
+                    else
+                        vin.setNbBouteilles(Integer.parseInt((nb)));
+                    vin.setSuiviStock(suivi.isChecked());
+                    vin.setFavori(favori.isChecked());
+                    if(prixA.isEmpty() || prixA.equals("0.0"))
+                        vin.setPrixAchat(0);
+                    else
+                        vin.setPrixAchat(Float.parseFloat(prixA));
+                    vin.setOffertPar(offert.getText().toString());
+                    vin.setCommentaires(commentaires.getText().toString());
+                    //vin.setUtilisateur(LoginActivity.myUtilisateur.getUserId());
+                    vin.setUtilisateur(3);
+
+                    ControleurPrincipal.listeVins.add(vin);
+                    switch (idT) {
+                        case 1 : ControleurPrincipal.listeVinsBlanc.add((VinBlanc) vin);
+                            break;
+                        case 2 : ControleurPrincipal.listeVinsRouge.add((VinRouge) vin);
+                            break;
+                        case 3 : ControleurPrincipal.listeVinsRose.add((VinRose) vin);
+                            break;
+                        case 4 : ControleurPrincipal.listeMousseux.add((Mousseux) vin);
+                            break;
+                    }
+                    WebService.insertVin(vin);
                 }
-                WebService.insertVin(vin);
             }
         });
         annuler.setOnClickListener(new View.OnClickListener() {
@@ -239,6 +260,47 @@ public class AjoutVin extends Activity {
                 mActivity.finish();
             }
         });
+    }
+
+    private boolean verifChamps() {
+        boolean erreur = false;
+
+        //champs obligatoires
+        String nomVin = nom.getText().toString();
+        String anneeVin = annee.getText().toString();
+        String regionVin = region.getText().toString();
+        String typeVin = type.getText().toString();
+        String base = "Veuillez renseigner ";
+        if(nomVin.equals("")) {
+            erreurNom.setText(base+"un nom.");
+            erreur = true;
+        }
+        else {
+            erreurNom.setVisibility(View.GONE);
+        }
+        if(anneeVin.equals("")) {
+            erreurAnnee.setText(base+"une année.");
+            erreur = true;
+        }
+        else {
+            erreurAnnee.setVisibility(View.GONE);
+        }
+        if(regionVin.equals("")) {
+            erreurRegion.setText(base+"une région.");
+            erreur = true;
+        }
+        else {
+            erreurRegion.setVisibility(View.GONE);
+        }
+        if(typeVin.equals("")) {
+            erreurType.setText(base+"un type.");
+            erreur = true;
+        }
+        else {
+            erreurType.setVisibility(View.GONE);
+        }
+        return erreur;
+
     }
 
     private void listeAnnee(final String liste, final Dialog dialog) {
@@ -291,94 +353,105 @@ public class AjoutVin extends Activity {
         dialog.show();
     }
 
-    private void listePopUp(final String type, final Dialog dialog) {
+    private void listePopUp(final String choix, final Dialog dialog) {
         dialog.setContentView(R.layout.liste_choix_popup);
         ListView listeChoix = (ListView) dialog.findViewById(R.id.listeChoix);
-        switch (type)
-        {
-            case "region" : {
+        switch (choix) {
+            case "region": {
                 dialog.setTitle("Région");
-                ArrayAdapter regionAda = new RegionAdapter(getApplicationContext(),R.layout.liste_choix_item, 0, ControleurPrincipal.listeRegion);
+                ArrayAdapter regionAda = new RegionAdapter(getApplicationContext(), R.layout.liste_choix_item, 0, ControleurPrincipal.listeRegion);
                 listeChoix.setAdapter(regionAda);
             }
             break;
-            case "appellation" : {
+            case "appellation": {
+                String idR = idRegion.getText().toString();
                 dialog.setTitle("Appellation");
-                //ArrayAdapter aocAda = new AocAdapter(getApplicationContext(),R.layout.liste_choix_item, ControleurPrincipal.listeAppellation);
-                //listeChoix.setAdapter(aocAda);
+                if (!idR.equals("")) {
+                    ArrayList listeAppellations = (ArrayList) ControleurPrincipal.listeRegionAoc.get(Integer.parseInt(idR));
+                    ArrayAdapter aocAda = new ArrayAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, listeAppellations);
+                    listeChoix.setAdapter(aocAda);
+                } else {
+
+                }
             }
             break;
-            case "achat" : {
+            case "achat": {
                 dialog.setTitle("Lieu d'achat");
-                ArrayAdapter achatAda = new LieuAchatAdapter(getApplicationContext(),R.layout.liste_choix_item, ControleurPrincipal.listeLieuAchat);
+                ArrayAdapter achatAda = new LieuAchatAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuAchat);
                 listeChoix.setAdapter(achatAda);
             }
             break;
-            case "stockage" : {
+            case "stockage": {
                 dialog.setTitle("Lieu de stockage");
-                ArrayAdapter stockageAda = new LieuStockageAdapter(getApplicationContext(),R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuStockage);
+                ArrayAdapter stockageAda = new LieuStockageAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuStockage);
                 listeChoix.setAdapter(stockageAda);
             }
             break;
-            case "type" : {
+            case "type": {
                 dialog.setTitle("Type de vin");
-                final ArrayList listeType = new ArrayList(4);
-                listeType.add(0,"Blanc");
-                listeType.add(1, "Rouge");
-                listeType.add(2, "Rosé");
-                listeType.add(3, "Mousseux");
-                ArrayAdapter typeAda = new ArrayAdapter<>(getApplicationContext(),R.layout.liste_types,R.id.nomType, listeType);
+                ArrayAdapter typeAda = new ArrayAdapter<>(getApplicationContext(), R.layout.liste_types, R.id.nomType, listeType);
                 listeChoix.setAdapter(typeAda);
             }
+        }
 
             listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    switch (type)
-                    {
-                        case "region" :{
-                            region.setText(GestionListes.getNomLieuAchat(position + 1));
-                            idRegion.setText(Integer.toString(position+1));
+                    switch (choix) {
+                        case "region": {
+                            if(position>0){
+                                region.setText(GestionListes.getNomRegion(position));
+                            }
+                            else {
+                                region.setText("");
+                            }
+                            idRegion.setText(Integer.toString(position));
                         }
-                            break;
-                        case "appellation" :{
-                            appellation.setText(GestionListes.getNomLieuAchat(position + 1));
-                            idAppellation.setText(Integer.toString(position+1));
+                        break;
+                        case "appellation": {
+                            if(position>0){
+                                appellation.setText(GestionListes.getNomAppellation(position));
+                            }
+                            else {
+                                appellation.setText("");
+                            }
+                            idAppellation.setText(Integer.toString(position));
                         }
-                            break;
-                        case "achat" :{
-                            lieuAchat.setText(GestionListes.getNomLieuAchat(position + 1));
-                            idLieuAchat.setText(Integer.toString(position+1));
+                        break;
+                        case "achat": {
+                            if(position>0){
+                                lieuAchat.setText(GestionListes.getNomLieuAchat(position));
+                            }
+                            else {
+                                lieuAchat.setText("");
+                            }
+                            idLieuAchat.setText(Integer.toString(position));
                         }
-                            break;
-                        case "stockage" :{
-                            lieuStockage.setText(GestionListes.getNomLieuAchat(position + 1));
-                            idLieuStockage.setText(Integer.toString(position+1));
+                        break;
+                        case "stockage": {
+                            if(position>0) {
+                                lieuStockage.setText(GestionListes.getNomLieuStockage(position));
+                            }
+                            else {
+                                lieuStockage.setText("");
+                            }
+                            idLieuStockage.setText(Integer.toString(position));
                         }
-                            break;
-                        case "type" :{
-                            typeVin.setText(GestionListes.getNomLieuAchat(position + 1));
-                            idType.setText(Integer.toString(position+1));
+                        break;
+                        case "type": {
+                            if(position>0) {
+                                type.setText(listeType.get(position).toString());
+                            }
+                            else {
+                                type.setText("");
+                            }
+                            idType.setText(Integer.toString(position));
                         }
-                            break;
+                        break;
                     }
                     dialog.dismiss();
                 }
             });
-            dialog.show();
-        }
-
-        listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (type.equals("achat")) {
-                    lieuAchat.setText(GestionListes.getNomLieuAchat(position + 1));
-                } else {
-                    lieuStockage.setText(GestionListes.getNomLieuStockage(position + 1));
-                }
-                dialog.dismiss();
-            }
-        });
         dialog.show();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.pboguet.macaveonline.Utils;
+package com.example.pboguet.macaveonline.Utils.ModifRapide;
 
 import android.app.Dialog;
 import android.view.View;
@@ -16,8 +16,9 @@ public class NoteRapide implements View.OnClickListener {
     private Dialog dialog;
     private Vin vin;
 
-    public NoteRapide(Vin vin) {
+    public NoteRapide(Vin vin, Dialog dialog) {
         this.vin = vin;
+        this.dialog = dialog;
     }
 
     @Override
@@ -37,7 +38,6 @@ public class NoteRapide implements View.OnClickListener {
         valider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //GestionListes.getVinById(vin.getIdVin(), 2);
                 vin.setNote(rating.getRating()*4);
                 dialog.dismiss();
             }

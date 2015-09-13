@@ -7,20 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pboguet.macaveonline.Activities.FicheVin;
-import com.example.pboguet.macaveonline.Activities.MyMainActivity;
 import com.example.pboguet.macaveonline.Class.Mousseux;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.GestionListes;
-import com.example.pboguet.macaveonline.Utils.NoteRapide;
+import com.example.pboguet.macaveonline.Utils.ModifRapide.FavoriRapide;
+import com.example.pboguet.macaveonline.Utils.ModifRapide.NoteRapide;
+import com.example.pboguet.macaveonline.Utils.ModifRapide.nbBouteillesRapide;
 
 import java.util.ArrayList;
 
@@ -96,21 +94,10 @@ public class MousseuxAdapter extends ArrayAdapter<Mousseux> {
             }
         });
 
-        note.setOnClickListener(new NoteRapide(vin));
-
-        favori.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(vin.isFavori()){
-                    vin.setFavori(false);
-                    favori.setImageResource(R.mipmap.ic_favori_no);
-                }
-                else {
-                    vin.setFavori(true);
-                    favori.setImageResource(R.mipmap.ic_favori_oui);
-                }
-            }
-        });
+        note.setOnClickListener(new NoteRapide(vin, dialog));
+        favori.setOnClickListener(new FavoriRapide(vin,favori));
+        plus.setOnClickListener(new nbBouteillesRapide(vin,"+", nbBt));
+        moins.setOnClickListener(new nbBouteillesRapide(vin, "-", nbBt));
 
         return v;
     }

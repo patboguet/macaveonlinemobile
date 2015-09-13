@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
+import com.example.pboguet.macaveonline.Class.LieuAchat;
 import com.example.pboguet.macaveonline.Class.LieuStockage;
 import com.example.pboguet.macaveonline.Class.Menu;
 import com.example.pboguet.macaveonline.Class.Region;
@@ -64,12 +65,14 @@ public class MyMainActivity extends Activity {
         startActivityForResult(intent, 0311);
     }
 
-    // Pour l'affichage des spinner de la recherche
+    // Pour l'affichage des listes à sélectionner
     private void initControleuPrincipal() {
         Region reg = new Region(0, "Région");
         ControleurPrincipal.listeRegion.add(0,reg);
         LieuStockage ls = new LieuStockage(0, "Lieu Stockage");
         ControleurPrincipal.listeLieuStockage.add(0,ls);
+        LieuAchat la = new LieuAchat(0, "Lieu Achat");
+        ControleurPrincipal.listeLieuAchat.add(0,la);
     }
 
     public static Activity getInstance() {

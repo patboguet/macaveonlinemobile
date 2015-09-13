@@ -15,7 +15,9 @@ import com.example.pboguet.macaveonline.Activities.FicheVin;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.GestionListes;
-import com.example.pboguet.macaveonline.Utils.NoteRapide;
+import com.example.pboguet.macaveonline.Utils.ModifRapide.FavoriRapide;
+import com.example.pboguet.macaveonline.Utils.ModifRapide.NoteRapide;
+import com.example.pboguet.macaveonline.Utils.ModifRapide.nbBouteillesRapide;
 
 import java.util.ArrayList;
 
@@ -94,22 +96,11 @@ public class VinAdapter extends ArrayAdapter<Vin> {
                 mContext.startActivity(intent);
             }
         });
-   
-        note.setOnClickListener(new NoteRapide(vin));
 
-        favori.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(vin.isFavori()){
-                    vin.setFavori(false);
-                    favori.setImageResource(R.mipmap.ic_favori_no);
-                }
-                else {
-                    vin.setFavori(true);
-                    favori.setImageResource(R.mipmap.ic_favori_oui);
-                }
-            }
-        });
+        note.setOnClickListener(new NoteRapide(vin, dialog));
+        favori.setOnClickListener(new FavoriRapide(vin,favori));
+        plus.setOnClickListener(new nbBouteillesRapide(vin,"+", nbBt));
+        moins.setOnClickListener(new nbBouteillesRapide(vin, "-", nbBt));
 
         return v;
     }
