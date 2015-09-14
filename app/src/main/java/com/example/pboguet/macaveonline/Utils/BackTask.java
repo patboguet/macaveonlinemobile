@@ -438,6 +438,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 if(id == idVin)
                                 {
                                     ControleurPrincipal.listeVins.remove(j);
+                                    ControleurPrincipal.idVinSupprime = j;
                                     // on le retire aussi de la listeVins de son type
                                     switch(type)
                                     {

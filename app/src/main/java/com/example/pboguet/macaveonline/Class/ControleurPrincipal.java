@@ -22,4 +22,5 @@ public class ControleurPrincipal {
     public static ArrayList<Plat> listePlat = new ArrayList<>();
     public static ArrayList<String> menu = new ArrayList<String>(4);
     public static Map<Integer, List<String>> listeRegionAoc = new HashMap<Integer, List<String>>();
+    public static int idVinSupprime = 0;
 }
