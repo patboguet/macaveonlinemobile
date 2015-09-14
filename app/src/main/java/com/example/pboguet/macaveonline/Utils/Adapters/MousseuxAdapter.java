@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Activities.FicheVin;
+import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.Mousseux;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
@@ -39,6 +40,7 @@ public class MousseuxAdapter extends ArrayAdapter<Mousseux> {
     private TextView moins;
     private TextView id;
     private Dialog dialog;
+    private boolean[] coeurs;
 
     public MousseuxAdapter(Context context, int textViewResourceID, ArrayList<Mousseux> vins) {
         super(context,textViewResourceID,vins);
@@ -49,6 +51,7 @@ public class MousseuxAdapter extends ArrayAdapter<Mousseux> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        coeurs = new boolean[ControleurPrincipal.listeVinsRouge.size()];
         View v = convertView;
         final Vin vin = vins.get(position);
         if (v == null) {
@@ -73,9 +76,10 @@ public class MousseuxAdapter extends ArrayAdapter<Mousseux> {
                 region.setText(GestionListes.getNomRegion(vin.getRegion()));
                 annee.setText(Integer.toString(vin.getAnnee()));
                 nbBt.setText(Long.toString(vin.getNbBouteilles()));
-                if(vin.isFavori())
+                if(vin.isFavori() || coeurs[position])
                 {
                     favori.setImageResource(R.mipmap.ic_favori_oui);
+
                 }
                 else
                     favori.setImageResource(R.mipmap.ic_favori_no);

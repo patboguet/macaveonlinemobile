@@ -74,6 +74,7 @@ public class AjoutVin extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mActivity = this;
         setContentView(R.layout.ajout_vin);
         new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
         listeType.add(0, "Type de vin");
@@ -82,7 +83,7 @@ public class AjoutVin extends Activity {
         listeType.add(3, "Ros�");
         listeType.add(4, "Mousseux");
 
-        mActivity = this;
+
         nom = (EditText)findViewById(R.id.nomVin);
         nbBouteilles = (EditText)findViewById(R.id.nbBouteilles);
         annee = (TextView)findViewById(R.id.anneeVin);

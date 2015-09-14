@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Activities.FicheVin;
+import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Class.VinRose;
 import com.example.pboguet.macaveonline.R;
@@ -39,6 +40,7 @@ public class VinRoseAdapter extends ArrayAdapter<VinRose> {
     private TextView plus;
     private TextView moins;
     private Dialog dialog;
+    private boolean[] coeurs;
 
     public VinRoseAdapter(Context context, int textViewResourceID, ArrayList<VinRose> vins) {
         super(context,textViewResourceID,vins);
@@ -49,11 +51,9 @@ public class VinRoseAdapter extends ArrayAdapter<VinRose> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-
+        coeurs = new boolean[ControleurPrincipal.listeVinsRouge.size()];
         View v = convertView;
-
         final Vin vin = vins.get(position);
-
         if (v == null) {
 
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -78,9 +78,10 @@ public class VinRoseAdapter extends ArrayAdapter<VinRose> {
                 region.setText(GestionListes.getNomRegion(vin.getRegion()));
                 annee.setText(Integer.toString(vin.getAnnee()));
                 nbBt.setText(Long.toString(vin.getNbBouteilles()));
-                if(vin.isFavori())
+                if(vin.isFavori() || coeurs[position])
                 {
                     favori.setImageResource(R.mipmap.ic_favori_oui);
+
                 }
                 else
                     favori.setImageResource(R.mipmap.ic_favori_no);

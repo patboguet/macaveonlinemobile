@@ -63,44 +63,6 @@
                         android:transitionGroup="true">
 
 
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/triRouge" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/triRougeNom"
-                                android:layout_weight="1"
-                                android:text="@string/triNom"
-                                android:textAlignment="center"
-                                android:textSize="@dimen/sizeTri"
-                                android:gravity="center" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/triRegion"
-                                android:id="@+id/triRougeRegion"
-                                android:layout_weight="1"
-                                android:textAlignment="center"
-                                android:textSize="@dimen/sizeTri"
-                                android:gravity="center" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/triDate"
-                                android:id="@+id/triRougeDate"
-                                android:layout_weight="1"
-                                android:textAlignment="center"
-                                android:textSize="@dimen/sizeTri"
-                                android:textIsSelectable="false"
-                                android:gravity="center" />
-                        </LinearLayout>
-
                         <ListView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -113,40 +75,6 @@
                         android:layout_height="fill_parent"
                         android:orientation="vertical"
                         android:transitionGroup="true">
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/triBlanc" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/triNom"
-                                android:id="@+id/triBlancNom"
-                                android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri"
-                                android:gravity="center" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/triRegion"
-                                android:id="@+id/triBlancRegion"
-                                android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri"
-                                android:gravity="center" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/triDate"
-                                android:id="@+id/triBlancDate"
-                                android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri"
-                                android:gravity="center" />
-                        </LinearLayout>
 
                         <ListView
                             android:layout_width="match_parent"
@@ -162,40 +90,6 @@
                         android:orientation="vertical"
                         android:transitionGroup="true">
 
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/triRose" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/triNom"
-                                android:id="@+id/triRoseNom"
-                                android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri"
-                                android:gravity="center" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/triRegion"
-                                android:id="@+id/triRoseRegion"
-                                android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri"
-                                android:gravity="center" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/triDate"
-                                android:id="@+id/triRoseDate"
-                                android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri"
-                                android:gravity="center" />
-                        </LinearLayout>
-
                         <ListView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -209,41 +103,6 @@
                         android:layout_height="fill_parent"
                         android:orientation="vertical"
                         android:transitionGroup="true">
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/triMousseux" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/triNom"
-                                android:id="@+id/triMousseuxNom"
-                                android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri"
-                                android:gravity="center" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/triRegion"
-                                android:id="@+id/triMousseuxRegion"
-                                android:layout_weight="1"
-                                android:textSize="@dimen/sizeTri"
-                                android:gravity="center" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/triDate"
-                                android:id="@+id/triMousseuxDate"
-                                android:layout_weight="1"
-                                android:textAlignment="center"
-                                android:textSize="@dimen/sizeTri"
-                                android:gravity="center" />
-                        </LinearLayout>
 
                         <ListView
                             android:layout_width="match_parent"

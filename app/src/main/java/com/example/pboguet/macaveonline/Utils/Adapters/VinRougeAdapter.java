@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Activities.FicheVin;
+import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Class.VinRouge;
 import com.example.pboguet.macaveonline.R;
@@ -47,11 +48,11 @@ public class VinRougeAdapter extends ArrayAdapter<VinRouge> {
         mContext = context;
         this.vins = vins;
         this.dialog = new Dialog(context);
-        this.coeurs = new boolean[vins.size()];
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        coeurs = new boolean[ControleurPrincipal.listeVinsRouge.size()];
         View v = convertView;
         final Vin vin = vins.get(position);
         if (v == null) {
