@@ -332,6 +332,108 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     // insérer un vin
                     case "insert": {
                         // TODO gestion retour WS
+                        String msg = jsonobject.getString("message");
+                        if(msg.equals("OK"))
+                        {
+                            // on récupère les données du vin
+                            int id = Integer.parseInt(jsonobject.getString("idVin"));
+                            String nom = jsonobject.getString("nom");
+                            int annee = Integer.parseInt(jsonobject.getString("annee"));
+                            int region = Integer.parseInt(jsonobject.getString("region"));
+                            int appellation = 0;
+                            if(!jsonobject.getString("appellation").equals("null"))
+                            {
+                                appellation = Integer.parseInt(jsonobject.getString("appellation"));
+                            }
+                            float degre = 0.0f;
+                            if(!jsonobject.getString("degreAlcool").equals("null"))
+                            {
+                                degre = Integer.parseInt(jsonobject.getString("degreAlcool"));
+                            }
+                            int utilisateur = Integer.parseInt(jsonobject.getString("utilisateur"));
+                            int idType = Integer.parseInt(jsonobject.getString("idType"));
+                            float note = 0.0f;
+                            if(!jsonobject.getString("note").equals("null"))
+                            {
+                                note = Float.parseFloat(jsonobject.getString("note"));
+                            }
+                            int nbBt = Integer.parseInt(jsonobject.getString("nbBouteilles"));
+                            boolean suivi = false;
+                            if(jsonobject.getString("suiviStock").equals("1")) {
+                                suivi = true;
+                            }
+                            boolean favori = false;
+                            if(jsonobject.getString("favori").equals("1")){
+                                favori = true;
+                            }
+                            float prix = 0.0f;
+                            if(!jsonobject.getString("prixAchat").equals("null")) {
+                                prix = Float.parseFloat(jsonobject.getString("prixAchat"));
+                            }
+                            String offert = "";
+                            if(!jsonobject.getString("offertPar").equals("null"))
+                            {
+                                offert = jsonobject.getString("offertPar");
+                            }
+                            int lieuAchat = 0;
+                            if(!jsonobject.getString("lieuAchat").equals("null")) {
+                                lieuAchat = Integer.parseInt(jsonobject.getString("lieuAchat"));
+                            }
+                            int lieuStockage = 0;
+                            if(!jsonobject.getString("lieuStockage").equals("null")) {
+                                lieuStockage = Integer.parseInt(jsonobject.getString("lieuStockage"));
+                            }
+                            String consoAvant = null;
+                            if(!jsonobject.getString("consoAvant").equals("null")) {
+                                consoAvant = jsonobject.getString("consoAvant");
+                            }
+                            String consoPartir = null;
+                            if(!jsonobject.getString("consoPartir").equals("null")) {
+                                consoPartir = jsonobject.getString("consoPartir");
+                            }
+                            String commentaires = null;
+                            if(!jsonobject.getString("commentaires").equals("null")) {
+                                commentaires = jsonobject.getString("commentaires");
+                            }
+
+                            // on ajoute le vin aux listes
+                            Vin vin = new Vin();
+                            ajoutVin(vin,id,nom,annee,region,appellation,degre,utilisateur, note, nbBt, suivi, favori, prix, offert, lieuAchat, lieuStockage,consoAvant,consoPartir,commentaires);
+                            ControleurPrincipal.listeVins.add(vin);
+                            switch (idType) {
+                                case 1 : {
+                                    VinBlanc vinB = new VinBlanc();
+                                    ajoutVin(vinB, id, nom, annee, region, appellation, degre, utilisateur, note, nbBt, suivi, favori, prix, offert, lieuAchat, lieuStockage,consoAvant,consoPartir,commentaires);
+                                    ControleurPrincipal.listeVinsBlanc.add(vinB);
+                                }
+                                break;
+                                case 2 : {
+                                    VinRouge vinR = new VinRouge();
+                                    ajoutVin(vinR, id, nom, annee, region, appellation, degre, utilisateur, note, nbBt, suivi, favori, prix, offert, lieuAchat, lieuStockage,consoAvant,consoPartir,commentaires);
+                                    ControleurPrincipal.listeVinsRouge.add(vinR);
+                                }
+                                break;
+                                case 3 : {
+                                    VinRose vinRo = new VinRose();
+                                    ajoutVin(vinRo, id, nom, annee, region, appellation, degre, utilisateur, note, nbBt, suivi, favori, prix, offert, lieuAchat, lieuStockage,consoAvant,consoPartir,commentaires);
+                                    ControleurPrincipal.listeVinsRose.add(vinRo);
+                                }
+                                break;
+                                case 4 : {
+                                    Mousseux mousseux = new Mousseux();
+                                    ajoutVin(mousseux, id, nom, annee, region, appellation, degre, utilisateur, note, nbBt, suivi, favori, prix, offert, lieuAchat, lieuStockage,consoAvant,consoPartir,commentaires);
+                                    ControleurPrincipal.listeMousseux.add(mousseux);
+                                }
+                                break;
+                            }
+                            // on notifie le changement à l'utilisateur
+                            Toast.makeText(mActivity.getApplicationContext(), "Le vin a bien été inséré", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+
+                            // TODO on rafraichi la liste des vins
+                        }
                     }
                     break;
                     // vin mis à jour
@@ -481,6 +583,27 @@ public class BackTask extends AsyncTask<String, Void, String> {
         }
         mActivity.setResult(Activity.RESULT_OK);
         mActivity.finish();
+    }
+
+    private void ajoutVin(Vin vin, int id, String nom, int annee, int region, int appellation, float degre, int utilisateur, float note, int nbBt, boolean suivi, boolean favori, float prix, String offert, int lieuAchat, int lieuStockage, String consoAvant, String consoPartir, String commentaires) {
+        vin.setIdVin(id);
+        vin.setNom(nom);
+        vin.setAnnee(annee);
+        vin.setRegion(region);
+        vin.setAppellation(appellation);
+        vin.setDegreAlcool(degre);
+        vin.setUtilisateur(utilisateur);
+        vin.setNote(note);
+        vin.setNbBouteilles(nbBt);
+        vin.setSuiviStock(suivi);
+        vin.setFavori(favori);
+        vin.setPrixAchat(prix);
+        vin.setOffertPar(offert);
+        vin.setLieuAchat(lieuAchat);
+        vin.setLieuStockage(lieuStockage);
+        vin.setConsoAvant(consoAvant);
+        vin.setConsoPartir(consoPartir);
+        vin.setCommentaires(commentaires);
     }
 
     private void updateDonnees(Vin vin, float note, int nbBt, boolean suivi, boolean favori, float prix, String offert, int lieuAchat, int lieuStockage, String consoAvant, String consoPartir, String commentaires) {

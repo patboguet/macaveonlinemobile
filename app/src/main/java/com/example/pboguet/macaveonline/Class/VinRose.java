@@ -34,4 +34,8 @@ public class VinRose extends Vin {
         this.commentaires = commentaires;
         this.utilisateur = utilisateur;
     }
+
+    public VinRose() {
+        super();
+    }
 }

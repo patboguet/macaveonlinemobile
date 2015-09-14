@@ -54,8 +54,8 @@ public class MyMainActivity extends Activity {
             ControleurPrincipal.menu.add(0, "Ma Cave");
             ControleurPrincipal.menu.add(1, "Recherche");
             ControleurPrincipal.menu.add(2, "Ajouter");
-            ControleurPrincipal.menu.add(3, "Suivi");
-            ControleurPrincipal.menu.add(4, "Paramètres");
+            //ControleurPrincipal.menu.add(3, "Suivi");
+            //ControleurPrincipal.menu.add(4, "Paramètres");
         }
         initControleuPrincipal();
         setContentView(R.layout.ma_cave);

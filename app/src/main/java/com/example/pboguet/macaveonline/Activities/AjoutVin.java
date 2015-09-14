@@ -79,7 +79,7 @@ public class AjoutVin extends Activity {
         listeType.add(0, "Type de vin");
         listeType.add(1, "Blanc");
         listeType.add(2, "Rouge");
-        listeType.add(3, "Rosé");
+        listeType.add(3, "Rosï¿½");
         listeType.add(4, "Mousseux");
 
         mActivity = this;
@@ -205,33 +205,37 @@ public class AjoutVin extends Activity {
                 if(!erreur) {
                     Vin vin = new Vin();
 
-                    String deg = degre.getText().toString();
-                    String nb = nbBouteilles.getText().toString();
-                    String prixA = prix.getText().toString();
-                    int idT = Integer.parseInt(idType.getText().toString());
-
                     vin.setNom(nom.getText().toString());
                     vin.setAnnee(Integer.parseInt(annee.getText().toString()));
                     vin.setRegion(Integer.parseInt(idRegion.getText().toString()));
-                    //appellation
+
+                    int idT = Integer.parseInt(idType.getText().toString());
                     vin.setType(idT);
-                    if(deg.isEmpty() || deg.equals("0.0"))
+                    String deg = degre.getText().toString();
+                    if(deg.isEmpty() || deg.equals("0.0")) {
                         vin.setDegreAlcool(0.0f);
-                    else
+                    }
+                    else {
                         vin.setDegreAlcool(Float.parseFloat(deg));
+                    }
                     vin.setLieuStockage(Integer.parseInt(idLieuStockage.getText().toString()));
                     vin.setLieuAchat(Integer.parseInt(idLieuAchat.getText().toString()));
                     vin.setConsoPartir(consoPartir.getText().toString());
                     vin.setConsoAvant(consoAvant.getText().toString());
                     vin.setNote(note.getRating() * 4);
-                    if(nb.isEmpty())
+                    String nb = nbBouteilles.getText().toString();
+                    if(nb.isEmpty()) {
                         vin.setNbBouteilles(0);
-                    else
+                    }
+                    else {
                         vin.setNbBouteilles(Integer.parseInt((nb)));
+                    }
                     vin.setSuiviStock(suivi.isChecked());
                     vin.setFavori(favori.isChecked());
-                    if(prixA.isEmpty() || prixA.equals("0.0"))
+                    String prixA = prix.getText().toString();
+                    if(prixA.isEmpty() || prixA.equals("0.0")) {
                         vin.setPrixAchat(0);
+                    }
                     else
                         vin.setPrixAchat(Float.parseFloat(prixA));
                     vin.setOffertPar(offert.getText().toString());
@@ -239,17 +243,6 @@ public class AjoutVin extends Activity {
                     //vin.setUtilisateur(LoginActivity.myUtilisateur.getUserId());
                     vin.setUtilisateur(3);
 
-                    ControleurPrincipal.listeVins.add(vin);
-                    switch (idT) {
-                        case 1 : ControleurPrincipal.listeVinsBlanc.add((VinBlanc) vin);
-                            break;
-                        case 2 : ControleurPrincipal.listeVinsRouge.add((VinRouge) vin);
-                            break;
-                        case 3 : ControleurPrincipal.listeVinsRose.add((VinRose) vin);
-                            break;
-                        case 4 : ControleurPrincipal.listeMousseux.add((Mousseux) vin);
-                            break;
-                    }
                     WebService.insertVin(vin);
                 }
             }
@@ -279,14 +272,14 @@ public class AjoutVin extends Activity {
             erreurNom.setVisibility(View.GONE);
         }
         if(anneeVin.equals("")) {
-            erreurAnnee.setText(base+"une année.");
+            erreurAnnee.setText(base+"une annï¿½e.");
             erreur = true;
         }
         else {
             erreurAnnee.setVisibility(View.GONE);
         }
         if(regionVin.equals("")) {
-            erreurRegion.setText(base+"une région.");
+            erreurRegion.setText(base+"une rï¿½gion.");
             erreur = true;
         }
         else {
@@ -311,12 +304,12 @@ public class AjoutVin extends Activity {
         switch(liste)
         {
             case "annee" : {
-                dialog.setTitle("Année du vin");
+                dialog.setTitle("Annï¿½e du vin");
                 listeAnnee.findViewById(Resources.getSystem().getIdentifier("month", "id", "android")).setVisibility(View.GONE);
             }
                 break;
             case "partir" : {
-                dialog.setTitle("Date début consommation");
+                dialog.setTitle("Date dï¿½but consommation");
             }
                 break;
             case "avant" : {
@@ -358,7 +351,7 @@ public class AjoutVin extends Activity {
         ListView listeChoix = (ListView) dialog.findViewById(R.id.listeChoix);
         switch (choix) {
             case "region": {
-                dialog.setTitle("Région");
+                dialog.setTitle("Rï¿½gion");
                 ArrayAdapter regionAda = new RegionAdapter(getApplicationContext(), R.layout.liste_choix_item, 0, ControleurPrincipal.listeRegion);
                 listeChoix.setAdapter(regionAda);
             }

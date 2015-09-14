@@ -92,76 +92,8 @@ public class Recherche extends Activity {
         listeType.setOnItemSelectedListener(new onSpinnerClickListener());
         listeStockage.setOnItemSelectedListener(new onSpinnerClickListener());
 
-        btnRecherche.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int tailleListe = ControleurPrincipal.listeVins.size();
-                listeVinsRes = new ArrayList();
-                // recherche uniquement type de vin
-                if (region == 0 && aoc == 0 && type > 0 && stockage == 0) {
-                    switch (type) {
-                        case 1:
-                            listeVinsRes = ControleurPrincipal.listeVinsBlanc;
-                            break;
-                        case 2:
-                            listeVinsRes = ControleurPrincipal.listeVinsRouge;
-                            break;
-                        case 3:
-                            listeVinsRes = ControleurPrincipal.listeVinsRose;
-                            break;
-                        case 4:
-                            listeVinsRes = ControleurPrincipal.listeMousseux;
-                    }
-                }
-                // recherche par région
-                if (region > 0 && aoc == 0 && type == 0 && stockage == 0) {
-                    for (int i = 0; i < tailleListe; i++) {
-                        Vin vi = ControleurPrincipal.listeVins.get(i);
-                        int idR = vi.getRegion();
-                        if (idR == region) {
-                            listeVinsRes.add(vi);
-                        }
-                    }
-                }
-                // recherche par région et appellation
-                if (region > 0 && aoc > 0 && type == 0 && stockage == 0) {
-                    for (int i = 0; i < tailleListe; i++) {
-                        Vin vi = ControleurPrincipal.listeVins.get(i);
-                        int idR = vi.getRegion();
-                        int idA = vi.getAppellation();
-                        if (idR == region && idA == aoc) {
-                            listeVinsRes.add(vi);
-                        }
-                    }
-                }
-                // recherche par lieux de stockage
-                if (region == 0 && aoc == 0 && type == 0 && stockage > 0) {
-                    for (int i = 0; i < tailleListe; i++) {
-                        Vin vi = ControleurPrincipal.listeVins.get(i);
-                        int idLS = vi.getLieuStockage();
-                        if (idLS == stockage) {
-                            listeVinsRes.add(vi);
-                        }
-                    }
-                }
-                // recherche par nom
-                // recherche globale = affichage de la cave
-
-                vinsAda = new VinAdapter(getApplicationContext(), R.layout.liste_vins, listeVinsRes);
-                listeVins.setAdapter(vinsAda);
-                if (listeVinsRes.size() > 0) {
-                    if (noResultat.isShown()) {
-                        noResultat.setVisibility(View.GONE);
-                    }
-                } else {
-                    if (noResultat.getVisibility() == View.GONE) {
-                        noResultat.setVisibility(View.VISIBLE);
-                    }
-                    noResultat.setText("Il n'y a aucun vin pour cette recherche");
-                }
-            }
-        });
-
+        btnRecherche.setOnClickListener(new rechercheOnClickListener());
+        rechercheText.setOnClickListener(new rechercheTextOnClickListener());
     }
 
     @Override
@@ -210,6 +142,14 @@ public class Recherche extends Activity {
                 region = r.getId();
             }
             else {
+                if(aoc > 0)
+                {
+                    aoc = 0;
+                }
+                if(region > 0)
+                {
+                    region =0;
+                }
                 if(listeAoc.isShown())
                 {
                     listeAoc.setVisibility(View.GONE);
@@ -235,6 +175,9 @@ public class Recherche extends Activity {
                     {
                         aoc = GestionListes.getIdAppellation(a);
                     }
+                    else {
+                        aoc = 0;
+                    }
                 }
                 break;
                 case R.id.listeType : {
@@ -252,6 +195,225 @@ public class Recherche extends Activity {
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
 
+        }
+    }
+
+    private class rechercheOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            int tailleListe = ControleurPrincipal.listeVins.size();
+            listeVinsRes = new ArrayList();
+            // recherche uniquement type de vin
+            if (region == 0 && aoc == 0 && type > 0 && stockage == 0) {
+                switch (type) {
+                    case 1:
+                        listeVinsRes = ControleurPrincipal.listeVinsBlanc;
+                        break;
+                    case 2:
+                        listeVinsRes = ControleurPrincipal.listeVinsRouge;
+                        break;
+                    case 3:
+                        listeVinsRes = ControleurPrincipal.listeVinsRose;
+                        break;
+                    case 4:
+                        listeVinsRes = ControleurPrincipal.listeMousseux;
+                }
+            }
+            // recherche par région
+            if (region > 0 && aoc == 0 && type == 0 && stockage == 0) {
+                for (int i = 0; i < tailleListe; i++) {
+                    int idR;
+                    Vin vi = ControleurPrincipal.listeVins.get(i);
+                    idR = vi.getRegion();
+                    if (idR == region) {
+                        listeVinsRes.add(vi);
+                    }
+                }
+            }
+            // recherche par région et appellation
+            if (region > 0 && aoc > 0 && type == 0 && stockage == 0) {
+                int idR;
+                int idA;
+                for (int i = 0; i < tailleListe; i++) {
+                    Vin vi = ControleurPrincipal.listeVins.get(i);
+                    idR = vi.getRegion();
+                    idA = vi.getAppellation();
+                    if (idR == region && idA == aoc) {
+                        listeVinsRes.add(vi);
+                    }
+                }
+            }
+            // recherche par région et type de vin
+            if(region > 0 && aoc == 0 && type > 0 && stockage == 0) {
+                int idR;
+                int idT;
+                for (int i= 0; i < tailleListe;i++)
+                {
+                    Vin vi = ControleurPrincipal.listeVins.get(i);
+                    idR = vi.getRegion();
+                    idT = vi.getType();
+                    if(idR == region && idT == type)
+                    {
+                        listeVinsRes.add(vi);
+                    }
+                }
+            }
+            // recherche par région et lieux de stockage
+            if(region > 0 && aoc == 0 && type == 0 && stockage > 0) {
+                int idR;
+                int idS;
+                for (int i= 0; i < tailleListe;i++)
+                {
+                    Vin vi = ControleurPrincipal.listeVins.get(i);
+                    idR = vi.getRegion();
+                    idS = vi.getLieuStockage();
+                    if(idR == region && idS == stockage)
+                    {
+                        listeVinsRes.add(vi);
+                    }
+                }
+            }
+            // recherche par région, appellation et type de vin
+            if(region > 0 && aoc > 0 && type > 0 && stockage == 0) {
+                int idR;
+                int idA;
+                int idT;
+                for (int i= 0; i < tailleListe;i++)
+                {
+                    Vin vi = ControleurPrincipal.listeVins.get(i);
+                    idR = vi.getRegion();
+                    idT = vi.getType();
+                    idA = vi.getAppellation();
+                    if(idR == region && idT == type && idA == aoc)
+                    {
+                        listeVinsRes.add(vi);
+                    }
+                }
+            }
+            // recherche par région, appellation et lieux de stockage
+            if(region > 0 && aoc > 0 && type == 0 && stockage > 0) {
+                int idR;
+                int idA;
+                int idS;
+                for (int i= 0; i < tailleListe;i++)
+                {
+                    Vin vi = ControleurPrincipal.listeVins.get(i);
+                    idR = vi.getRegion();
+                    idA = vi.getAppellation();
+                    idS = vi.getLieuStockage();
+                    if(idR == region && idA == aoc && idS == stockage)
+                    {
+                        listeVinsRes.add(vi);
+                    }
+                }
+            }
+            // recherche par région, type et lieux de stockage
+            if(region > 0 && aoc == 0 && type > 0 && stockage > 0) {
+                int idR;
+                int idT;
+                int idS;
+                for (int i= 0; i < tailleListe;i++)
+                {
+                    Vin vi = ControleurPrincipal.listeVins.get(i);
+                    idR = vi.getRegion();
+                    idT = vi.getType();
+                    idS = vi.getLieuStockage();
+                    if(idR == region && idT == type && idS == stockage)
+                    {
+                        listeVinsRes.add(vi);
+                    }
+                }
+            }
+            // recherche par type et lieux de stockage
+            if(region == 0 && aoc == 0 && type > 0 && stockage > 0) {
+                int idT;
+                int idS;
+                for (int i= 0; i < tailleListe;i++)
+                {
+                    Vin vi = ControleurPrincipal.listeVins.get(i);
+                    idS = vi.getLieuStockage();
+                    idT = vi.getType();
+                    if(idS == stockage && idT == type)
+                    {
+                        listeVinsRes.add(vi);
+                    }
+                }
+            }
+            // recherche par lieux de stockage
+            if (region == 0 && aoc == 0 && type == 0 && stockage > 0) {
+                int idS;
+                for (int i = 0; i < tailleListe; i++) {
+                    Vin vi = ControleurPrincipal.listeVins.get(i);
+                    idS = vi.getLieuStockage();
+                    if (idS == stockage) {
+                        listeVinsRes.add(vi);
+                    }
+                }
+            }
+            // recherche par tous critères
+            if (region > 0 && aoc > 0 && type > 0 && stockage > 0) {
+                int idR;
+                int idA;
+                int idT;
+                int idS;
+                for (int i = 0; i < tailleListe; i++) {
+                    Vin vi = ControleurPrincipal.listeVins.get(i);
+                    idR = vi.getRegion();
+                    idA = vi.getAppellation();
+                    idT = vi.getType();
+                    idS = vi.getLieuStockage();
+                    if (idR == region && idA == aoc && idT == type && idS == stockage) {
+                        listeVinsRes.add(vi);
+                    }
+                }
+            }
+            // recherche globale = affichage de la cave
+            if(region == 0 && aoc == 0 && type == 0 && stockage == 0)
+            {
+                listeVinsRes = ControleurPrincipal.listeVins;
+            }
+
+            vinsAda = new VinAdapter(getApplicationContext(), R.layout.liste_vins, listeVinsRes);
+            listeVins.setAdapter(vinsAda);
+            if (listeVinsRes.size() > 0) {
+                if (noResultat.isShown()) {
+                    noResultat.setVisibility(View.GONE);
+                }
+            } else {
+                if (noResultat.getVisibility() == View.GONE) {
+                    noResultat.setVisibility(View.VISIBLE);
+                }
+                noResultat.setText("Il n'y a aucun vin pour cette recherche");
+            }
+        }
+    }
+
+    private class rechercheTextOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            int tailleListe = ControleurPrincipal.listeVins.size();
+            listeVinsRes = new ArrayList();
+            String nomVin = champRecherche.getText().toString();
+            for (int i = 0; i < tailleListe; i++)
+            {
+                Vin vi = ControleurPrincipal.listeVins.get(i);
+                String nom = vi.getNom();
+                if(nom.contains(nomVin)) {
+                    listeVinsRes.add(vi);
+                }
+            }
+            vinsAda = new VinAdapter(getApplicationContext(), R.layout.liste_vins, listeVinsRes);
+            listeVins.setAdapter(vinsAda);
+            if (listeVinsRes.size() > 0) {
+                if (noResultat.isShown()) {
+                    noResultat.setVisibility(View.GONE);
+                }
+            } else {
+                if (noResultat.getVisibility() == View.GONE) {
+                    noResultat.setVisibility(View.VISIBLE);
+                }
+                noResultat.setText("Il n'y a aucun vin pour cette recherche");
+            }
         }
     }
 }

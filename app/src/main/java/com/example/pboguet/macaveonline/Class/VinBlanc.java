@@ -34,4 +34,8 @@ public class VinBlanc extends Vin{
         this.commentaires = commentaires;
         this.utilisateur = utilisateur;
     }
+
+    public VinBlanc() {
+        super();
+    }
 }

@@ -35,4 +35,7 @@ public class Mousseux extends Vin {
     }
 
 
+    public Mousseux() {
+        super();
+    }
 }
