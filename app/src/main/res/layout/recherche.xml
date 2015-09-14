@@ -10,7 +10,7 @@
 
         <include layout="@layout/fragment_menu"
                 android:id="@+id/menu"
-                android:layout_width="250dp"
+                android:layout_width="175dp"
                 android:layout_height="fill_parent"
                 android:layout_alignParentLeft="false"
                 android:layout_marginLeft="0dp"
@@ -39,7 +39,7 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
                         android:text="Recherche"
                         android:id="@+id/titreRecherche"
                         android:textColor="#eec78d" />
@@ -60,6 +60,12 @@
                         android:layout_marginRight="50dp"
                         android:text="Recherche"
                         android:layout_weight="1" />
+
+                    <Button
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:id="@+id/rechercheText"
+                        android:background="@mipmap/ic_search" />
 
                 </TableRow>
 
@@ -108,6 +114,12 @@
                         android:layout_weight="1" />
                 </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/aucunVin"
+                android:layout_gravity="center_horizontal" />
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="256dp"
@@ -118,6 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/listeVinsRecherche" />
+
             </LinearLayout>
 
         </TableLayout>

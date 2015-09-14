@@ -142,4 +142,15 @@ public class GestionListes {
         }
         return "";
     }
+
+    public static int getIdAppellation(String nomAoc) {
+        for (int i = 0; i < ControleurPrincipal.listeAppellation.size(); i++) {
+            Appellation aoc = ControleurPrincipal.listeAppellation.get(i);
+            if(nomAoc.equals(aoc.getNom()))
+            {
+                return aoc.getId();
+            }
+        }
+        return 0;
+    }
 }

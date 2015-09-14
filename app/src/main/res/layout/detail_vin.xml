@@ -5,7 +5,7 @@
 
     <include layout="@layout/fragment_menu"
         android:id="@+id/menu"
-        android:layout_width="250dp"
+        android:layout_width="175dp"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="false"
         android:layout_marginLeft="0dp"
@@ -22,7 +22,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:background="#a52323">
 
             <ImageView
@@ -33,7 +33,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:text="Détail du vin"
                 android:id="@+id/titreFiche"
                 android:textColor="#eec78d" />
