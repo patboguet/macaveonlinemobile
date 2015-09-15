@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -59,7 +60,6 @@ public class Recherche extends Activity {
         super.onCreate(savedInstanceState);
         mActivity = this;
         setContentView(R.layout.recherche);
-
         new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
         //TODO : changer fond item de menu dans la listView
 
@@ -99,16 +99,22 @@ public class Recherche extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        int idV = ControleurPrincipal.idVinSupprime;
-        if(idV > 0) {
-            vinsAda.remove(getVin(idV));
-            //vinsAda.notifyDataSetChanged();
+        int idVS = ControleurPrincipal.idVinSupprime;
+        int idVA = ControleurPrincipal.idVinAjoute;
+        if(idVS > 0) {
+            vinsAda.remove(getVin(idVS));
             ControleurPrincipal.idVinSupprime = 0;
+        }
+        if(idVA > 0) {
+            //vinsAda.add(getVin(idVA));
+            ControleurPrincipal.idVinAjoute = 0;
+        }
+        if(vinsAda != null) {
+            vinsAda.notifyDataSetChanged();
         }
     }
 
     private Vin getVin(int idV) {
-        outerloop:
         for(int j=0;j<listeVinsRes.size();j++){
             Vin v = (Vin) listeVinsRes.get(j);
             int idVin = v.getIdVin();
@@ -122,13 +128,12 @@ public class Recherche extends Activity {
     public class onRegionClickListener implements AdapterView.OnItemSelectedListener {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            //parent.getItemAtPosition(position);
             if(position > 0)
             {
                 ArrayList listeAppellations = (ArrayList) ControleurPrincipal.listeRegionAoc.get(position);
                 if(listeAppellations != null) {
                     ArrayAdapter aocAda = new ArrayAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, listeAppellations);
-                    aocAda.setDropDownViewResource(R.layout.liste_choix_item);
+                    //aocAda.setDropDownViewResource(R.layout.liste_choix_item);
                     listeAoc.setAdapter(aocAda);
                     listeAoc.setVisibility(View.VISIBLE);
                 }
@@ -391,13 +396,16 @@ public class Recherche extends Activity {
     private class rechercheTextOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+            // on cache le clavier
+            InputMethodManager imm = (InputMethodManager)getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             int tailleListe = ControleurPrincipal.listeVins.size();
             listeVinsRes = new ArrayList();
-            String nomVin = champRecherche.getText().toString();
+            String nomVin = champRecherche.getText().toString().toLowerCase();
             for (int i = 0; i < tailleListe; i++)
             {
                 Vin vi = ControleurPrincipal.listeVins.get(i);
-                String nom = vi.getNom();
+                String nom = vi.getNom().toLowerCase();
                 if(nom.contains(nomVin)) {
                     listeVinsRes.add(vi);
                 }

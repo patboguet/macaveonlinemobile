@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Activities.FicheVin;
+import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.GestionListes;
@@ -51,6 +52,7 @@ public class VinAdapter extends ArrayAdapter<Vin> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        coeurs = new boolean[ControleurPrincipal.listeVinsRouge.size()];
         View v = convertView;
         final Vin vin = vins.get(position);
         if (v == null) {
@@ -67,7 +69,6 @@ public class VinAdapter extends ArrayAdapter<Vin> {
             favori = (ImageView) v.findViewById((R.id.favori));
             plus = (TextView) v.findViewById(R.id.plus);
             moins = (TextView) v.findViewById(R.id.moins);
-
 
             if (nom != null) {
                 id.setText(Integer.toString(vin.getIdVin()));

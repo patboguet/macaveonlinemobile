@@ -9,7 +9,7 @@ import java.util.List;
 public class Region {
     private int id;
     private String nom;
-    public List<String> listeAppellation;
+    public ArrayList<Appellation> listeAppellation;
 
     public Region(int id, String nom)
     {
@@ -34,7 +34,7 @@ public class Region {
         this.nom = nom;
     }
 
-    public List<String> getListeAppellation() {
+    public ArrayList<Appellation> getListeAppellation() {
         return listeAppellation;
     }
 

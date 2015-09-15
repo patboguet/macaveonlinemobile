@@ -45,7 +45,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
-    public static Utilisateur myUtilisateur;
+    public static Utilisateur myUtilisateur = new Utilisateur();
     private static Activity mActivity;
 
     // UI references.
@@ -60,9 +60,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
         mActivity = this;
         DataBaseHelper db = new DataBaseHelper(this, "macaveonline");
         //TODO : si connexion, ajouter en BDD
-        if(!db.checkIsConnected(2))
+        if(!db.checkIsConnected(3) || !db.checkIsConnected(2))
         {
             //TODO : transmettre id User à la MainActivity
+            // mode demo
+            myUtilisateur.setUserId(3);
             Intent myIntent = new Intent(LoginActivity.this, MyMainActivity.class);
             LoginActivity.this.startActivity(myIntent);
         }
@@ -292,7 +294,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
             showProgress(false);
 
             if (success) {
-                if (myUtilisateur.userId > 0) {
+                int myUser = myUtilisateur.userId;
+                if (myUser > 0) {
                     finish();
                     Intent myIntent = new Intent(LoginActivity.this, MyMainActivity.class);
                     LoginActivity.this.startActivity(myIntent);

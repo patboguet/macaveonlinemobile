@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.example.pboguet.macaveonline.Activities.LoginActivity;
 import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.LieuAchat;
@@ -59,23 +60,12 @@ public class BackTask extends AsyncTask<String, Void, String> {
     private int lieu_stockage;
     private Activity mActivity;
     private int idUtilisateur;
-    private ArrayAdapter<Vin> adaVin;
-    private ArrayAdapter<VinRouge> adaRouge;
-    private ArrayAdapter<VinBlanc> adaBlanc;
-    private ArrayAdapter<VinRose> adaRose;
-    private ArrayAdapter<Mousseux> adaMousseux;
 
     public BackTask(Activity a) {
         mActivity = a;
     }
     
-    public Activity getInstance() {
-        return mActivity;
-    }
-
-
-
-    @Override
+   @Override
     protected void onPreExecute () {
         //to do whatever you want before execute webservice
         // TODO : loading
@@ -132,7 +122,6 @@ public class BackTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute (String res){
-        //super.onPostExecute(aVoid);
         try {
             JSONArray ar = new JSONArray(res);
             for (int i = 0; i < ar.length(); i++) {
@@ -219,7 +208,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             if (!jsonobject.getString("FK_utilisateur").equals("null") || !jsonobject.getString("FK_utilisateur").equals("0")) {
                                 idUtilisateur = Integer.parseInt(jsonobject.getString("FK_utilisateur"));
                             } else {
-                                idUtilisateur = 3;
+                                idUtilisateur = LoginActivity.myUtilisateur.getUserId();
                             }
 
                             switch (type) {
@@ -287,10 +276,11 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             if(idRegion == r.getId())
                             {
                                 if(r.listeAppellation.size() == 0) {
-                                    r.listeAppellation.add(0, "Appellation");
+                                    Appellation a = new Appellation(0,"Appellation",idRegion);
+                                    r.listeAppellation.add(0, a);
                                 }
 
-                                r.listeAppellation.add(aoc);
+                                r.listeAppellation.add(app);
                                 ControleurPrincipal.listeRegionAoc.put(idRegion, r.getListeAppellation());
                             }
                         }
@@ -398,8 +388,9 @@ public class BackTask extends AsyncTask<String, Void, String> {
 
                             // on ajoute le vin aux listes
                             Vin vin = new Vin();
-                            ajoutVin(vin,id,nom,annee,region,appellation,degre,utilisateur, note, nbBt, suivi, favori, prix, offert, lieuAchat, lieuStockage,consoAvant,consoPartir,commentaires);
+                            ajoutVin(vin, id, nom, annee, region, appellation, degre, utilisateur, note, nbBt, suivi, favori, prix, offert, lieuAchat, lieuStockage, consoAvant, consoPartir, commentaires);
                             ControleurPrincipal.listeVins.add(vin);
+                            ControleurPrincipal.idVinAjoute = id;
                             switch (idType) {
                                 case 1 : {
                                     VinBlanc vinB = new VinBlanc();
@@ -431,7 +422,6 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         }
                         else {
                             Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
-
                             // TODO on rafraichi la liste des vins
                         }
                     }
@@ -518,7 +508,6 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         }
                         else {
                             Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
-
                             // TODO on rafraichi la liste des vins
                         }
                     }
@@ -531,7 +520,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             // on recherche le vin supprimé pour le retirer de la listeVins
                             ArrayList vins = ControleurPrincipal.listeVins;
                             int size = vins.size();
-                            long idVin = Long.parseLong(msg);
+                            int idVin = Integer.parseInt(msg);
                             outerloop:
                             for (int j = 0; j < size; j++) {
                                 Vin v = (Vin) vins.get(j);
@@ -540,7 +529,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 if(id == idVin)
                                 {
                                     ControleurPrincipal.listeVins.remove(j);
-                                    ControleurPrincipal.idVinSupprime = j;
+                                    ControleurPrincipal.idVinSupprime = idVin;
                                     // on le retire aussi de la listeVins de son type
                                     switch(type)
                                     {
@@ -647,9 +636,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             List nameValuePairs = new ArrayList(1);
-            // TODO : erreur avec LoginActivity.myUtilisateur.userId
-            //nameValuePairs.add(new BasicNameValuePair("idUtilisateur", Long.toString(LoginActivity.myUtilisateur.userId)));
-            nameValuePairs.add(new BasicNameValuePair("idUtilisateur", "3"));
+            nameValuePairs.add(new BasicNameValuePair("idUtilisateur", Integer.toString(LoginActivity.myUtilisateur.getUserId())));
+            //nameValuePairs.add(new BasicNameValuePair("idUtilisateur", "3"));
             nameValuePairs.add(new BasicNameValuePair("donneesVin", vin));
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpClient.execute(httpPost);

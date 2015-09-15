@@ -1,7 +1,5 @@
 package com.example.pboguet.macaveonline.Class;
 
-import java.util.HashMap;
-
 /**
  * Created by pboguet on 19/06/15.
  */

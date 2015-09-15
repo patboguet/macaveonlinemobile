@@ -19,7 +19,6 @@ import com.example.pboguet.macaveonline.R;
  */
 public class Menu {
     public Menu(Context c, final Activity a, ListView l) {
-
         l = (ListView) l.findViewById(R.id.menu);
         final ArrayAdapter<String> menuAda = new ArrayAdapter<String>(c,R.layout.nom_menu, R.id.nomMenu,ControleurPrincipal.menu);
         l.setAdapter(menuAda);
@@ -35,7 +34,8 @@ public class Menu {
                     case "Ma Cave":
                         intent = new Intent(a, MyMainActivity.class);
                         break;
-                    case "Recherche": intent = new Intent(a, Recherche.class);
+                    case "Recherche":
+                        intent = new Intent(a, Recherche.class);
                         break;
                     case "Ajouter":
                         intent = new Intent(a, AjoutVin.class);

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -59,6 +58,7 @@ public class FicheVin extends Activity {
     private ListView menu;
     private Dialog dialog;
     private static Activity mActivity;
+    private Menu menuObj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +103,12 @@ public class FicheVin extends Activity {
         nbBouteilles.setText(Integer.toString(vin.getNbBouteilles()));
         annee.setText(Integer.toString(vin.getAnnee()));
         suivi.setChecked(vin.isSuiviStock());
-        region.setText(GestionListes.getNomRegion(vin.getRegion()));
-        appellation.setText(GestionListes.getNomAppellation(vin.getAppellation()));
+        int idR = vin.getRegion();
+        region.setText(GestionListes.getNomRegion(idR));
+        // pas d'appellation si Mousseux ou Vins Etrangers
+        if(idR != 6 && idR != 12) {
+            appellation.setText(GestionListes.getNomAppellation(vin.getAppellation(),vin.getRegion()));
+        }
         favori.setChecked(vin.isFavori());
         type.setText(GestionListes.getNomType(vin.getType()));
         if(vin.getPrixAchat() > 0.0f) {
@@ -267,12 +271,9 @@ public class FicheVin extends Activity {
         listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(type.equals("achat"))
-                {
+                if (type.equals("achat")) {
                     lieuAchat.setText(GestionListes.getNomLieuAchat(position + 1));
-                }
-                else
-                {
+                } else {
                     lieuStockage.setText(GestionListes.getNomLieuStockage(position + 1));
                 }
                 dialog.dismiss();
@@ -309,10 +310,6 @@ public class FicheVin extends Activity {
             }
         });
         dialog.show();
-    }
-
-    public static Activity getActivity() {
-        return mActivity;
     }
 }
 

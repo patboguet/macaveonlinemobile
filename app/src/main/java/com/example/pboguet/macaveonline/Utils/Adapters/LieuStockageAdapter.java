@@ -50,7 +50,7 @@ public class LieuStockageAdapter extends ArrayAdapter<LieuStockage> {
             nom = (TextView) v.findViewById(R.id.nom);
             if(id != null)
             {
-                id.setText(Long.toString(lieu.getId()));
+                id.setText(Integer.toString(lieu.getId()));
                 nom.setText(lieu.getNom());
             }
         }

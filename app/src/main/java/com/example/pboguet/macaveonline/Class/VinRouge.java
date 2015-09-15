@@ -1,10 +1,5 @@
 package com.example.pboguet.macaveonline.Class;
 
-import com.example.pboguet.macaveonline.Utils.Utilisateur;
-
-import java.sql.Date;
-import java.util.ArrayList;
-
 /**
  * Created by pboguet on 19/06/15.
  */

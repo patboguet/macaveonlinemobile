@@ -21,6 +21,8 @@ public class ControleurPrincipal {
     public static ArrayList<LieuStockage> listeLieuStockage = new ArrayList<>();
     public static ArrayList<Plat> listePlat = new ArrayList<>();
     public static ArrayList<String> menu = new ArrayList<String>(3);
-    public static Map<Integer, List<String>> listeRegionAoc = new HashMap<Integer, List<String>>();
+    public static Map<Integer, ArrayList<Appellation>> listeRegionAoc = new HashMap<Integer, ArrayList<Appellation>>();
     public static int idVinSupprime = 0;
+    public static int idVinAjoute = 0;
+    public static Menu menuObj;
 }

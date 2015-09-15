@@ -15,21 +15,17 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.Menu;
-import com.example.pboguet.macaveonline.Class.Mousseux;
-import com.example.pboguet.macaveonline.Class.Region;
 import com.example.pboguet.macaveonline.Class.Vin;
-import com.example.pboguet.macaveonline.Class.VinBlanc;
-import com.example.pboguet.macaveonline.Class.VinRose;
-import com.example.pboguet.macaveonline.Class.VinRouge;
 import com.example.pboguet.macaveonline.R;
+import com.example.pboguet.macaveonline.Utils.Adapters.AppellationAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuAchatAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuStockageAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.RegionAdapter;
 import com.example.pboguet.macaveonline.Utils.GestionListes;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -39,6 +35,8 @@ public class AjoutVin extends Activity {
 
     private EditText nom;
     private EditText nbBouteilles;
+    private Button moins;
+    private Button plus;
     private TextView annee;
     private CheckBox suivi;
     private CheckBox favori;
@@ -70,22 +68,23 @@ public class AjoutVin extends Activity {
     private TextView erreurAnnee;
     private TextView erreurType;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
         setContentView(R.layout.ajout_vin);
         new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
+
         listeType.add(0, "Type de vin");
         listeType.add(1, "Blanc");
         listeType.add(2, "Rouge");
-        listeType.add(3, "Rosï¿½");
+        listeType.add(3, "Rosé");
         listeType.add(4, "Mousseux");
-
 
         nom = (EditText)findViewById(R.id.nomVin);
         nbBouteilles = (EditText)findViewById(R.id.nbBouteilles);
+        moins = (Button) findViewById(R.id.nbMoins);
+        plus = (Button) findViewById(R.id.nbPlus);
         annee = (TextView)findViewById(R.id.anneeVin);
         suivi = (CheckBox)findViewById(R.id.suiviVin);
         region = (TextView)findViewById(R.id.regionVin);
@@ -127,7 +126,7 @@ public class AjoutVin extends Activity {
             region.setText(GestionListes.getNomRegion(reg));
             idRegion.setText(Integer.toString(reg));
             int aoc = vinInitial.getAppellation();
-            appellation.setText(GestionListes.getNomAppellation(aoc));
+            appellation.setText(GestionListes.getNomAppellation(aoc,reg));
             idAppellation.setText(Integer.toString(aoc));
             int typeV = vinInitial.getType();
             type.setText(GestionListes.getNomType(typeV));
@@ -146,7 +145,6 @@ public class AjoutVin extends Activity {
             note.setRating(vinInitial.getNote()/4);
             commentaires.setText(vinInitial.getCommentaires());
         }
-
 
         // Traitement des clicks
         annee.setOnClickListener(new View.OnClickListener() {
@@ -197,6 +195,21 @@ public class AjoutVin extends Activity {
                 listePopUp("stockage", dialog);
             }
         });
+        moins.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int nb = Integer.parseInt(nbBouteilles.getText().toString());
+                if (nb > 0) {
+                    nbBouteilles.setText(Integer.toString(nb - 1));
+                }
+            }
+        });
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nbBouteilles.setText(Integer.toString(Integer.parseInt(nbBouteilles.getText().toString()) + 1));
+            }
+        });
 
         ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,8 +254,8 @@ public class AjoutVin extends Activity {
                         vin.setPrixAchat(Float.parseFloat(prixA));
                     vin.setOffertPar(offert.getText().toString());
                     vin.setCommentaires(commentaires.getText().toString());
-                    //vin.setUtilisateur(LoginActivity.myUtilisateur.getUserId());
-                    vin.setUtilisateur(3);
+                    vin.setUtilisateur(LoginActivity.myUtilisateur.getUserId());
+                    //vin.setUtilisateur(3);
 
                     WebService.insertVin(vin);
                 }
@@ -353,31 +366,29 @@ public class AjoutVin extends Activity {
         switch (choix) {
             case "region": {
                 dialog.setTitle("Rï¿½gion");
-                ArrayAdapter regionAda = new RegionAdapter(getApplicationContext(), R.layout.liste_choix_item, 0, ControleurPrincipal.listeRegion);
+                RegionAdapter regionAda = new RegionAdapter(getApplicationContext(), R.layout.liste_choix_item, 0, ControleurPrincipal.listeRegion);
                 listeChoix.setAdapter(regionAda);
             }
             break;
             case "appellation": {
-                String idR = idRegion.getText().toString();
+                Integer idR = Integer.parseInt(idRegion.getText().toString());
                 dialog.setTitle("Appellation");
                 if (!idR.equals("")) {
-                    ArrayList listeAppellations = (ArrayList) ControleurPrincipal.listeRegionAoc.get(Integer.parseInt(idR));
-                    ArrayAdapter aocAda = new ArrayAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, listeAppellations);
+                    ArrayList<Appellation> listeAppellations = ControleurPrincipal.listeRegionAoc.get(idR);
+                    AppellationAdapter aocAda = new AppellationAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, listeAppellations);
                     listeChoix.setAdapter(aocAda);
-                } else {
-
                 }
             }
             break;
             case "achat": {
                 dialog.setTitle("Lieu d'achat");
-                ArrayAdapter achatAda = new LieuAchatAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuAchat);
+                LieuAchatAdapter achatAda = new LieuAchatAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuAchat);
                 listeChoix.setAdapter(achatAda);
             }
             break;
             case "stockage": {
                 dialog.setTitle("Lieu de stockage");
-                ArrayAdapter stockageAda = new LieuStockageAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuStockage);
+                LieuStockageAdapter stockageAda = new LieuStockageAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuStockage);
                 listeChoix.setAdapter(stockageAda);
             }
             break;
@@ -403,8 +414,9 @@ public class AjoutVin extends Activity {
                         }
                         break;
                         case "appellation": {
-                            if(position>0){
-                                appellation.setText(GestionListes.getNomAppellation(position));
+                            int idR = Integer.parseInt(idRegion.getText().toString());
+                            if(position>0 && idR > 0){
+                                appellation.setText(GestionListes.getNomAppellation(position,idR));
                             }
                             else {
                                 appellation.setText("");

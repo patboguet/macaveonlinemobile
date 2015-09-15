@@ -4,12 +4,8 @@ import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.LieuAchat;
 import com.example.pboguet.macaveonline.Class.LieuStockage;
-import com.example.pboguet.macaveonline.Class.Mousseux;
 import com.example.pboguet.macaveonline.Class.Region;
 import com.example.pboguet.macaveonline.Class.Vin;
-import com.example.pboguet.macaveonline.Class.VinBlanc;
-import com.example.pboguet.macaveonline.Class.VinRose;
-import com.example.pboguet.macaveonline.Class.VinRouge;
 
 import java.util.ArrayList;
 
@@ -132,16 +128,21 @@ public class GestionListes {
         return null;
     }
 
-    public static String getNomAppellation(int idAoc) {
-        for (int i = 0; i < ControleurPrincipal.listeAppellation.size(); i++) {
-            Appellation aoc = ControleurPrincipal.listeAppellation.get(i);
-            if(idAoc == aoc.getId())
-            {
-                return aoc.getNom();
+    public static String getNomAppellation(int positionAoc, int idRegion) {
+        // Si Mousseux ou Vins d'etrangers, pas d'appellation
+        if (idRegion != 6 && idRegion != 12) {
+            ArrayList<Appellation> listeAppellations = (ArrayList) ControleurPrincipal.listeRegionAoc.get(idRegion);
+            for (int i = 0; i < listeAppellations.size(); i++) {
+                Appellation aoc = listeAppellations.get(i);
+                if (positionAoc == i) {
+                    return aoc.getNom();
+                }
             }
+            return "";
         }
         return "";
     }
+
 
     public static int getIdAppellation(String nomAoc) {
         for (int i = 0; i < ControleurPrincipal.listeAppellation.size(); i++) {

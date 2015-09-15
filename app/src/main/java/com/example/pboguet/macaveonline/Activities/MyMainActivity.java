@@ -12,7 +12,12 @@ import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.LieuAchat;
 import com.example.pboguet.macaveonline.Class.LieuStockage;
 import com.example.pboguet.macaveonline.Class.Menu;
+import com.example.pboguet.macaveonline.Class.Mousseux;
 import com.example.pboguet.macaveonline.Class.Region;
+import com.example.pboguet.macaveonline.Class.Vin;
+import com.example.pboguet.macaveonline.Class.VinBlanc;
+import com.example.pboguet.macaveonline.Class.VinRose;
+import com.example.pboguet.macaveonline.Class.VinRouge;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.Adapters.MousseuxAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinBlancAdapter;
@@ -26,20 +31,29 @@ public class MyMainActivity extends Activity {
     private TabHost tabs;
     private static TextView tvPasVin;
     private static Activity mActivity;
+    private VinRougeAdapter rougeAda;
+    private VinBlancAdapter blancAda;
+    private VinRoseAdapter roseAda;
+    private MousseuxAdapter mousseAda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivity = this;
-        if(ControleurPrincipal.menu.size() < 4) {
+        this.mActivity = this;
+        setContentView(R.layout.ma_cave);
+        if(ControleurPrincipal.menu.size() == 0) {
             ControleurPrincipal.menu.add(0, "Ma Cave");
             ControleurPrincipal.menu.add(1, "Recherche");
             ControleurPrincipal.menu.add(2, "Ajouter");
             //ControleurPrincipal.menu.add(3, "Suivi");
             //ControleurPrincipal.menu.add(4, "Paramètres");
         }
+        else {
+            ControleurPrincipal.menu.set(0, "Ma Cave");
+            ControleurPrincipal.menu.set(1, "Recherche");
+            ControleurPrincipal.menu.set(2, "Ajouter");
+        }
         initControleuPrincipal();
-        setContentView(R.layout.ma_cave);
         new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
 
         Intent intent = new Intent(this, WebService.class);
@@ -49,15 +63,109 @@ public class MyMainActivity extends Activity {
     // Pour l'affichage des listes à sélectionner
     private void initControleuPrincipal() {
         Region reg = new Region(0, "Région");
-        ControleurPrincipal.listeRegion.add(0,reg);
+        ControleurPrincipal.listeRegion.add(0, reg);
         LieuStockage ls = new LieuStockage(0, "Lieu Stockage");
         ControleurPrincipal.listeLieuStockage.add(0,ls);
         LieuAchat la = new LieuAchat(0, "Lieu Achat");
-        ControleurPrincipal.listeLieuAchat.add(0,la);
+        ControleurPrincipal.listeLieuAchat.add(0, la);
     }
 
-    public static Activity getInstance() {
-        return mActivity;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (tabs != null) {
+            String tabActif = tabs.getCurrentTabTag();
+            int idVS = ControleurPrincipal.idVinSupprime;
+            int idVA = ControleurPrincipal.idVinAjoute;
+            switch (tabActif) {
+                case "tag1": {
+                    if (idVS > 0) {
+                        rougeAda.remove(getVinRouge(idVS));
+                        ControleurPrincipal.idVinSupprime = 0;
+                    }
+                    if(rougeAda != null){
+                        rougeAda.notifyDataSetChanged();
+                    }
+                }
+                break;
+                case "tag2": {
+                    if (idVS > 0) {
+                        blancAda.remove(getVinBlanc(idVS));
+                        ControleurPrincipal.idVinSupprime = 0;
+                    }
+                    if(blancAda != null){
+                        blancAda.notifyDataSetChanged();
+                    }
+                }
+                break;
+                case "tag3": {
+                    if (idVS > 0) {
+                        roseAda.remove(getVinRose(idVS));
+                        ControleurPrincipal.idVinSupprime = 0;
+                    }
+                    if(roseAda != null){
+                        roseAda.notifyDataSetChanged();
+                    }
+                }
+                break;
+                case "tag4": {
+                    if (idVS > 0) {
+                        mousseAda.remove(getMousseux(idVS));
+                        ControleurPrincipal.idVinSupprime = 0;
+                    }
+                    if(mousseAda != null){
+                        mousseAda.notifyDataSetChanged();
+                    }
+                    break;
+                }
+
+            }
+        }
+    }
+
+    private Mousseux getMousseux(int idV) {
+        for(int j=0;j<ControleurPrincipal.listeMousseux.size();j++){
+            Mousseux v = ControleurPrincipal.listeMousseux.get(j);
+            int idVin = v.getIdVin();
+            if(idV == idVin) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    private VinRose getVinRose(int idV) {
+        for(int j=0;j<ControleurPrincipal.listeVinsRose.size();j++){
+            VinRose v = ControleurPrincipal.listeVinsRose.get(j);
+            int idVin = v.getIdVin();
+            if(idV == idVin) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    private VinBlanc getVinBlanc(int idV) {
+        for(int j=0;j<ControleurPrincipal.listeVinsBlanc.size();j++){
+            VinBlanc v = ControleurPrincipal.listeVinsBlanc.get(j);
+            int idVin = v.getIdVin();
+            if(idV == idVin) {
+                return v;
+            }
+        }
+        return null;
+
+    }
+
+    private VinRouge getVinRouge(int idV) {
+        for(int j=0;j<ControleurPrincipal.listeVinsRouge.size();j++){
+            VinRouge v = ControleurPrincipal.listeVinsRouge.get(j);
+            int idVin = v.getIdVin();
+            if(idV == idVin) {
+                return v;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -120,7 +228,7 @@ public class MyMainActivity extends Activity {
                     }
                 });
                 if (ControleurPrincipal.listeVinsRouge.size() > 0) {
-                    VinRougeAdapter rougeAda = new VinRougeAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRouge);
+                    rougeAda = new VinRougeAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRouge);
                     ListView lvR = (ListView) findViewById(R.id.listeVinsRouges);
                     lvR.setAdapter(rougeAda);
 
@@ -128,7 +236,7 @@ public class MyMainActivity extends Activity {
                     tvPasVin.setVisibility(View.VISIBLE);
                 }
                 if (ControleurPrincipal.listeVinsBlanc.size() > 0) {
-                    VinBlancAdapter blancAda = new VinBlancAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsBlanc);
+                    blancAda = new VinBlancAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsBlanc);
                     ListView lvB = (ListView) findViewById(R.id.listeVinsBlancs);
                     lvB.setAdapter(blancAda);
                 } else {
@@ -136,14 +244,14 @@ public class MyMainActivity extends Activity {
                 }
                 if (ControleurPrincipal.listeVinsRose.size() > 0) {
 
-                    VinRoseAdapter roseAda = new VinRoseAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRose);
+                    roseAda = new VinRoseAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRose);
                     ListView lvRo = (ListView) findViewById(R.id.listeVinsRoses);
                     lvRo.setAdapter(roseAda);
                 } else {
                     tvPasVin.setVisibility(View.VISIBLE);
                 }
                 if (ControleurPrincipal.listeMousseux.size() > 0) {
-                    MousseuxAdapter mousseAda = new MousseuxAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeMousseux);
+                    mousseAda = new MousseuxAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeMousseux);
                     ListView lvM = (ListView) findViewById(R.id.listeMousseux);
                     lvM.setAdapter(mousseAda);
                 }

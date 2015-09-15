@@ -76,12 +76,35 @@
                     android:id="@+id/labNbBouteilles"
                     />
 
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/nbBouteilles" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:id="@+id/nbMoins"
+                        android:layout_weight="1" />
+
+                    <EditText
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        android:id="@+id/nbBouteilles"
+                        android:layout_weight="3" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+"
+                        android:id="@+id/nbPlus"
+                        android:layout_weight="1" />
+                </LinearLayout>
 
             </TableRow>
 
@@ -168,7 +191,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/appellation"
-                    android:hint="Choisir appellation" />
+                    android:hint="Choisir appellation"
+                    android:textColor="#a52323" />
 
             </TableRow>
 
@@ -326,10 +350,18 @@
                     android:id="@+id/labNote"
                     />
 
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/noteVin" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/noteVin"
+                        android:numStars="5"
+                        android:stepSize="0.5" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -362,7 +394,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Annuler"
+                    android:text="Retour"
                     android:id="@+id/annuler"
                     android:layout_weight="1" />
 

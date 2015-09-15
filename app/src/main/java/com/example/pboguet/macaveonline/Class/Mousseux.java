@@ -1,9 +1,5 @@
 package com.example.pboguet.macaveonline.Class;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 /**
  * Created by pboguet on 19/06/15.
  */

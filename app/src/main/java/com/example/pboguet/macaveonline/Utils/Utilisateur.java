@@ -20,6 +20,10 @@ public class Utilisateur {
         this.mail = mail;
     }
 
+    public Utilisateur() {
+
+    }
+
     public int getUserId() {
         return userId;
     }

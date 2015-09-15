@@ -7,25 +7,30 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.Region;
 import com.example.pboguet.macaveonline.R;
 
 import java.util.ArrayList;
 
 /**
- * Created by pbogu_000 on 29/08/2015.
+ * Created by pboguet on 15/09/2015.
  */
-public class RegionAdapter extends ArrayAdapter<Region> {
-    private ArrayList<Region> regions;
+public class AppellationAdapter extends ArrayAdapter<Appellation> {
+    private ArrayList<Appellation> appellations;
     private Context mContext;
     private TextView id;
     private TextView nom;
 
-
-    public RegionAdapter(Context context, int layoutID, int textViewID, ArrayList<Region> regions) {
-        super(context,layoutID,textViewID,regions);
+    public AppellationAdapter(Context context, int layoutID, int textViewID, ArrayList liste) {
+        super(context,layoutID,textViewID,liste);
         mContext = context;
-        this.regions = regions;
+        this.appellations = liste;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        return constructionListe(position, convertView);
     }
 
     @Override
@@ -33,25 +38,21 @@ public class RegionAdapter extends ArrayAdapter<Region> {
         return constructionListe(position, convertView);
     }
 
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-       return constructionListe(position, convertView);
-    }
-
     private View constructionListe(int position, View convertView) {
         View v = convertView;
-        final Region reg = regions.get(position);
+        Appellation aoc = appellations.get(position);
+
         if (v == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = inflater.inflate(R.layout.liste_choix_item, null);
         }
-        if(regions.size() > 0) {
+        if(appellations.size() > 0) {
             id = (TextView) v.findViewById(R.id.id);
             nom = (TextView) v.findViewById(R.id.nom);
             if(id != null)
             {
-                id.setText(Integer.toString(reg.getId()));
-                nom.setText(reg.getNom());
+                id.setText(Integer.toString(aoc.getId()));
+                nom.setText(aoc.getNom());
             }
         }
         return v;
