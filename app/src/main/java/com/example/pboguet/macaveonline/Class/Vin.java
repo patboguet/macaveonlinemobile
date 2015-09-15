@@ -17,7 +17,6 @@ public class Vin implements Serializable{
     protected int lieuAchat;
     protected String consoPartir;
     protected String consoAvant;
-    protected int typePlat;
     protected float note;
     protected int nbBouteilles;
     protected boolean suiviStock;
@@ -117,15 +116,6 @@ public class Vin implements Serializable{
 
     public void setConsoAvant(String consoAvant) {
         this.consoAvant = consoAvant;
-        estModifie = true;
-    }
-
-    public int getTypePlat() {
-        return typePlat;
-    }
-
-    public void setTypePlat(int typePlat) {
-        this.typePlat = typePlat;
         estModifie = true;
     }
 

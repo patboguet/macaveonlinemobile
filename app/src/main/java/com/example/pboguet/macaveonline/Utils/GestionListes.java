@@ -24,18 +24,6 @@ public class GestionListes {
         }
         return "";
     }
-    public static int getIdRegion(String nomRegion)
-    {
-        for (int i = 0; i < ControleurPrincipal.listeRegion.size(); i++) {
-            Region reg = ControleurPrincipal.listeRegion.get(i);
-            if(nomRegion.equals(reg.getNom()))
-            {
-                return reg.getId();
-            }
-        }
-        return 0;
-    }
-
 
     public static String getNomLieuAchat(int idLieu)
     {
@@ -79,7 +67,7 @@ public class GestionListes {
                 break;
             case 2 : type = "Rouge";
                 break;
-            case 3 : type = "Rosé";
+            case 3 : type = "RosÃ©";
                 break;
             case 4 : type = "Mousseux";
                 break;

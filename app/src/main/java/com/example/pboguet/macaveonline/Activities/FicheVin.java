@@ -50,6 +50,7 @@ public class FicheVin extends Activity {
     private TextView consoAvant;
     private TextView lieuStockage;
     private RatingBar note;
+    private TextView noteSurVingt;
     private EditText commentaires;
     private Button modifier;
     private Button supprimer;
@@ -58,7 +59,10 @@ public class FicheVin extends Activity {
     private ListView menu;
     private Dialog dialog;
     private static Activity mActivity;
-    private Menu menuObj;
+
+    public static Activity getInstance() {
+        return mActivity;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +91,7 @@ public class FicheVin extends Activity {
         consoAvant = (TextView)findViewById(R.id.consoAvantVin);
         lieuStockage = (TextView)findViewById(R.id.lieuStockageVin);
         note = (RatingBar) findViewById(R.id.noteVin);
+        noteSurVingt = (TextView) findViewById(R.id.noteSurVingt);
         commentaires = (EditText) findViewById(R.id.commentairesVin);
         modifier = (Button) findViewById(R.id.btnModifier);
         supprimer = (Button) findViewById(R.id.supprimerVin);
@@ -95,7 +100,7 @@ public class FicheVin extends Activity {
         menu = (ListView) findViewById(R.id.menu);
         dialog = new Dialog(this);
 
-        // Affectation des donnÈes du vin
+        // Affectation des donn√©es du vin
         final Vin vin = (Vin) getIntent().getExtras().get("Vin");
 
         id.setText(Integer.toString(vin.getIdVin()));
@@ -136,9 +141,10 @@ public class FicheVin extends Activity {
         lieuAchat.setText(GestionListes.getNomLieuAchat(vin.getLieuAchat()));
         lieuStockage.setText(GestionListes.getNomLieuStockage(vin.getLieuStockage()));
         note.setRating(vin.getNote() / 4);
+        noteSurVingt.setText(Float.toString(vin.getNote()));
         commentaires.setText(vin.getCommentaires());
 
-        // Listeners de click sur les ÈlÈments de la vue
+        // Listeners de click sur les √©l√©ments de la vue
         moins.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,6 +158,13 @@ public class FicheVin extends Activity {
             @Override
             public void onClick(View v) {
                 nbBouteilles.setText(Integer.toString(Integer.parseInt(nbBouteilles.getText().toString()) + 1));
+            }
+        });
+
+        note.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                noteSurVingt.setText(Float.toString(rating*4));
             }
         });
 
@@ -201,7 +214,7 @@ public class FicheVin extends Activity {
                         break;
                     case "Rouge" : idType = 2;
                         break;
-                    case "Rose" : idType = 3;
+                    case "Ros√©" : idType = 3;
                         break;
                     case "Mousseux" : idType = 4;
                         break;
@@ -284,7 +297,7 @@ public class FicheVin extends Activity {
 
     private void listeDateConso(final String conso, final Dialog dialog) {
         dialog.setContentView(R.layout.liste_annees);
-        dialog.setTitle("Date dÈbut consommation");
+        dialog.setTitle("Date d√©but consommation");
         Button valider = (Button) dialog.findViewById(R.id.validerDate);
         Button annuler = (Button) dialog.findViewById(R.id.annuler);
         final DatePicker listeAnnee = (DatePicker) dialog.findViewById(R.id.datePicker);

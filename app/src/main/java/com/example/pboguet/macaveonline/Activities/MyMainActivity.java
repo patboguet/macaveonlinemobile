@@ -14,7 +14,6 @@ import com.example.pboguet.macaveonline.Class.LieuStockage;
 import com.example.pboguet.macaveonline.Class.Menu;
 import com.example.pboguet.macaveonline.Class.Mousseux;
 import com.example.pboguet.macaveonline.Class.Region;
-import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Class.VinBlanc;
 import com.example.pboguet.macaveonline.Class.VinRose;
 import com.example.pboguet.macaveonline.Class.VinRouge;
@@ -30,23 +29,25 @@ import com.example.pboguet.macaveonline.Utils.Adapters.VinRougeAdapter;
 public class MyMainActivity extends Activity {
     private TabHost tabs;
     private static TextView tvPasVin;
-    private static Activity mActivity;
     private VinRougeAdapter rougeAda;
     private VinBlancAdapter blancAda;
     private VinRoseAdapter roseAda;
     private MousseuxAdapter mousseAda;
+    private static Activity mActivity;
+
+    public static Activity getInstance() {
+        return mActivity;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mActivity = this;
         setContentView(R.layout.ma_cave);
+        mActivity = this;
         if(ControleurPrincipal.menu.size() == 0) {
             ControleurPrincipal.menu.add(0, "Ma Cave");
             ControleurPrincipal.menu.add(1, "Recherche");
             ControleurPrincipal.menu.add(2, "Ajouter");
-            //ControleurPrincipal.menu.add(3, "Suivi");
-            //ControleurPrincipal.menu.add(4, "Paramètres");
         }
         else {
             ControleurPrincipal.menu.set(0, "Ma Cave");
@@ -62,12 +63,18 @@ public class MyMainActivity extends Activity {
 
     // Pour l'affichage des listes à sélectionner
     private void initControleuPrincipal() {
-        Region reg = new Region(0, "Région");
-        ControleurPrincipal.listeRegion.add(0, reg);
-        LieuStockage ls = new LieuStockage(0, "Lieu Stockage");
-        ControleurPrincipal.listeLieuStockage.add(0,ls);
-        LieuAchat la = new LieuAchat(0, "Lieu Achat");
-        ControleurPrincipal.listeLieuAchat.add(0, la);
+        if(ControleurPrincipal.listeRegion.size() == 0) {
+            Region reg = new Region(0, "Région");
+            ControleurPrincipal.listeRegion.add(0, reg);
+        }
+        if(ControleurPrincipal.listeLieuStockage.size() == 0) {
+            LieuStockage ls = new LieuStockage(0, "Lieu Stockage");
+            ControleurPrincipal.listeLieuStockage.add(0, ls);
+        }
+        if(ControleurPrincipal.listeLieuAchat.size() == 0) {
+            LieuAchat la = new LieuAchat(0, "Lieu Achat");
+            ControleurPrincipal.listeLieuAchat.add(0, la);
+        }
     }
 
     @Override
@@ -103,6 +110,14 @@ public class MyMainActivity extends Activity {
                         roseAda.remove(getVinRose(idVS));
                         ControleurPrincipal.idVinSupprime = 0;
                     }
+                    // si on a ajouté un vin, on reconstruit la liste
+                    /*if(idVA > 0)
+                    {
+                        roseAda = new VinRoseAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRose);
+                        ControleurPrincipal.idVinAjoute = 0;
+                        ListView lvRo = (ListView) findViewById(R.id.listeVinsRoses);
+                        lvRo.setAdapter(roseAda);
+                    }*/
                     if(roseAda != null){
                         roseAda.notifyDataSetChanged();
                     }
@@ -181,10 +196,10 @@ public class MyMainActivity extends Activity {
     @Override
      protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        afficheCave(requestCode, resultCode, data);
+        afficheCave(requestCode, resultCode);
     }
 
-    private void afficheCave(int requestCode, int resultCode, Intent data) {
+    private void afficheCave(int requestCode, int resultCode) {
         if(requestCode == 0311) {
             if (resultCode == RESULT_OK) {
                 tvPasVin = (TextView) findViewById(R.id.tvPasVin);
@@ -243,7 +258,6 @@ public class MyMainActivity extends Activity {
                     tvPasVin.setVisibility(View.VISIBLE);
                 }
                 if (ControleurPrincipal.listeVinsRose.size() > 0) {
-
                     roseAda = new VinRoseAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRose);
                     ListView lvRo = (ListView) findViewById(R.id.listeVinsRoses);
                     lvRo.setAdapter(roseAda);

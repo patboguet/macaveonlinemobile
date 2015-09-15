@@ -50,7 +50,7 @@ public class VinBlancAdapter extends ArrayAdapter<VinBlanc> {
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        coeurs = new boolean[ControleurPrincipal.listeVinsRouge.size()];
+        coeurs = new boolean[ControleurPrincipal.listeVinsBlanc.size()];
         View v = convertView;
         final Vin vin = vins.get(position);
         if (v == null) {

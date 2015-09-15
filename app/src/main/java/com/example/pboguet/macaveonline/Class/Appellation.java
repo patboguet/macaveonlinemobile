@@ -7,18 +7,11 @@ package com.example.pboguet.macaveonline.Class;
 public class Appellation {
     private int id;
     private String nom;
-    private long idRegion;
 
-    public Appellation(int id, String nom, long idR)
+    public Appellation(int id, String nom)
     {
         this.id = id;
         this.nom = nom;
-        this.idRegion = idR;
-    }
-
-    public Appellation(int i, String appellation) {
-        this.id = i;
-        this.nom = appellation;
     }
 
     public int getId() {
@@ -35,14 +28,6 @@ public class Appellation {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public long getIdRegion() {
-        return idRegion;
-    }
-
-    public void setIdRegion(long idRegion) {
-        this.idRegion = idRegion;
     }
 
     public boolean equals(Object objetAComparer) {

@@ -32,21 +32,26 @@ public class Menu {
                 Intent intent = null;
                 switch (valMenu) {
                     case "Ma Cave":
-                        intent = new Intent(a, MyMainActivity.class);
+                        if (a != MyMainActivity.getInstance()) {
+                            intent = new Intent(a, MyMainActivity.class);
+                        }
                         break;
                     case "Recherche":
-                        intent = new Intent(a, Recherche.class);
+                        if (a != Recherche.getInstance()) {
+                            intent = new Intent(a, Recherche.class);
+                        }
                         break;
                     case "Ajouter":
-                        intent = new Intent(a, AjoutVin.class);
+                        if(a != AjoutVin.getInstance()) {
+                            intent = new Intent(a, AjoutVin.class);
+                        }
                         break;
-                    /*case "Suivi" : act.setContentView(R.layout.liste_vins);
-                    break;
-                    case "Parametres" : act.setContentView(R.layout.liste_vins);
-                    break;*/
                 }
-                if (intent != null) {
+                if (intent != null && !valMenu.equals("Ajouter")) {
                     a.finish();
+                    a.startActivity(intent);
+                }
+                else if(intent != null && valMenu.equals("Ajouter")) {
                     a.startActivity(intent);
                 }
             }

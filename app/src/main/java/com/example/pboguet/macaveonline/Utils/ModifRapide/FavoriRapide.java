@@ -3,6 +3,7 @@ package com.example.pboguet.macaveonline.Utils.ModifRapide;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.pboguet.macaveonline.Activities.WebService;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
 
@@ -28,5 +29,7 @@ public class FavoriRapide implements View.OnClickListener {
             vin.setFavori(true);
             favori.setImageResource(R.mipmap.ic_favori_oui);
         }
+        // enregistrement de la modification
+        WebService.updateVin(vin);
     }
 }

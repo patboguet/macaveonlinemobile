@@ -38,17 +38,6 @@
                     android:id="@+id/titreBarreHaut"
                     android:textColor="#eec78d" />
 
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/recherche" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Chercher"
-                    android:id="@+id/btnRecherche" />
-
             </TableRow>
 
             <TableRow
@@ -95,7 +84,8 @@
                         android:inputType="number"
                         android:ems="10"
                         android:id="@+id/nbBouteilles"
-                        android:layout_weight="3" />
+                        android:layout_weight="3"
+                        android:text="0" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
@@ -349,6 +339,12 @@
                     android:text="Note"
                     android:id="@+id/labNote"
                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/noteSurVingt"
+                    android:inputType="number" />
 
                 <LinearLayout
                     android:orientation="horizontal"

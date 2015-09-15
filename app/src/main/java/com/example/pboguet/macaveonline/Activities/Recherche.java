@@ -38,7 +38,7 @@ import java.util.ResourceBundle;
  * Created by Patrick on 12/09/2015.
  */
 public class Recherche extends Activity {
-    private Activity mActivity;
+    private static Activity mActivity;
     private EditText champRecherche;
     private Spinner listeRegion;
     private Spinner listeAoc;
@@ -54,6 +54,10 @@ public class Recherche extends Activity {
     private int stockage = 0;
     private VinAdapter vinsAda = null;
     ArrayList listeVinsRes = new ArrayList();
+
+    public static Activity getInstance() {
+        return mActivity;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +85,7 @@ public class Recherche extends Activity {
         types.add(0,"Type de vin");
         types.add(1,"Blanc");
         types.add(2, "Rouge");
-        types.add(3, "Rose");
+        types.add(3, "Ros√©");
         types.add(4, "Mousseux");
         ArrayAdapter typeAda = new ArrayAdapter<>(getApplicationContext(),R.layout.liste_types,R.id.nomType, types);
         listeType.setAdapter(typeAda);
@@ -100,21 +104,16 @@ public class Recherche extends Activity {
     protected void onResume() {
         super.onResume();
         int idVS = ControleurPrincipal.idVinSupprime;
-        int idVA = ControleurPrincipal.idVinAjoute;
         if(idVS > 0) {
             vinsAda.remove(getVin(idVS));
             ControleurPrincipal.idVinSupprime = 0;
-        }
-        if(idVA > 0) {
-            //vinsAda.add(getVin(idVA));
-            ControleurPrincipal.idVinAjoute = 0;
         }
         if(vinsAda != null) {
             vinsAda.notifyDataSetChanged();
         }
     }
 
-    private Vin getVin(int idV) {
+    protected Vin getVin(int idV) {
         for(int j=0;j<listeVinsRes.size();j++){
             Vin v = (Vin) listeVinsRes.get(j);
             int idVin = v.getIdVin();
@@ -133,7 +132,6 @@ public class Recherche extends Activity {
                 ArrayList listeAppellations = (ArrayList) ControleurPrincipal.listeRegionAoc.get(position);
                 if(listeAppellations != null) {
                     ArrayAdapter aocAda = new ArrayAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, listeAppellations);
-                    //aocAda.setDropDownViewResource(R.layout.liste_choix_item);
                     listeAoc.setAdapter(aocAda);
                     listeAoc.setVisibility(View.VISIBLE);
                 }
@@ -224,7 +222,7 @@ public class Recherche extends Activity {
                         listeVinsRes = ControleurPrincipal.listeMousseux;
                 }
             }
-            // recherche par rÈgion
+            // recherche par r√©gion
             if (region > 0 && aoc == 0 && type == 0 && stockage == 0) {
                 for (int i = 0; i < tailleListe; i++) {
                     int idR;
@@ -235,7 +233,7 @@ public class Recherche extends Activity {
                     }
                 }
             }
-            // recherche par rÈgion et appellation
+            // recherche par r√©gion et appellation
             if (region > 0 && aoc > 0 && type == 0 && stockage == 0) {
                 int idR;
                 int idA;
@@ -248,7 +246,7 @@ public class Recherche extends Activity {
                     }
                 }
             }
-            // recherche par rÈgion et type de vin
+            // recherche par r√©gion et type de vin
             if(region > 0 && aoc == 0 && type > 0 && stockage == 0) {
                 int idR;
                 int idT;
@@ -263,7 +261,7 @@ public class Recherche extends Activity {
                     }
                 }
             }
-            // recherche par rÈgion et lieux de stockage
+            // recherche par r√©gion et lieux de stockage
             if(region > 0 && aoc == 0 && type == 0 && stockage > 0) {
                 int idR;
                 int idS;
@@ -278,7 +276,7 @@ public class Recherche extends Activity {
                     }
                 }
             }
-            // recherche par rÈgion, appellation et type de vin
+            // recherche par r√©gion, appellation et type de vin
             if(region > 0 && aoc > 0 && type > 0 && stockage == 0) {
                 int idR;
                 int idA;
@@ -295,7 +293,7 @@ public class Recherche extends Activity {
                     }
                 }
             }
-            // recherche par rÈgion, appellation et lieux de stockage
+            // recherche par r√©gion, appellation et lieux de stockage
             if(region > 0 && aoc > 0 && type == 0 && stockage > 0) {
                 int idR;
                 int idA;
@@ -312,7 +310,7 @@ public class Recherche extends Activity {
                     }
                 }
             }
-            // recherche par rÈgion, type et lieux de stockage
+            // recherche par r√©gion, type et lieux de stockage
             if(region > 0 && aoc == 0 && type > 0 && stockage > 0) {
                 int idR;
                 int idT;
@@ -355,7 +353,7 @@ public class Recherche extends Activity {
                     }
                 }
             }
-            // recherche par tous critËres
+            // recherche par tous crit√®res
             if (region > 0 && aoc > 0 && type > 0 && stockage > 0) {
                 int idR;
                 int idA;

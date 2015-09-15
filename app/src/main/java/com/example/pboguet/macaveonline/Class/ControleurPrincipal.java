@@ -1,5 +1,7 @@
 package com.example.pboguet.macaveonline.Class;
 
+import android.app.ProgressDialog;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +21,9 @@ public class ControleurPrincipal {
     public static ArrayList<Appellation> listeAppellation = new ArrayList<>();
     public static ArrayList<LieuAchat> listeLieuAchat = new ArrayList<>();
     public static ArrayList<LieuStockage> listeLieuStockage = new ArrayList<>();
-    public static ArrayList<Plat> listePlat = new ArrayList<>();
     public static ArrayList<String> menu = new ArrayList<String>(3);
     public static Map<Integer, ArrayList<Appellation>> listeRegionAoc = new HashMap<Integer, ArrayList<Appellation>>();
     public static int idVinSupprime = 0;
     public static int idVinAjoute = 0;
-    public static Menu menuObj;
+    public static ProgressDialog loader = null;
 }

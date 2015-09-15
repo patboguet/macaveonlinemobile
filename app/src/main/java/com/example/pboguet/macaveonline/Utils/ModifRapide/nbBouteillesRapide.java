@@ -3,6 +3,7 @@ package com.example.pboguet.macaveonline.Utils.ModifRapide;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.pboguet.macaveonline.Activities.WebService;
 import com.example.pboguet.macaveonline.Class.Vin;
 
 /**
@@ -30,5 +31,6 @@ public class nbBouteillesRapide implements View.OnClickListener{
             vin.setNbBouteilles(nb-1);
             nbBt.setText(Integer.toString(nb-1));
         }
+        WebService.updateVin(vin);
     }
 }

@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.pboguet.macaveonline.Activities.WebService;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
 
@@ -40,6 +41,7 @@ public class NoteRapide implements View.OnClickListener {
             public void onClick(View v) {
                 vin.setNote(rating.getRating()*4);
                 dialog.dismiss();
+                WebService.updateVin(vin);
             }
         });
         annuler.setOnClickListener(new View.OnClickListener() {

@@ -42,6 +42,7 @@ public class AjoutVin extends Activity {
     private CheckBox favori;
     private TextView region;
     private TextView idRegion;
+    private TextView labelAppellation;
     private TextView appellation;
     private TextView idAppellation;
     private TextView type;
@@ -61,12 +62,17 @@ public class AjoutVin extends Activity {
     private Button annuler;
     private ListView menu;
     private Dialog dialog;
-    private Activity mActivity;
+    private static Activity mActivity;
     private ArrayList listeType = new ArrayList(5);
     private TextView erreurNom;
     private TextView erreurRegion;
     private TextView erreurAnnee;
     private TextView erreurType;
+    private TextView noteSurVingt;
+
+    public static Activity getInstance() {
+        return mActivity;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +84,7 @@ public class AjoutVin extends Activity {
         listeType.add(0, "Type de vin");
         listeType.add(1, "Blanc");
         listeType.add(2, "Rouge");
-        listeType.add(3, "Ros�");
+        listeType.add(3, "Rosé");
         listeType.add(4, "Mousseux");
 
         nom = (EditText)findViewById(R.id.nomVin);
@@ -104,6 +110,7 @@ public class AjoutVin extends Activity {
         lieuStockage = (TextView)findViewById(R.id.lieuStockageVin);
         idLieuStockage = (TextView) findViewById(R.id.idLieuStockage);
         note = (RatingBar) findViewById(R.id.noteVin);
+        noteSurVingt = (TextView) findViewById(R.id.noteSurVingt);
         commentaires = (EditText) findViewById(R.id.commentairesVin);
         ajouter = (Button) findViewById(R.id.ajouterVin);
         annuler = (Button) findViewById(R.id.annuler);
@@ -126,8 +133,16 @@ public class AjoutVin extends Activity {
             region.setText(GestionListes.getNomRegion(reg));
             idRegion.setText(Integer.toString(reg));
             int aoc = vinInitial.getAppellation();
-            appellation.setText(GestionListes.getNomAppellation(aoc,reg));
-            idAppellation.setText(Integer.toString(aoc));
+            if(reg != 6 && reg != 12)
+            {
+                appellation.setText(GestionListes.getNomAppellation(aoc,reg));
+                idAppellation.setText(Integer.toString(aoc));
+            }
+            else
+            {
+                labelAppellation.setVisibility(View.GONE);
+                appellation.setVisibility(View.GONE);
+            }
             int typeV = vinInitial.getType();
             type.setText(GestionListes.getNomType(typeV));
             idType.setText(Integer.toString(typeV));
@@ -142,7 +157,8 @@ public class AjoutVin extends Activity {
             int lieuS = vinInitial.getLieuStockage();
             lieuStockage.setText(GestionListes.getNomLieuStockage(lieuS));
             idLieuStockage.setText(Integer.toString(lieuS));
-            note.setRating(vinInitial.getNote()/4);
+            note.setRating(vinInitial.getNote() / 4);
+            noteSurVingt.setText(Float.toString(vinInitial.getNote()));
             commentaires.setText(vinInitial.getCommentaires());
         }
 
@@ -174,7 +190,7 @@ public class AjoutVin extends Activity {
         appellation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listePopUp("appellation", dialog);
+                    listePopUp("appellation", dialog);
             }
         });
         type.setOnClickListener(new View.OnClickListener() {
@@ -210,6 +226,12 @@ public class AjoutVin extends Activity {
                 nbBouteilles.setText(Integer.toString(Integer.parseInt(nbBouteilles.getText().toString()) + 1));
             }
         });
+        note.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                noteSurVingt.setText(Float.toString(rating*4));
+            }
+        });
 
         ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,19 +248,33 @@ public class AjoutVin extends Activity {
                     int idT = Integer.parseInt(idType.getText().toString());
                     vin.setType(idT);
                     String deg = degre.getText().toString();
-                    if(deg.isEmpty() || deg.equals("0.0")) {
+                    if(deg.equals("") || deg.equals("0.0")) {
                         vin.setDegreAlcool(0.0f);
                     }
                     else {
                         vin.setDegreAlcool(Float.parseFloat(deg));
                     }
-                    vin.setLieuStockage(Integer.parseInt(idLieuStockage.getText().toString()));
-                    vin.setLieuAchat(Integer.parseInt(idLieuAchat.getText().toString()));
+                    String idLS = idLieuStockage.getText().toString();
+                    if(idLS.equals(""))
+                    {
+                        vin.setLieuStockage(0);
+                    }
+                    else {
+                        vin.setLieuStockage(Integer.parseInt(idLS));
+                    }
+                    String idLA = idLieuAchat.getText().toString();
+                    if(idLA.equals(""))
+                    {
+                        vin.setLieuAchat(0);
+                    }
+                    else {
+                        vin.setLieuStockage(Integer.parseInt(idLA));
+                    }
                     vin.setConsoPartir(consoPartir.getText().toString());
                     vin.setConsoAvant(consoAvant.getText().toString());
                     vin.setNote(note.getRating() * 4);
                     String nb = nbBouteilles.getText().toString();
-                    if(nb.isEmpty()) {
+                    if(nb.equals("")) {
                         vin.setNbBouteilles(0);
                     }
                     else {
@@ -247,7 +283,7 @@ public class AjoutVin extends Activity {
                     vin.setSuiviStock(suivi.isChecked());
                     vin.setFavori(favori.isChecked());
                     String prixA = prix.getText().toString();
-                    if(prixA.isEmpty() || prixA.equals("0.0")) {
+                    if(prixA.equals("") || prixA.equals("0.0")) {
                         vin.setPrixAchat(0);
                     }
                     else
@@ -286,14 +322,14 @@ public class AjoutVin extends Activity {
             erreurNom.setVisibility(View.GONE);
         }
         if(anneeVin.equals("")) {
-            erreurAnnee.setText(base+"une ann�e.");
+            erreurAnnee.setText(base+"une année.");
             erreur = true;
         }
         else {
             erreurAnnee.setVisibility(View.GONE);
         }
         if(regionVin.equals("")) {
-            erreurRegion.setText(base+"une r�gion.");
+            erreurRegion.setText(base+"une région.");
             erreur = true;
         }
         else {
@@ -318,12 +354,12 @@ public class AjoutVin extends Activity {
         switch(liste)
         {
             case "annee" : {
-                dialog.setTitle("Ann�e du vin");
+                dialog.setTitle("Année du vin");
                 listeAnnee.findViewById(Resources.getSystem().getIdentifier("month", "id", "android")).setVisibility(View.GONE);
             }
                 break;
             case "partir" : {
-                dialog.setTitle("Date d�but consommation");
+                dialog.setTitle("Date début consommation");
             }
                 break;
             case "avant" : {
@@ -365,7 +401,7 @@ public class AjoutVin extends Activity {
         ListView listeChoix = (ListView) dialog.findViewById(R.id.listeChoix);
         switch (choix) {
             case "region": {
-                dialog.setTitle("R�gion");
+                dialog.setTitle("Région");
                 RegionAdapter regionAda = new RegionAdapter(getApplicationContext(), R.layout.liste_choix_item, 0, ControleurPrincipal.listeRegion);
                 listeChoix.setAdapter(regionAda);
             }

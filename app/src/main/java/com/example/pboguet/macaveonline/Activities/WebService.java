@@ -58,16 +58,16 @@ public class WebService extends Activity {
                 json.put("suivi_stock", vin.isSuiviStock());
                 json.put("favori", vin.isFavori());
                 json.put("prix_achat", vin.getPrixAchat());
-                json.put("offert_par", vin.getOffertPar());//.replaceAll("\\s", "&nbsp;"));
+                json.put("offert_par", vin.getOffertPar());
                 json.put("FK_lieu_stockage", vin.getLieuStockage());
                 json.put("FK_lieu_achat", vin.getLieuAchat());
                 json.put("conso_partir", vin.getConsoPartir());
                 json.put("conso_avant", vin.getConsoAvant());
-                json.put("commentaires", vin.getCommentaires());//.replaceAll("\\s", "&nbsp;"));
+                json.put("commentaires", vin.getCommentaires());
             }
             // insert
             else {
-                json.put("nom", vin.getNom());//.replaceAll("\\s", "&nbsp;"));
+                json.put("nom", vin.getNom());
                 json.put("annee", vin.getAnnee());
                 json.put("FK_region", vin.getRegion());
                 json.put("FK_appellation", vin.getAppellation());
@@ -77,14 +77,13 @@ public class WebService extends Activity {
                 json.put("FK_lieu_achat", vin.getLieuAchat());
                 json.put("conso_partir", vin.getConsoPartir());
                 json.put("conso_pvant", vin.getConsoAvant());
-                json.put("FK_type_plat", vin.getTypePlat());
                 json.put("note", vin.getNote());
                 json.put("nb_bouteilles", vin.getNbBouteilles());
                 json.put("suivi_stock", vin.isSuiviStock());
                 json.put("favori", vin.isFavori());
                 json.put("prix_achat", vin.getPrixAchat());
-                json.put("offert_par", vin.getOffertPar());//.replaceAll("\\s", "&nbsp;"));
-                json.put("commentaires", vin.getCommentaires());//.replaceAll("\\s", "&nbsp;"));
+                json.put("offert_par", vin.getOffertPar());
+                json.put("commentaires", vin.getCommentaires());
                 json.put("FK_utilisateur", vin.getUtilisateur());
             }
         } catch (JSONException e) {
