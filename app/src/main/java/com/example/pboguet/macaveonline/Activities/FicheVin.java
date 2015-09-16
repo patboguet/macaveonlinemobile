@@ -121,7 +121,8 @@ public class FicheVin extends Activity {
         }
         else prix.setText("");
         if(vin.getDegreAlcool() > 0.0f) {
-            degre.setText(Float.toString(vin.getDegreAlcool()));}
+            degre.setText(Float.toString(vin.getDegreAlcool()));
+        }
         else degre.setText("");
         offert.setText(vin.getOffertPar());
         if(vin.getConsoPartir() != null) {
@@ -129,14 +130,14 @@ public class FicheVin extends Activity {
             consoPartir.setText(consoP[1]+"/"+consoP[2]);
         }
         else
-            consoPartir.setText(vin.getConsoPartir());
+            consoPartir.setText("");
 
         if(vin.getConsoAvant() != null) {
             String[] consoA = vin.getConsoAvant().split("-");
             consoAvant.setText(consoA[1]+"/"+consoA[2]);
         }
         else
-            consoAvant.setText(vin.getConsoAvant());
+            consoAvant.setText("");
 
         lieuAchat.setText(GestionListes.getNomLieuAchat(vin.getLieuAchat()));
         lieuStockage.setText(GestionListes.getNomLieuStockage(vin.getLieuStockage()));
@@ -224,8 +225,8 @@ public class FicheVin extends Activity {
                 vinModifie.setType(idType);
                 vinModifie.setLieuStockage(GestionListes.getIdLieuStockage(lieuStockage.getText().toString()));
                 vinModifie.setLieuAchat(GestionListes.getIdLieuAchat(lieuAchat.getText().toString()));
-                vinModifie.setConsoPartir(consoPartir.getText().toString());
-                vinModifie.setConsoAvant(consoAvant.getText().toString());
+                vinModifie.setConsoPartir("01/" + consoPartir.getText().toString());
+                vinModifie.setConsoAvant("01/" + consoAvant.getText().toString());
                 vinModifie.setNote(note.getRating() * 4);
                 if(nbBouteilles.getText().toString().isEmpty()) {
                     vinModifie.setNbBouteilles(0);
@@ -235,8 +236,8 @@ public class FicheVin extends Activity {
                 }
                 vinModifie.setSuiviStock(suivi.isChecked());
                 vinModifie.setFavori(favori.isChecked());
-                if(prix.getText().toString().isEmpty()) {
-                    vinModifie.setPrixAchat(0);
+                if(prix.getText().toString().equals("") || prix.getText().toString().equals("0.0f")) {
+                    vinModifie.setPrixAchat(0.0f);
                 }
                 else {
                     vinModifie.setPrixAchat(Float.parseFloat(prix.getText().toString()));
@@ -309,9 +310,9 @@ public class FicheVin extends Activity {
             @Override
             public void onClick(View v) {
                 if (conso.equals("partir")) {
-                    consoPartir.setText("01/" + Integer.toString(listeAnnee.getMonth() + 1) + "/" + Integer.toString(listeAnnee.getYear()));
+                    consoPartir.setText(Integer.toString(listeAnnee.getMonth() + 1) + "/" + Integer.toString(listeAnnee.getYear()));
                 } else {
-                    consoAvant.setText("01/" + Integer.toString(listeAnnee.getMonth() + 1) + "/" + Integer.toString(listeAnnee.getYear()));
+                    consoAvant.setText(Integer.toString(listeAnnee.getMonth() + 1) + "/" + Integer.toString(listeAnnee.getYear()));
                 }
                 dialog.dismiss();
             }

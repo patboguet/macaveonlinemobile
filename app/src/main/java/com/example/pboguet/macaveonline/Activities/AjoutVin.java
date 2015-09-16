@@ -146,14 +146,31 @@ public class AjoutVin extends Activity {
             int typeV = vinInitial.getType();
             type.setText(GestionListes.getNomType(typeV));
             idType.setText(Integer.toString(typeV));
-            prix.setText(Float.toString(vinInitial.getPrixAchat()));
-            degre.setText(Float.toString(vinInitial.getDegreAlcool()));
+            if(vinInitial.getPrixAchat() > 0.0f) {
+                prix.setText(Float.toString(vinInitial.getPrixAchat()));
+            }
+            else prix.setText("");
+            if(vinInitial.getDegreAlcool() > 0.0f) {
+                degre.setText(Float.toString(vinInitial.getDegreAlcool()));
+            }
+            else degre.setText("");
             offert.setText(vinInitial.getOffertPar());
-            consoPartir.setText(vinInitial.getConsoPartir());
+            if(vinInitial.getConsoPartir() != null) {
+                String[] consoP = vinInitial.getConsoPartir().split("/");
+                consoPartir.setText(consoP[1]+"/"+consoP[2]);
+            }
+            else
+                consoPartir.setText("");
+
+            if(vinInitial.getConsoAvant() != null) {
+                String[] consoA = vinInitial.getConsoAvant().split("/");
+                consoAvant.setText(consoA[1]+"/"+consoA[2]);
+            }
+            else
+                consoAvant.setText("");
             int lieuA = vinInitial.getLieuAchat();
             lieuAchat.setText(GestionListes.getNomLieuAchat(lieuA));
             idLieuAchat.setText(Integer.toString(lieuA));
-            consoAvant.setText(vinInitial.getConsoAvant());
             int lieuS = vinInitial.getLieuStockage();
             lieuStockage.setText(GestionListes.getNomLieuStockage(lieuS));
             idLieuStockage.setText(Integer.toString(lieuS));
@@ -229,7 +246,7 @@ public class AjoutVin extends Activity {
         note.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                noteSurVingt.setText(Float.toString(rating*4));
+                noteSurVingt.setText(Float.toString(rating * 4));
             }
         });
 
@@ -270,8 +287,8 @@ public class AjoutVin extends Activity {
                     else {
                         vin.setLieuStockage(Integer.parseInt(idLA));
                     }
-                    vin.setConsoPartir(consoPartir.getText().toString());
-                    vin.setConsoAvant(consoAvant.getText().toString());
+                    vin.setConsoPartir("01/"+consoPartir.getText().toString());
+                    vin.setConsoAvant("01/"+consoAvant.getText().toString());
                     vin.setNote(note.getRating() * 4);
                     String nb = nbBouteilles.getText().toString();
                     if(nb.equals("")) {
@@ -291,7 +308,6 @@ public class AjoutVin extends Activity {
                     vin.setOffertPar(offert.getText().toString());
                     vin.setCommentaires(commentaires.getText().toString());
                     vin.setUtilisateur(LoginActivity.myUtilisateur.getUserId());
-                    //vin.setUtilisateur(3);
 
                     WebService.insertVin(vin);
                 }
