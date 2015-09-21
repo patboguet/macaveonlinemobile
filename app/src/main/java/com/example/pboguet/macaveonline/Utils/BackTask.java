@@ -214,7 +214,10 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             switch (type) {
                                 // Blanc
                                 case "1": {
-                                    VinBlanc vinB = new VinBlanc(idVin, nom, annee, region, aoc, Integer.parseInt(type), degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
+                                    VinBlanc vinB = new VinBlanc(idVin, nom, annee, region, aoc,
+                                            Integer.parseInt(type), degre, lieu_stockage, lieu_achat,
+                                            conso_partir, conso_avant, note, nb_bt, suivi, favori,
+                                            prix, offert, commentaires, idUtilisateur);
                                     if (!(ControleurPrincipal.listeVins.contains(vinB))) {
                                         ControleurPrincipal.listeVinsBlanc.add(vinB);
                                         ControleurPrincipal.listeVins.add(vinB);
@@ -223,7 +226,10 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 break;
                                 // Rouge
                                 case "2": {
-                                    VinRouge vinR = new VinRouge(idVin, nom, annee, region, aoc, Integer.parseInt(type), degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
+                                    VinRouge vinR = new VinRouge(idVin, nom, annee, region, aoc,
+                                            Integer.parseInt(type), degre, lieu_stockage, lieu_achat,
+                                            conso_partir, conso_avant, note, nb_bt, suivi, favori,
+                                            prix, offert, commentaires, idUtilisateur);
                                     if (!(ControleurPrincipal.listeVins.contains(vinR))) {
                                         ControleurPrincipal.listeVinsRouge.add(vinR);
                                         ControleurPrincipal.listeVins.add(vinR);
@@ -232,7 +238,10 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 break;
                                 // Rosé
                                 case "3": {
-                                    VinRose vinRos = new VinRose(idVin, nom, annee, region, aoc, Integer.parseInt(type), degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
+                                    VinRose vinRos = new VinRose(idVin, nom, annee, region, aoc,
+                                            Integer.parseInt(type), degre, lieu_stockage, lieu_achat,
+                                            conso_partir, conso_avant, note, nb_bt, suivi, favori,
+                                            prix, offert, commentaires, idUtilisateur);
                                     if(!(ControleurPrincipal.listeVins.contains(vinRos)))
                                     {
                                         ControleurPrincipal.listeVinsRose.add(vinRos);
@@ -242,7 +251,10 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 break;
                                 // Mousseux
                                 case "4": {
-                                    Mousseux mousseux = new Mousseux(idVin, nom, annee, region, aoc, Integer.parseInt(type), degre, lieu_stockage, lieu_achat, conso_partir, conso_avant, note, nb_bt, suivi, favori, prix, offert, commentaires, idUtilisateur);
+                                    Mousseux mousseux = new Mousseux(idVin, nom, annee, region, aoc,
+                                            Integer.parseInt(type), degre, lieu_stockage, lieu_achat,
+                                            conso_partir, conso_avant, note, nb_bt, suivi, favori,
+                                            prix, offert, commentaires, idUtilisateur);
                                     if(!(ControleurPrincipal.listeVins.contains(mousseux)))
                                     {
                                         ControleurPrincipal.listeMousseux.add(mousseux);
@@ -417,7 +429,6 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         }
                         else {
                             Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
-                            // TODO on rafraichi la liste des vins
                         }
                     }
                     break;
@@ -563,6 +574,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        // on indique que le chargement des données est terminé
         if(finChargement) {
             ControleurPrincipal.loader.dismiss();
             mActivity.setResult(Activity.RESULT_OK);
@@ -633,7 +645,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             List nameValuePairs = new ArrayList(1);
-            nameValuePairs.add(new BasicNameValuePair("idUtilisateur", Integer.toString(LoginActivity.myUtilisateur.getUserId())));
+            nameValuePairs.add(new BasicNameValuePair("idUtilisateur",
+                    Integer.toString(LoginActivity.myUtilisateur.getUserId())));
             nameValuePairs.add(new BasicNameValuePair("donneesVin", vin));
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpClient.execute(httpPost);

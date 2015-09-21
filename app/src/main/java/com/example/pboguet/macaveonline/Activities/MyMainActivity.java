@@ -49,11 +49,6 @@ public class MyMainActivity extends Activity {
             ControleurPrincipal.menu.add(1, "Recherche");
             ControleurPrincipal.menu.add(2, "Ajouter");
         }
-        else {
-            ControleurPrincipal.menu.set(0, "Ma Cave");
-            ControleurPrincipal.menu.set(1, "Recherche");
-            ControleurPrincipal.menu.set(2, "Ajouter");
-        }
         initControleuPrincipal();
         new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
 
@@ -83,7 +78,6 @@ public class MyMainActivity extends Activity {
         if (tabs != null) {
             String tabActif = tabs.getCurrentTabTag();
             int idVS = ControleurPrincipal.idVinSupprime;
-            int idVA = ControleurPrincipal.idVinAjoute;
             switch (tabActif) {
                 case "tag1": {
                     if (idVS > 0) {
@@ -110,14 +104,6 @@ public class MyMainActivity extends Activity {
                         roseAda.remove(getVinRose(idVS));
                         ControleurPrincipal.idVinSupprime = 0;
                     }
-                    // si on a ajouté un vin, on reconstruit la liste
-                    /*if(idVA > 0)
-                    {
-                        roseAda = new VinRoseAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRose);
-                        ControleurPrincipal.idVinAjoute = 0;
-                        ListView lvRo = (ListView) findViewById(R.id.listeVinsRoses);
-                        lvRo.setAdapter(roseAda);
-                    }*/
                     if(roseAda != null){
                         roseAda.notifyDataSetChanged();
                     }

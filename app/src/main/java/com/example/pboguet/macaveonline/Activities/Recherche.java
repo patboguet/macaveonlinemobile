@@ -65,7 +65,6 @@ public class Recherche extends Activity {
         mActivity = this;
         setContentView(R.layout.recherche);
         new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
-        //TODO : changer fond item de menu dans la listView
 
         champRecherche = (EditText) findViewById(R.id.recherche);
         rechercheText = (Button) findViewById(R.id.rechercheText);

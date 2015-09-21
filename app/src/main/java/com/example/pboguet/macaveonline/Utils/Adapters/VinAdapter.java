@@ -16,9 +16,9 @@ import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.GestionListes;
-import com.example.pboguet.macaveonline.Utils.ModifRapide.FavoriRapide;
-import com.example.pboguet.macaveonline.Utils.ModifRapide.NoteRapide;
-import com.example.pboguet.macaveonline.Utils.ModifRapide.nbBouteillesRapide;
+import com.example.pboguet.macaveonline.Class.ModifRapide.FavoriRapide;
+import com.example.pboguet.macaveonline.Class.ModifRapide.NoteRapide;
+import com.example.pboguet.macaveonline.Class.ModifRapide.nbBouteillesRapide;
 
 import java.util.ArrayList;
 

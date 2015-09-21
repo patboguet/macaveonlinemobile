@@ -20,7 +20,8 @@ import com.example.pboguet.macaveonline.R;
 public class Menu {
     public Menu(Context c, final Activity a, ListView l) {
         l = (ListView) l.findViewById(R.id.menu);
-        final ArrayAdapter<String> menuAda = new ArrayAdapter<String>(c,R.layout.nom_menu, R.id.nomMenu,ControleurPrincipal.menu);
+        final ArrayAdapter<String> menuAda = new ArrayAdapter<String>(c,R.layout.nom_menu, R.id.nomMenu,
+                ControleurPrincipal.menu);
         l.setAdapter(menuAda);
 
         // Gestion du menu
@@ -47,6 +48,8 @@ public class Menu {
                         }
                         break;
                 }
+                // Ergonomie : pour éviter de fermer l'application si on annule dans le menu Ajouter
+                // on ne termine pas l'activité précédente
                 if (intent != null && !valMenu.equals("Ajouter")) {
                     a.finish();
                     a.startActivity(intent);

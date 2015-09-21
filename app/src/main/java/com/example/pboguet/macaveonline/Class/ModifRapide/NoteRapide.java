@@ -1,4 +1,4 @@
-package com.example.pboguet.macaveonline.Utils.ModifRapide;
+package com.example.pboguet.macaveonline.Class.ModifRapide;
 
 import android.app.Dialog;
 import android.view.View;
