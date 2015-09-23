@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -185,20 +186,24 @@ public class MyMainActivity extends Activity {
         afficheCave(requestCode, resultCode);
     }
 
-    private void afficheCave(int requestCode, int resultCode) {
-        if(requestCode == 0311) {
-            if (resultCode == RESULT_OK) {
+    private void afficheCave(int requestCode, int resultCode)
+    {
+        if(requestCode == 0311)
+        {
+            if (resultCode == RESULT_OK)
+            {
                 tvPasVin = (TextView) findViewById(R.id.tvPasVin);
-
                 tabs = (TabHost) findViewById(R.id.tabHost);
                 tabs.setup();
                 // on créer les onglets
                 createTab(tabs);
                 tabs.setCurrentTab(0);
 
-                tabs.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+                tabs.setOnTabChangedListener(new TabHost.OnTabChangeListener()
+                {
                     @Override
-                    public void onTabChanged(String tabId) {
+                    public void onTabChanged(String tabId)
+                    {
                         if(tvPasVin.isShown()) {
                             tvPasVin.setVisibility(View.GONE);
                         }
@@ -228,7 +233,8 @@ public class MyMainActivity extends Activity {
                         }
                     }
                 });
-                if (ControleurPrincipal.listeVinsRouge.size() > 0) {
+                if (ControleurPrincipal.listeVinsRouge.size() > 0)
+                {
                     rougeAda = new VinRougeAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRouge);
                     ListView lvR = (ListView) findViewById(R.id.listeVinsRouges);
                     lvR.setAdapter(rougeAda);
@@ -236,21 +242,24 @@ public class MyMainActivity extends Activity {
                 } else {
                     tvPasVin.setVisibility(View.VISIBLE);
                 }
-                if (ControleurPrincipal.listeVinsBlanc.size() > 0) {
+                if (ControleurPrincipal.listeVinsBlanc.size() > 0)
+                {
                     blancAda = new VinBlancAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsBlanc);
                     ListView lvB = (ListView) findViewById(R.id.listeVinsBlancs);
                     lvB.setAdapter(blancAda);
                 } else {
                     tvPasVin.setVisibility(View.VISIBLE);
                 }
-                if (ControleurPrincipal.listeVinsRose.size() > 0) {
+                if (ControleurPrincipal.listeVinsRose.size() > 0)
+                {
                     roseAda = new VinRoseAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRose);
                     ListView lvRo = (ListView) findViewById(R.id.listeVinsRoses);
                     lvRo.setAdapter(roseAda);
                 } else {
                     tvPasVin.setVisibility(View.VISIBLE);
                 }
-                if (ControleurPrincipal.listeMousseux.size() > 0) {
+                if (ControleurPrincipal.listeMousseux.size() > 0)
+                {
                     mousseAda = new MousseuxAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeMousseux);
                     ListView lvM = (ListView) findViewById(R.id.listeMousseux);
                     lvM.setAdapter(mousseAda);
@@ -258,8 +267,8 @@ public class MyMainActivity extends Activity {
                 else {
                     tvPasVin.setVisibility(View.VISIBLE);
                 }
-    }
-}
+            }
+        }
     }
 
     protected void createTab(TabHost tabs)

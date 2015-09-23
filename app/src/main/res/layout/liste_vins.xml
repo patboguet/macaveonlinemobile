@@ -7,18 +7,19 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:orientation="horizontal"
-            android:layout_width="350dp"
+            android:layout_width="450dp"
             android:layout_height="wrap_content"
             android:id="@+id/nomRegAn"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="0dp"
+            android:layout_marginLeft="20dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:clickable="true">
+            android:layout_marginTop="15dp"
+            android:clickable="true"
+            android:layout_marginBottom="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -26,7 +27,8 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Nom Vin"
                 android:id="@+id/nomVin"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="25dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -39,7 +41,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="7dp"
                 android:layout_below="@id/nomVin"
-                android:textColor="#646464" />
+                android:textColor="#646464"
+                android:textSize="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -51,13 +54,14 @@
                 android:layout_toRightOf="@id/regionVin"
                 android:layout_marginTop="7dp"
                 android:layout_below="@id/nomVin"
-                android:textColor="#646464" />
+                android:textColor="#646464"
+                android:textSize="20dp" />
 
         </RelativeLayout>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/bout"
             android:layout_marginLeft="0dp"
@@ -70,22 +74,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/bouteille"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
                 android:src="@mipmap/ic_bouteille"
-                android:layout_weight="1" />
+                android:baselineAlignBottom="false"
+                android:layout_gravity="center_vertical"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_alignParentTop="false"
+                android:layout_alignParentRight="false"
+                android:layout_alignParentEnd="false" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="49dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="7"
                 android:id="@+id/nbBouteilles"
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:foregroundGravity="bottom|left"
+                android:gravity="bottom|left"
+                android:layout_gravity="center_vertical" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -95,7 +104,8 @@
                 android:layout_marginTop="0dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/ic_note"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -105,29 +115,38 @@
                 android:layout_marginTop="0dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/ic_favori_no"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp" />
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical">
 
                 <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:text="-"
-                    android:id="@+id/moins" />
+                    android:id="@+id/moins"
+                    android:layout_weight="1"
+                    android:textSize="50dp"
+                    android:textColor="#a52323"
+                    android:singleLine="false" />
 
                 <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:text="+"
-                    android:id="@+id/plus" />
+                    android:id="@+id/plus"
+                    android:layout_weight="1"
+                    android:textSize="50dp"
+                    android:textColor="#a52323" />
 
             </LinearLayout>
 
