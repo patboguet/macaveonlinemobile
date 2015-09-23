@@ -1,7 +1,9 @@
 package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
+import android.app.TabActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -199,12 +201,10 @@ public class MyMainActivity extends Activity {
                 createTab(tabs);
                 tabs.setCurrentTab(0);
 
-                tabs.setOnTabChangedListener(new TabHost.OnTabChangeListener()
-                {
+                tabs.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
                     @Override
-                    public void onTabChanged(String tabId)
-                    {
-                        if(tvPasVin.isShown()) {
+                    public void onTabChanged(String tabId) {
+                        if (tvPasVin.isShown()) {
                             tvPasVin.setVisibility(View.GONE);
                         }
                         // ROUGES

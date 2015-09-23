@@ -24,7 +24,6 @@ public class GestionListes {
         }
         return "";
     }
-
     public static String getNomLieuAchat(int idLieu)
     {
         for (int i = 0; i < ControleurPrincipal.listeLieuAchat.size(); i++) {
@@ -36,7 +35,6 @@ public class GestionListes {
         }
         return "";
     }
-
     public static String getNomLieuStockage(int idLieu) {
         for (int i = 0; i < ControleurPrincipal.listeLieuStockage.size(); i++) {
             LieuStockage lieu = ControleurPrincipal.listeLieuStockage.get(i);
@@ -47,6 +45,7 @@ public class GestionListes {
         }
         return "";
     }
+
     public static int getIdLieuStockage(String nomLieu) {
         for (int i = 0; i < ControleurPrincipal.listeLieuStockage.size(); i++) {
             LieuStockage lieu = ControleurPrincipal.listeLieuStockage.get(i);
@@ -74,7 +73,6 @@ public class GestionListes {
         }
         return type;
     }
-
     public static int getIdLieuAchat(String nomLieu) {
         for (int i = 0; i < ControleurPrincipal.listeLieuAchat.size(); i++) {
             LieuAchat lieu = ControleurPrincipal.listeLieuAchat.get(i);
@@ -130,7 +128,6 @@ public class GestionListes {
         }
         return "";
     }
-
 
     public static int getIdAppellation(String nomAoc) {
         for (int i = 0; i < ControleurPrincipal.listeAppellation.size(); i++) {

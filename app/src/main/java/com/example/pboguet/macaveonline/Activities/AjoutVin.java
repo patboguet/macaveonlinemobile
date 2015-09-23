@@ -51,9 +51,11 @@ public class AjoutVin extends Activity {
     private EditText degre;
     private EditText offert;
     private TextView consoPartir;
+    private TextView consoPartirNum;
     private TextView lieuAchat;
     private TextView idLieuAchat;
     private TextView consoAvant;
+    private TextView consoAvantNum;
     private TextView lieuStockage;
     private TextView idLieuStockage;
     private RatingBar note;
@@ -104,9 +106,11 @@ public class AjoutVin extends Activity {
         degre = (EditText) findViewById(R.id.degre);
         offert = (EditText)findViewById(R.id.offert);
         consoPartir = (TextView)findViewById(R.id.consoPartirVin);
+        consoPartirNum = (TextView) findViewById(R.id.consoPartirNum);
         lieuAchat = (TextView)findViewById(R.id.lieuAchatVin);
         idLieuAchat = (TextView) findViewById(R.id.idLieuAchat);
         consoAvant = (TextView)findViewById(R.id.consoAvantVin);
+        consoAvantNum = (TextView) findViewById(R.id.consoAvantNum);
         lieuStockage = (TextView)findViewById(R.id.lieuStockageVin);
         idLieuStockage = (TextView) findViewById(R.id.idLieuStockage);
         note = (RatingBar) findViewById(R.id.noteVin);
@@ -156,18 +160,26 @@ public class AjoutVin extends Activity {
             else degre.setText("");
             offert.setText(vinInitial.getOffertPar());
             if(vinInitial.getConsoPartir() != null) {
-                String[] consoP = vinInitial.getConsoPartir().split("/");
-                consoPartir.setText(consoP[1]+"/"+consoP[2]);
+                String[] consoP = vinInitial.getConsoPartir().split("-");
+                consoPartir.setText(ControleurPrincipal.numeroMoisEnLettre(Integer.parseInt(consoP[1]), false) + " " + consoP[2]);
+                consoPartirNum.setText(consoP[1] + "-" +consoP[2]);
             }
             else
+            {
                 consoPartir.setText("");
+                consoPartirNum.setText("");
+            }
 
             if(vinInitial.getConsoAvant() != null) {
-                String[] consoA = vinInitial.getConsoAvant().split("/");
-                consoAvant.setText(consoA[1]+"/"+consoA[2]);
+                String[] consoA = vinInitial.getConsoAvant().split("-");
+                consoAvant.setText(ControleurPrincipal.numeroMoisEnLettre(Integer.parseInt(consoA[1]), false) + " " + consoA[2]);
+                consoAvantNum.setText(consoA[1] + "-" + consoA[2]);
             }
             else
+            {
                 consoAvant.setText("");
+                consoAvantNum.setText("");
+            }
             int lieuA = vinInitial.getLieuAchat();
             lieuAchat.setText(GestionListes.getNomLieuAchat(lieuA));
             idLieuAchat.setText(Integer.toString(lieuA));
@@ -287,8 +299,8 @@ public class AjoutVin extends Activity {
                     else {
                         vin.setLieuStockage(Integer.parseInt(idLA));
                     }
-                    vin.setConsoPartir("01/"+consoPartir.getText().toString());
-                    vin.setConsoAvant("01/"+consoAvant.getText().toString());
+                    vin.setConsoPartir("01-"+consoPartirNum.getText().toString());
+                    vin.setConsoAvant("01-"+consoAvantNum.getText().toString());
                     vin.setNote(note.getRating() * 4);
                     String nb = nbBouteilles.getText().toString();
                     if(nb.equals("")) {
@@ -371,6 +383,7 @@ public class AjoutVin extends Activity {
         {
             case "annee" : {
                 dialog.setTitle("Année du vin");
+                // On cache le mois depuis le calendrier
                 listeAnnee.findViewById(Resources.getSystem().getIdentifier("month", "id", "android")).setVisibility(View.GONE);
             }
                 break;
@@ -383,21 +396,23 @@ public class AjoutVin extends Activity {
             }
                 break;
         }
+        // on cache le jour du calendrier
         listeAnnee.findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
         listeAnnee.setCalendarViewShown(false);
 
         valider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String mois = ControleurPrincipal.numeroMoisEnLettre(listeAnnee.getMonth(), true);
                 switch (liste) {
                     case "annee":
                         annee.setText(Integer.toString(listeAnnee.getYear()));
                         break;
                     case "partir":
-                        consoPartir.setText("01/" + Integer.toString(listeAnnee.getMonth() + 1) + "/" + Integer.toString(listeAnnee.getYear()));
+                        consoPartir.setText(mois + " " + Integer.toString(listeAnnee.getYear()));
                         break;
                     case "avant":
-                        consoAvant.setText("01/" + Integer.toString(listeAnnee.getMonth() + 1) + "/" + Integer.toString(listeAnnee.getYear()));
+                        consoAvant.setText(mois + " " + Integer.toString(listeAnnee.getYear()));
                         break;
                 }
                 dialog.dismiss();

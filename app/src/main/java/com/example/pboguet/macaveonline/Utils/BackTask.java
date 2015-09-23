@@ -513,7 +513,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             Toast.makeText(mActivity.getApplicationContext(), "Le vin a bien été modifié", Toast.LENGTH_LONG).show();
                         }
                         else {
-                            Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue (update)", Toast.LENGTH_LONG).show();
                         }
                     }
                     break;
@@ -554,7 +554,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             FicheVin.getInstance().finish();
                         }
                         else {
-                            Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue (delete)", Toast.LENGTH_LONG).show();
                         }
                     }
                     break;

@@ -14,19 +14,19 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:id="@+id/iconeMenu"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:id="@+id/nomMenu"
-            android:layout_weight="2"
+            android:layout_weight="4"
             android:text="Titre Menu"
             android:gravity="center_vertical|left"
             android:textIsSelectable="false"
             android:textSize="24dp"
             android:textColor="#a52323"
-            android:textStyle="bold"
             android:layout_gravity="center_vertical" />
     </LinearLayout>
 </LinearLayout>

@@ -46,8 +46,10 @@ public class FicheVin extends Activity {
     private TextView degre;
     private EditText offert;
     private TextView consoPartir;
+    private TextView consoPartirNum;
     private TextView lieuAchat;
     private TextView consoAvant;
+    private TextView consoAvantNum;
     private TextView lieuStockage;
     private RatingBar note;
     private TextView noteSurVingt;
@@ -87,8 +89,10 @@ public class FicheVin extends Activity {
         degre = (TextView)findViewById(R.id.degre);
         offert = (EditText)findViewById(R.id.offert);
         consoPartir = (TextView)findViewById(R.id.consoPartirVin);
+        consoPartirNum = (TextView) findViewById(R.id.consoPartirNum);
         lieuAchat = (TextView)findViewById(R.id.lieuAchatVin);
         consoAvant = (TextView)findViewById(R.id.consoAvantVin);
+        consoAvantNum = (TextView) findViewById(R.id.consoAvantNum);
         lieuStockage = (TextView)findViewById(R.id.lieuStockageVin);
         note = (RatingBar) findViewById(R.id.noteVin);
         noteSurVingt = (TextView) findViewById(R.id.noteSurVingt);
@@ -112,7 +116,7 @@ public class FicheVin extends Activity {
         region.setText(GestionListes.getNomRegion(idR));
         // pas d'appellation si Mousseux ou Vins Etrangers
         if(idR != 6 && idR != 12) {
-            appellation.setText(GestionListes.getNomAppellation(vin.getAppellation(),vin.getRegion()));
+            appellation.setText(GestionListes.getNomAppellation(vin.getAppellation(), vin.getRegion()));
         }
         favori.setChecked(vin.isFavori());
         type.setText(GestionListes.getNomType(vin.getType()));
@@ -127,17 +131,26 @@ public class FicheVin extends Activity {
         offert.setText(vin.getOffertPar());
         if(vin.getConsoPartir() != null) {
             String[] consoP = vin.getConsoPartir().split("-");
-            consoPartir.setText(consoP[1]+"/"+consoP[2]);
+            consoPartir.setText(ControleurPrincipal.numeroMoisEnLettre(Integer.parseInt(consoP[1]), false) + " " + consoP[2]);
+            consoPartirNum.setText(consoP[1]+"-"+consoP[2]);
         }
         else
+        {
             consoPartir.setText("");
+            consoPartirNum.setText("");
+        }
 
         if(vin.getConsoAvant() != null) {
             String[] consoA = vin.getConsoAvant().split("-");
-            consoAvant.setText(consoA[1]+"/"+consoA[2]);
+            consoAvant.setText(ControleurPrincipal.numeroMoisEnLettre(Integer.parseInt(consoA[1]), false) + " " + consoA[2]);
+            consoAvantNum.setText(consoA[1]+"-"+consoA[2]);
         }
         else
+        {
             consoAvant.setText("");
+            consoAvantNum.setText("");
+        }
+
 
         lieuAchat.setText(GestionListes.getNomLieuAchat(vin.getLieuAchat()));
         lieuStockage.setText(GestionListes.getNomLieuStockage(vin.getLieuStockage()));
@@ -225,8 +238,8 @@ public class FicheVin extends Activity {
                 vinModifie.setType(idType);
                 vinModifie.setLieuStockage(GestionListes.getIdLieuStockage(lieuStockage.getText().toString()));
                 vinModifie.setLieuAchat(GestionListes.getIdLieuAchat(lieuAchat.getText().toString()));
-                vinModifie.setConsoPartir("01/" + consoPartir.getText().toString());
-                vinModifie.setConsoAvant("01/" + consoAvant.getText().toString());
+                vinModifie.setConsoPartir("01-" + consoPartirNum.getText().toString());
+                vinModifie.setConsoAvant("01-" + consoAvantNum.getText().toString());
                 vinModifie.setNote(note.getRating() * 4);
                 if(nbBouteilles.getText().toString().isEmpty()) {
                     vinModifie.setNbBouteilles(0);
@@ -309,10 +322,11 @@ public class FicheVin extends Activity {
         valider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String mois = ControleurPrincipal.numeroMoisEnLettre(listeAnnee.getMonth(), true);
                 if (conso.equals("partir")) {
-                    consoPartir.setText(Integer.toString(listeAnnee.getMonth() + 1) + "/" + Integer.toString(listeAnnee.getYear()));
+                    consoPartir.setText(mois + " " + Integer.toString(listeAnnee.getYear()));
                 } else {
-                    consoAvant.setText(Integer.toString(listeAnnee.getMonth() + 1) + "/" + Integer.toString(listeAnnee.getYear()));
+                    consoAvant.setText(mois + " " + Integer.toString(listeAnnee.getYear()));
                 }
                 dialog.dismiss();
             }

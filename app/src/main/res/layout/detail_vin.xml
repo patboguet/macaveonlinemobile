@@ -295,6 +295,18 @@
 
         <TableRow
             android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/consoPartirNum"
+                android:layout_column="0"
+                android:visibility="gone" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp">
 
@@ -325,6 +337,18 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/lieuStockageVin"
                 android:textColor="#a52323" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/consoAvantNum"
+                android:layout_column="0"
+                android:visibility="gone" />
         </TableRow>
 
         <TableRow
