@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.example.pboguet.macaveonline.Activities.FicheVin;
 import com.example.pboguet.macaveonline.Activities.LoginActivity;
+import com.example.pboguet.macaveonline.Activities.WebService;
 import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.LieuAchat;
@@ -58,27 +59,20 @@ public class BackTask extends AsyncTask<String, Void, String> {
     private String offert;
     private int lieu_achat;
     private int lieu_stockage;
-    private Activity mActivity;
     private int idUtilisateur;
     private boolean finChargement = false;
 
-    public BackTask(Activity a) {
-        mActivity = a;
-    }
-    
    @Override
     protected void onPreExecute () {
         //to do whatever you want before execute webservice
-        // TODO : loading
        if(ControleurPrincipal.loader == null) {
-           ControleurPrincipal.loader = new ProgressDialog(mActivity.getApplicationContext());
-           ControleurPrincipal.loader.show(mActivity, "", "Chargement de la cave...", true);
+           ControleurPrincipal.loader = new ProgressDialog(WebService.getInstance().getApplicationContext());
+           ControleurPrincipal.loader.show(WebService.getInstance(), "", "Chargement de la cave...", true);
        }
         //like progress bar or something like that
         super.onPreExecute();
     }
 
-    @Override
     protected String doInBackground (String...params){
         String finUrl = null;
         typeService = params[0];
@@ -425,10 +419,10 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 break;
                             }
                             // on notifie le changement à l'utilisateur
-                            Toast.makeText(mActivity.getApplicationContext(), "Le vin a bien été inséré", Toast.LENGTH_LONG).show();
+                            Toast.makeText(WebService.getInstance().getApplicationContext(), "Le vin a bien été inséré", Toast.LENGTH_LONG).show();
                         }
                         else {
-                            Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                            Toast.makeText(WebService.getInstance().getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
                         }
                     }
                     break;
@@ -510,10 +504,10 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 break;
                             }
                             // on notifie le changement à l'utilisateur
-                            Toast.makeText(mActivity.getApplicationContext(), "Le vin a bien été modifié", Toast.LENGTH_LONG).show();
+                            Toast.makeText(WebService.getInstance().getApplicationContext(), "Le vin a bien été modifié", Toast.LENGTH_LONG).show();
                         }
                         else {
-                            Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue (update)", Toast.LENGTH_LONG).show();
+                            Toast.makeText(WebService.getInstance().getApplicationContext(), "Une erreur est survenue (update)", Toast.LENGTH_LONG).show();
                         }
                     }
                     break;
@@ -550,11 +544,11 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                     break outerloop;
                                 }
                             }
-                            Toast.makeText(mActivity.getApplicationContext(), "Le vin a bien été supprimé", Toast.LENGTH_LONG).show();
+                            Toast.makeText(WebService.getInstance().getApplicationContext(), "Le vin a bien été supprimé", Toast.LENGTH_LONG).show();
                             FicheVin.getInstance().finish();
                         }
                         else {
-                            Toast.makeText(mActivity.getApplicationContext(), "Une erreur est survenue (delete)", Toast.LENGTH_LONG).show();
+                            Toast.makeText(WebService.getInstance().getApplicationContext(), "Une erreur est survenue (delete)", Toast.LENGTH_LONG).show();
                         }
                     }
                     break;
@@ -562,13 +556,13 @@ public class BackTask extends AsyncTask<String, Void, String> {
             }
             switch(typeService)
             {
-                case "select_vins" : new BackTask(mActivity).execute("select_regions");
+                case "select_vins" : new BackTask().execute("select_regions");
                     break;
-                case "select_regions" : new BackTask(mActivity).execute("select_aoc");
+                case "select_regions" : new BackTask().execute("select_aoc");
                     break;
-                case "select_aoc" : new BackTask(mActivity).execute("select_lieu_achat");
+                case "select_aoc" : new BackTask().execute("select_lieu_achat");
                     break;
-                case "select_lieu_achat" : new BackTask(mActivity).execute("select_lieu_stockage");
+                case "select_lieu_achat" : new BackTask().execute("select_lieu_stockage");
                     break;
             }
         } catch (JSONException e) {
@@ -577,8 +571,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
         // on indique que le chargement des données est terminé
         if(finChargement) {
             ControleurPrincipal.loader.dismiss();
-            mActivity.setResult(Activity.RESULT_OK);
-            mActivity.finish();
+            WebService.getInstance().setResult(Activity.RESULT_OK);
+            WebService.getInstance().finish();
         }
     }
 

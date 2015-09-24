@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,19 +12,17 @@ import com.example.pboguet.macaveonline.Activities.AjoutVin;
 import com.example.pboguet.macaveonline.Activities.MyMainActivity;
 import com.example.pboguet.macaveonline.Activities.Recherche;
 import com.example.pboguet.macaveonline.R;
+import com.example.pboguet.macaveonline.Utils.Adapters.MenuAdapter;
 
 /**
  * Created by Patrick on 12/09/2015.
  */
 public class Menu {
-    private ImageView icone;
 
     public Menu(Context c, final Activity a, ListView l)
     {
         l = (ListView) l.findViewById(R.id.menu);
-        final ArrayAdapter<String> menuAda = new ArrayAdapter<String>(c,R.layout.nom_menu, R.id.nomMenu,
-                ControleurPrincipal.menu);
-        l.setAdapter(menuAda);
+        l.setAdapter(new MenuAdapter(c, ControleurPrincipal.menu));
 
         // Gestion du menu
         l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -63,26 +59,4 @@ public class Menu {
             }
         });
     }
-
-    /*private void setIcone()
-    {
-        for (int i = 0;i < ControleurPrincipal.menu.size();i++)
-        {
-            switch (ControleurPrincipal.menu.get(i))
-            {
-                case "Ma Cave" : {
-                    icone.setImageResource(R.mipmap.ic_cave);
-                }
-                break;
-                case "Recherche" : {
-                    icone.setImageResource(R.mipmap.ic_search);
-                }
-                break;
-                case "Ajouter" : {
-                    icone.setImageResource(R.mipmap.ic_ajout);
-                }
-                break;
-            }
-        }
-    }*/
 }

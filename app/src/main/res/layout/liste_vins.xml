@@ -11,7 +11,7 @@
 
         <RelativeLayout
             android:orientation="horizontal"
-            android:layout_width="450dp"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:id="@+id/nomRegAn"
             android:layout_alignParentLeft="true"

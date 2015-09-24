@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,10 @@ public class Recherche extends Activity {
         super.onCreate(savedInstanceState);
         mActivity = this;
         setContentView(R.layout.recherche);
+        TextView titre = (TextView) findViewById(R.id.titreRecherche);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/JellykaWonderlandWine.ttf");
+        titre.setTypeface(font);
+
         new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
 
         champRecherche = (EditText) findViewById(R.id.recherche);

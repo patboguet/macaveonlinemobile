@@ -3,6 +3,7 @@ package com.example.pboguet.macaveonline.Activities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -81,6 +82,9 @@ public class AjoutVin extends Activity {
         super.onCreate(savedInstanceState);
         mActivity = this;
         setContentView(R.layout.ajout_vin);
+        TextView titre = (TextView) findViewById(R.id.titreBarreHaut);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/JellykaWonderlandWine.ttf");
+        titre.setTypeface(font);
         new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
 
         listeType.add(0, "Type de vin");

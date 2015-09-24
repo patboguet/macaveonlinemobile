@@ -1,34 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <include layout="@layout/fragment_menu"
         android:id="@+id/menu"
-        android:layout_width="175dp"
+        android:layout_width="200dp"
         android:layout_height="fill_parent"
-        android:layout_alignParentLeft="false"
+        android:layout_alignParentLeft="true"
         android:layout_marginLeft="0dp"
-        android:layout_alignParentTop="false"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="0dp"
         android:layout_alignParentStart="true" />
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:background="@color/rouge"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/menu"
+        android:layout_toEndOf="@+id/menu"
+        android:id="@+id/linearLayout2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/logo"
+            android:src="@mipmap/logo"
+            android:layout_marginLeft="50dp" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="match_parent"
             android:text="Ma Cave"
             android:id="@+id/barreHaut"
             android:inputType="none"
             android:textColor="#ffeec78d"
-            android:background="#ffa52323"
             android:textAlignment="center"
-            android:textSize="50dp"
-            android:textStyle="italic"
-            android:singleLine="true" />
+            android:textSize="100dp"
+            android:singleLine="true"
+            android:autoText="false"
+            android:layout_gravity="center"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_toRightOf="@+id/menu"
+        android:layout_toEndOf="@+id/menu">
 
         <TabHost
             android:layout_width="match_parent"
@@ -128,4 +151,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

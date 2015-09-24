@@ -1,144 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/fragment_menu"
+            android:id="@+id/menu"
+            android:layout_width="200dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:layout_alignParentStart="true" />
+
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:background="@color/rouge"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/menu"
+        android:layout_toEndOf="@+id/menu">
 
-        <include layout="@layout/fragment_menu"
-                android:id="@+id/menu"
-                android:layout_width="175dp"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="false"
-                android:layout_marginLeft="0dp"
-                android:layout_alignParentTop="false"
-                android:layout_marginTop="0dp"
-                android:layout_alignParentStart="true" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/logo"
+            android:src="@mipmap/logo"
+            android:layout_marginLeft="50dp" />
 
-        <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/menu"
-                android:baselineAligned="false"
-                android:id="@+id/search">
-
-            <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="#a52323"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/logo"
-                        android:src="@mipmap/logo" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="100dp"
-                        android:text="Recherche"
-                        android:id="@+id/titreRecherche"
-                        android:textColor="#eec78d" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:gravity="center_horizontal">
-
-                    <EditText
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/recherche"
-                        android:textColor="#a52323"
-                        android:layout_marginRight="20dp"
-                        android:hint="Recherche"
-                        android:textSize="20dp" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:id="@+id/rechercheText"
-                        android:background="@mipmap/ic_search" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp">
-
-                    <Spinner
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/listeRegion"
-                        android:layout_marginRight="20dp"
-                        android:spinnerMode="dialog" />
-
-                    <Spinner
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/listeAoc"
-                        android:visibility="gone"
-                        android:layout_marginRight="20dp"
-                        android:spinnerMode="dialog" />
-
-                    <Spinner
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/listeType"
-                        android:layout_marginRight="20dp"
-                        android:spinnerMode="dialog" />
-
-                    <Spinner
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/listeStockage"
-                        android:layout_marginRight="20dp"
-                        android:spinnerMode="dialog" />
-
-                </TableRow>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Rechercher"
-                        android:id="@+id/btnRecherche"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/aucunVin"
-                android:layout_gravity="center_horizontal" />
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="256dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/search">
-
-                <ListView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/listeVinsRecherche" />
-
-            </LinearLayout>
-
-        </TableLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Recherche"
+            android:id="@+id/titreRecherche"
+            android:inputType="none"
+            android:textColor="#ffeec78d"
+            android:textAlignment="center"
+            android:textSize="100dp"
+            android:singleLine="true"
+            android:autoText="false"
+            android:layout_gravity="center"
+            android:gravity="center" />
 
     </LinearLayout>
 
-</LinearLayout>
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        android:baselineAligned="false"
+            android:id="@+id/search"
+        android:layout_below="@+id/linearLayout"
+        android:layout_toRightOf="@+id/menu"
+        android:layout_toEndOf="@+id/menu">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:gravity="center_horizontal">
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recherche"
+                    android:textColor="#a52323"
+                    android:layout_marginRight="20dp"
+                    android:hint="Recherche"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:id="@+id/rechercheText"
+                    android:background="@mipmap/ic_search" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp">
+
+                <Spinner
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/listeRegion"
+                    android:layout_marginRight="20dp"
+                    android:spinnerMode="dialog" />
+
+                <Spinner
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/listeAoc"
+                    android:visibility="gone"
+                    android:layout_marginRight="20dp"
+                    android:spinnerMode="dialog" />
+
+                <Spinner
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/listeType"
+                    android:layout_marginRight="20dp"
+                    android:spinnerMode="dialog" />
+
+                <Spinner
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/listeStockage"
+                    android:layout_marginRight="20dp"
+                    android:spinnerMode="dialog" />
+
+            </TableRow>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rechercher"
+                    android:id="@+id/btnRecherche"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/aucunVin"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search">
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/listeVinsRecherche" />
+
+        </LinearLayout>
+
+    </TableLayout>
+
+</RelativeLayout>

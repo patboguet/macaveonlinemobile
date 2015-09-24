@@ -11,21 +11,23 @@
         android:id="@+id/menuLayout">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/iconeMenu"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical" />
+            android:cropToPadding="false"
+            android:scaleType="center"
+            android:adjustViewBounds="false" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:id="@+id/nomMenu"
-            android:layout_weight="4"
+            android:layout_weight="5"
             android:text="Titre Menu"
             android:gravity="center_vertical|left"
             android:textIsSelectable="false"
-            android:textSize="24dp"
+            android:textSize="20dp"
             android:textColor="#a52323"
             android:layout_gravity="center_vertical" />
     </LinearLayout>

@@ -3,6 +3,7 @@ package com.example.pboguet.macaveonline.Activities;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Utils.BackTask;
 
@@ -20,7 +21,7 @@ public class WebService extends Activity {
 
         super.onCreate(savedInstanceState);
         mActivity = this;
-        new BackTask(mActivity).execute("select_vins");
+        new BackTask().execute("select_vins");
     }
 
     public static Activity getInstance() {
@@ -30,19 +31,19 @@ public class WebService extends Activity {
     public static void insertVin(Vin vin)
     {
         JSONObject vinJson = vinToJson(vin);
-        new BackTask(mActivity).execute("insert", vinJson.toString());
+        new BackTask().execute("insert", vinJson.toString());
     }
 
     public static void updateVin(Vin vin)
     {
         JSONObject vinJson = vinToJson(vin);
-        new BackTask(mActivity).execute("update", vinJson.toString());
+        new BackTask().execute("update", vinJson.toString());
 
     }
 
     public static void deleteVin(Vin vin)
     {
-        new BackTask(mActivity).execute("delete", Long.toString(vin.getIdVin()));
+        new BackTask().execute("delete", Long.toString(vin.getIdVin()));
     }
 
     private static JSONObject vinToJson(Vin vin) {

@@ -2,9 +2,12 @@ package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -46,6 +49,9 @@ public class MyMainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ma_cave);
+        TextView titre = (TextView) findViewById(R.id.barreHaut);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/JellykaWonderlandWine.ttf");
+        titre.setTypeface(font);
         mActivity = this;
         if(ControleurPrincipal.menu.size() == 0) {
             ControleurPrincipal.menu.add(0, "Ma Cave");
@@ -198,7 +204,11 @@ public class MyMainActivity extends Activity {
                 tabs = (TabHost) findViewById(R.id.tabHost);
                 tabs.setup();
                 // on créer les onglets
-                createTab(tabs);
+                setupTab("ROUGES");
+                setupTab("BLANCS");
+                setupTab("ROSES");
+                setupTab("MOUSSEUX");
+
                 tabs.setCurrentTab(0);
 
                 tabs.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
@@ -271,26 +281,29 @@ public class MyMainActivity extends Activity {
         }
     }
 
-    protected void createTab(TabHost tabs)
+    private void setupTab(final String tag)
     {
-        TabHost.TabSpec spec=tabs.newTabSpec("tag1");
-        spec.setContent(R.id.tabRouge);
-        spec.setIndicator("ROUGES");
-        tabs.addTab(spec);
+        View tabview = createTabView(tabs.getContext(), tag);
+        TabHost.TabSpec tab = tabs.newTabSpec(tag).setIndicator(tabview);
+        switch(tag)
+        {
+            case "ROUGES" : tab.setContent(R.id.tabRouge);
+                break;
+            case "BLANCS" : tab.setContent(R.id.tabBlanc);
+                break;
+            case "ROSES" : tab.setContent(R.id.tabRose);
+                break;
+            case "MOUSSEUX" : tab.setContent(R.id.tabMousseux);
+                break;
+        }
+        tabs.addTab(tab);
 
-        spec=tabs.newTabSpec("tag2");
-        spec.setContent(R.id.tabBlanc);
-        spec.setIndicator("BLANCS");
-        tabs.addTab(spec);
+    }
 
-        spec=tabs.newTabSpec("tag3");
-        spec.setContent(R.id.tabRose);
-        spec.setIndicator("ROSES");
-        tabs.addTab(spec);
-
-        spec=tabs.newTabSpec("tag4");
-        spec.setContent(R.id.tabMousseux);
-        spec.setIndicator("MOUSSEUX");
-        tabs.addTab(spec);
+    private View createTabView(final Context context, final String text) {
+        View view = LayoutInflater.from(context).inflate(R.layout.tabs_bg, null);
+        TextView tv = (TextView) view.findViewById(R.id.tabsText);
+        tv.setText(text);
+        return view;
     }
 }
