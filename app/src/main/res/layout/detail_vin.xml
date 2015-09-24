@@ -101,11 +101,14 @@
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomEditText
                     android:layout_width="25dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:inputType="number"
                     android:ems="10"
                     android:id="@+id/nbBouteilles"
-                    android:layout_weight="3" />
+                    android:layout_weight="3"
+                    android:textColor="@color/rouge"
+                    android:gravity="center"
+                    android:background="@android:color/transparent" />
 
                 <Button
                     style="?android:attr/borderlessButtonStyle"
@@ -114,7 +117,7 @@
                     android:text="+"
                     android:id="@+id/nbPlus"
                     android:layout_weight="1"
-                    android:textSize="50dp"
+                    android:textSize="40dp"
                     android:textColor="#a52323" />
             </LinearLayout>
 
@@ -253,7 +256,8 @@
                 android:ems="10"
                 android:id="@+id/prixVin"
                 android:textColor="#a52323"
-                android:numeric="decimal" />
+                android:numeric="decimal"
+                android:background="@android:color/transparent" />
 
             <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                 android:layout_width="wrap_content"
@@ -297,7 +301,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/offert"
-                android:textColor="#a52323" />
+                android:textColor="#a52323"
+                android:background="@android:color/transparent" />
         </TableRow>
 
         <TableRow
@@ -397,7 +402,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp">
 
             <LinearLayout
@@ -423,16 +428,17 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
                 <RatingBar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:id="@+id/noteVin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="?android:attr/ratingBarStyle"
                     android:numStars="5"
                     android:stepSize="0.5"
-                    android:layout_marginTop="-8dp" />
+                    android:isIndicator="false"/>
             </LinearLayout>
 
             <com.example.pboguet.macaveonline.Utils.MyCustomTextView
@@ -449,42 +455,51 @@
                 android:inputType="textMultiLine"
                 android:ems="10"
                 android:id="@+id/commentairesVin"
-                android:textColor="#a52323" />
+                android:textColor="#a52323"
+                android:background="@android:color/transparent" />
         </TableRow>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="25dp">
+            android:layout_marginTop="20dp">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enregistrer"
                 android:id="@+id/btnModifier"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                android:textColor="@color/rouge" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Supprimer"
                 android:id="@+id/supprimerVin"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                android:textColor="@color/rouge" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Copier"
                 android:id="@+id/copierVin"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                android:textColor="@color/rouge" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Retour"
                 android:id="@+id/annuler"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                android:textColor="@color/rouge" />
         </LinearLayout>
 
         <TextView

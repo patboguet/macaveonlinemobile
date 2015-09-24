@@ -156,11 +156,28 @@ public class FicheVin extends Activity {
             consoAvantNum.setText("");
         }
 
+        if(vin.getLieuAchat() == 0) {
+            lieuAchat.setText("");
+        }
+        else {
+            lieuAchat.setText(GestionListes.getNomLieuAchat(vin.getLieuAchat()));
+        }
+        if(vin.getLieuStockage() == 0) {
+            lieuStockage.setText("");
+        }
+        else {
+            lieuStockage.setText(GestionListes.getNomLieuStockage(vin.getLieuStockage()));
+        }
 
-        lieuAchat.setText(GestionListes.getNomLieuAchat(vin.getLieuAchat()));
-        lieuStockage.setText(GestionListes.getNomLieuStockage(vin.getLieuStockage()));
-        note.setRating(vin.getNote() / 4);
-        noteSurVingt.setText(Float.toString(vin.getNote()));
+        if(vin.getNote() == 0.0f)
+        {
+            noteSurVingt.setText("");
+        }
+        else {
+            note.setRating(vin.getNote() / 4);
+            noteSurVingt.setText(Float.toString(vin.getNote()));
+        }
+
         commentaires.setText(vin.getCommentaires());
 
         // Listeners de click sur les éléments de la vue
