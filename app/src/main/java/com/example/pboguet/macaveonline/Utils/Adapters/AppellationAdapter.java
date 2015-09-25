@@ -1,6 +1,7 @@
 package com.example.pboguet.macaveonline.Utils.Adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class AppellationAdapter extends ArrayAdapter<Appellation> {
         if(appellations.size() > 0) {
             id = (TextView) v.findViewById(R.id.id);
             nom = (TextView) v.findViewById(R.id.nom);
+            nom.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
             if(id != null)
             {
                 id.setText(Integer.toString(aoc.getId()));

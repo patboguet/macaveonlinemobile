@@ -3,6 +3,7 @@ package com.example.pboguet.macaveonline.Utils.Adapters;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,9 +63,13 @@ public class VinAdapter extends ArrayAdapter<Vin> {
         if(vins.size() > 0) {
             id = (TextView) v.findViewById(R.id.idVin);
             nom = (TextView) v.findViewById(R.id.nomVin);
+            nom.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
             region = (TextView) v.findViewById(R.id.regionVin);
+            region.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
             annee = (TextView) v.findViewById(R.id.annee);
+            annee.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
             nbBt = (TextView) v.findViewById(R.id.nbBouteilles);
+            nbBt.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
             note = (ImageView) v.findViewById((R.id.note));
             favori = (ImageView) v.findViewById((R.id.favori));
             plus = (TextView) v.findViewById(R.id.plus);

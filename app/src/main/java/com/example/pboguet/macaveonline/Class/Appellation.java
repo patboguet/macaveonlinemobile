@@ -42,4 +42,9 @@ public class Appellation {
 
         return res;
     }
+
+    @Override
+    public String toString() {
+        return this.getNom();
+    }
 }

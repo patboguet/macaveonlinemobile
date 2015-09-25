@@ -2,6 +2,7 @@ package com.example.pboguet.macaveonline.Utils.Adapters;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class MenuAdapter extends ArrayAdapter<String> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.nom_menu, parent, false);
         TextView nomMenu = (TextView) v.findViewById(R.id.nomMenu);
+        nomMenu.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
         ImageView iconeMenu = (ImageView) v.findViewById(R.id.iconeMenu);
         nomMenu.setText(ControleurPrincipal.menu.get(position));
         String s = ControleurPrincipal.menu.get(position);

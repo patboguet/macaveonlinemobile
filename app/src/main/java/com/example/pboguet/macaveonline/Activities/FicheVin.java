@@ -103,9 +103,13 @@ public class FicheVin extends Activity {
         noteSurVingt = (TextView) findViewById(R.id.noteSurVingt);
         commentaires = (EditText) findViewById(R.id.commentairesVin);
         modifier = (Button) findViewById(R.id.btnModifier);
+        modifier.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
         supprimer = (Button) findViewById(R.id.supprimerVin);
+        supprimer.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
         copier = (Button) findViewById(R.id.copierVin);
+        copier.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
         annuler = (Button) findViewById(R.id.annuler);
+        annuler.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
         menu = (ListView) findViewById(R.id.menu);
         dialog = new Dialog(this);
 

@@ -1,22 +1,17 @@
 package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.database.DataSetObserver;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.Appellation;
@@ -25,7 +20,6 @@ import com.example.pboguet.macaveonline.Class.LieuStockage;
 import com.example.pboguet.macaveonline.Class.Menu;
 import com.example.pboguet.macaveonline.Class.Region;
 import com.example.pboguet.macaveonline.Class.Vin;
-import com.example.pboguet.macaveonline.Class.VinBlanc;
 import com.example.pboguet.macaveonline.R;
 import com.example.pboguet.macaveonline.Utils.Adapters.LieuStockageAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.RegionAdapter;
@@ -33,7 +27,6 @@ import com.example.pboguet.macaveonline.Utils.Adapters.VinAdapter;
 import com.example.pboguet.macaveonline.Utils.GestionListes;
 
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 /**
  * Created by Patrick on 12/09/2015.
@@ -78,6 +71,7 @@ public class Recherche extends Activity {
         listeType = (Spinner) findViewById(R.id.listeType);
         listeStockage = (Spinner) findViewById(R.id.listeStockage);
         btnRecherche = (Button) findViewById(R.id.btnRecherche);
+        btnRecherche.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
         listeVins = (ListView) findViewById(R.id.listeVinsRecherche);
         noResultat = (TextView) findViewById(R.id.aucunVin);
 
@@ -177,10 +171,11 @@ public class Recherche extends Activity {
             switch(spinner)
             {
                 case R.id.listeAoc : {
-                    String a = (String) parent.getItemAtPosition(position);
-                    if(!a.equals("Appellation"))
+                    Appellation a = (Appellation) parent.getItemAtPosition(position);
+                    String nom = a.getNom();
+                    if(!nom.equals("Appellation"))
                     {
-                        aoc = GestionListes.getIdAppellation(a);
+                        aoc = GestionListes.getIdAppellation(nom);
                     }
                     else {
                         aoc = 0;

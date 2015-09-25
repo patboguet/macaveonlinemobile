@@ -3,6 +3,7 @@ package com.example.pboguet.macaveonline.Utils.Adapters;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,8 @@ public class VinRoseAdapter extends ArrayAdapter<VinRose> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        coeurs = new boolean[ControleurPrincipal.listeVinsRose.size()];
+
+        nom.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
         View v = convertView;
         final Vin vin = vins.get(position);
         if (v == null) {
@@ -64,9 +66,13 @@ public class VinRoseAdapter extends ArrayAdapter<VinRose> {
         if(vins.size() > 0) {
             id = (TextView) v.findViewById(R.id.idVin);
             nom = (TextView) v.findViewById(R.id.nomVin);
+            region.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
             region = (TextView) v.findViewById(R.id.regionVin);
+            annee.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
             annee = (TextView) v.findViewById(R.id.annee);
+            nbBt.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
             nbBt = (TextView) v.findViewById(R.id.nbBouteilles);
+
             note = (ImageView) v.findViewById(R.id.note);
             favori = (ImageView) v.findViewById(R.id.favori);
             plus = (TextView) v.findViewById(R.id.plus);

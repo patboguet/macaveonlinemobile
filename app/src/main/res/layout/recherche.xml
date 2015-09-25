@@ -65,7 +65,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/recherche"
-                    android:textColor="#a52323"
+                    android:textColor="@color/rouge"
                     android:layout_marginRight="20dp"
                     android:hint="Recherche"
                     android:textSize="20dp" />
@@ -84,14 +84,14 @@
                 android:layout_margin="10dp">
 
                 <Spinner
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="150dp"
+                    android:layout_height="fill_parent"
                     android:id="@+id/listeRegion"
                     android:layout_marginRight="20dp"
                     android:spinnerMode="dialog" />
 
                 <Spinner
-                    android:layout_width="200dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/listeAoc"
                     android:visibility="gone"
@@ -99,7 +99,7 @@
                     android:spinnerMode="dialog" />
 
                 <Spinner
-                    android:layout_width="200dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/listeType"
                     android:layout_marginRight="20dp"
@@ -124,7 +124,9 @@
                     android:layout_height="wrap_content"
                     android:text="Rechercher"
                     android:id="@+id/btnRecherche"
-                    android:layout_weight="1" />
+                    style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                    android:layout_weight="1"
+                    android:textColor="@color/rouge" />
             </LinearLayout>
 
         <TextView

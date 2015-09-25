@@ -121,7 +121,9 @@ public class AjoutVin extends Activity {
         noteSurVingt = (TextView) findViewById(R.id.noteSurVingt);
         commentaires = (EditText) findViewById(R.id.commentairesVin);
         ajouter = (Button) findViewById(R.id.ajouterVin);
+        ajouter.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
         annuler = (Button) findViewById(R.id.annuler);
+        annuler.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
         menu = (ListView) findViewById(R.id.menu);
         dialog = new Dialog(this);
         erreurNom = (TextView) findViewById(R.id.erreurNom);
