@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.Region;
 import com.example.pboguet.macaveonline.R;
+import com.example.pboguet.macaveonline.Utils.GestionListes;
 
 import java.util.ArrayList;
 
@@ -19,9 +20,6 @@ import java.util.ArrayList;
 public class RegionAdapter extends ArrayAdapter<Region> {
     private ArrayList<Region> regions;
     private Context mContext;
-    private TextView id;
-    private TextView nom;
-
 
     public RegionAdapter(Context context, int layoutID, int textViewID, ArrayList<Region> regions) {
         super(context,layoutID,textViewID,regions);
@@ -31,31 +29,12 @@ public class RegionAdapter extends ArrayAdapter<Region> {
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return constructionListe(position, convertView);
+        return GestionListes.createListe(position, convertView, mContext, regions, "region");
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-       return constructionListe(position, convertView);
+       return GestionListes.createListe(position, convertView, mContext, regions, "region");
     }
 
-    private View constructionListe(int position, View convertView) {
-        View v = convertView;
-        final Region reg = regions.get(position);
-        if (v == null) {
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(R.layout.liste_choix_item, null);
-        }
-        if(regions.size() > 0) {
-            id = (TextView) v.findViewById(R.id.id);
-            nom = (TextView) v.findViewById(R.id.nom);
-            nom.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
-            if(id != null)
-            {
-                id.setText(Integer.toString(reg.getId()));
-                nom.setText(reg.getNom());
-            }
-        }
-        return v;
-    }
 }

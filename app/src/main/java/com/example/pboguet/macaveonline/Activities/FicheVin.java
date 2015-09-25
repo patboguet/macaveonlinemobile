@@ -3,6 +3,7 @@ package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -62,6 +63,9 @@ public class FicheVin extends Activity {
     private ListView menu;
     private Dialog dialog;
     private static Activity mActivity;
+    private static Typeface JELLYKA;
+    private static Typeface MAIANDRA;
+    private Context mContext;
 
     public static Activity getInstance() {
         return mActivity;
@@ -72,12 +76,14 @@ public class FicheVin extends Activity {
         super.onCreate(savedInstanceState);
 
         mActivity = this;
+        mContext = getApplicationContext();
         setContentView(R.layout.detail_vin);
         TextView titre = (TextView) findViewById(R.id.titreFiche);
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/JellykaWonderlandWine.ttf");
-        titre.setTypeface(font);
+        JELLYKA = Typeface.createFromAsset(getAssets(), "fonts/JellykaWonderlandWine.ttf");
+        MAIANDRA = Typeface.createFromAsset(getAssets(), "fonts/MaiandraGD.ttf");
+        titre.setTypeface(JELLYKA);
 
-        new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
+        new Menu(mContext, this, (ListView) findViewById(R.id.menu));
 
         id = (TextView) findViewById(R.id.idVin);
         nom = (TextView)findViewById(R.id.nomVin);
@@ -103,13 +109,13 @@ public class FicheVin extends Activity {
         noteSurVingt = (TextView) findViewById(R.id.noteSurVingt);
         commentaires = (EditText) findViewById(R.id.commentairesVin);
         modifier = (Button) findViewById(R.id.btnModifier);
-        modifier.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
+        modifier.setTypeface(MAIANDRA);
         supprimer = (Button) findViewById(R.id.supprimerVin);
-        supprimer.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
+        supprimer.setTypeface(MAIANDRA);
         copier = (Button) findViewById(R.id.copierVin);
-        copier.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
+        copier.setTypeface(MAIANDRA);
         annuler = (Button) findViewById(R.id.annuler);
-        annuler.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
+        annuler.setTypeface(MAIANDRA);
         menu = (ListView) findViewById(R.id.menu);
         dialog = new Dialog(this);
 
@@ -312,13 +318,13 @@ public class FicheVin extends Activity {
         ListView listeChoix = (ListView) dialog.findViewById(R.id.listeChoix);
         if(type.equals("achat")) {
                 dialog.setTitle("Lieu d'achat");
-                ArrayAdapter achatAda = new LieuAchatAdapter(getApplicationContext(),R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuAchat);
+                ArrayAdapter achatAda = new LieuAchatAdapter(mContext,R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuAchat);
                 listeChoix.setAdapter(achatAda);
             }
         else
         {
             dialog.setTitle("Lieu de stockage");
-            ArrayAdapter stockageAda = new LieuStockageAdapter(getApplicationContext(),R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuStockage);
+            ArrayAdapter stockageAda = new LieuStockageAdapter(mContext,R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuStockage);
             listeChoix.setAdapter(stockageAda);
         }
         listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {

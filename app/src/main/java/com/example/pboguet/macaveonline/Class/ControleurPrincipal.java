@@ -1,6 +1,8 @@
 package com.example.pboguet.macaveonline.Class;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.Typeface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +27,6 @@ public class ControleurPrincipal {
     public static int idVinSupprime = 0;
     public static int idVinAjoute = 0;
     public static ProgressDialog loader = null;
-
 
     public static String numeroMoisEnLettre(int num, boolean calendrier)
     {

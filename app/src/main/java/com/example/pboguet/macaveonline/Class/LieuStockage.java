@@ -41,4 +41,9 @@ public class LieuStockage {
 
         return res;
     }
+
+    @Override
+    public String toString() {
+        return this.getNom();
+    }
 }

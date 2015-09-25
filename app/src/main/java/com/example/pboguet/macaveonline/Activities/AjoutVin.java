@@ -2,10 +2,12 @@ package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -72,6 +74,9 @@ public class AjoutVin extends Activity {
     private TextView erreurAnnee;
     private TextView erreurType;
     private TextView noteSurVingt;
+    private static Typeface JELLYKA;
+    private static Typeface MAIANDRA;
+    private Context mContext;
 
     public static Activity getInstance() {
         return mActivity;
@@ -81,11 +86,13 @@ public class AjoutVin extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
+        mContext = getApplicationContext();
         setContentView(R.layout.ajout_vin);
         TextView titre = (TextView) findViewById(R.id.titreBarreHaut);
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/JellykaWonderlandWine.ttf");
-        titre.setTypeface(font);
-        new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
+        JELLYKA = Typeface.createFromAsset(mContext.getAssets(), "fonts/JellykaWonderlandWine.ttf");
+        MAIANDRA = Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf");
+        titre.setTypeface(JELLYKA);
+        new Menu(mContext, this, (ListView) findViewById(R.id.menu));
 
         listeType.add(0, "Type de vin");
         listeType.add(1, "Blanc");
@@ -121,9 +128,9 @@ public class AjoutVin extends Activity {
         noteSurVingt = (TextView) findViewById(R.id.noteSurVingt);
         commentaires = (EditText) findViewById(R.id.commentairesVin);
         ajouter = (Button) findViewById(R.id.ajouterVin);
-        ajouter.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
+        ajouter.setTypeface(MAIANDRA);
         annuler = (Button) findViewById(R.id.annuler);
-        annuler.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
+        annuler.setTypeface(MAIANDRA);
         menu = (ListView) findViewById(R.id.menu);
         dialog = new Dialog(this);
         erreurNom = (TextView) findViewById(R.id.erreurNom);
@@ -249,16 +256,29 @@ public class AjoutVin extends Activity {
         moins.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int nb = Integer.parseInt(nbBouteilles.getText().toString());
-                if (nb > 0) {
-                    nbBouteilles.setText(Integer.toString(nb - 1));
+                String nb = nbBouteilles.getText().toString();
+                int nbBt = 0;
+                if (!nb.equals("")) {
+                    nbBt = Integer.parseInt(nb);
+                }
+                if(nbBt > 0) {
+                    nbBouteilles.setText(Integer.toString(nbBt - 1));
+                }
+                else {
+                    nbBouteilles.setText("0");
                 }
             }
         });
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nbBouteilles.setText(Integer.toString(Integer.parseInt(nbBouteilles.getText().toString()) + 1));
+                String nb = nbBouteilles.getText().toString();
+                if(!nb.equals("")) {
+                    nbBouteilles.setText(Integer.toString(Integer.parseInt(nbBouteilles.getText().toString()) + 1));
+                }
+                else {
+                    nbBouteilles.setText("1");
+                }
             }
         });
         note.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -439,7 +459,7 @@ public class AjoutVin extends Activity {
         switch (choix) {
             case "region": {
                 dialog.setTitle("Région");
-                RegionAdapter regionAda = new RegionAdapter(getApplicationContext(), R.layout.liste_choix_item, 0, ControleurPrincipal.listeRegion);
+                RegionAdapter regionAda = new RegionAdapter(mContext, R.layout.liste_choix_item, 0, ControleurPrincipal.listeRegion);
                 listeChoix.setAdapter(regionAda);
             }
             break;
@@ -448,26 +468,36 @@ public class AjoutVin extends Activity {
                 dialog.setTitle("Appellation");
                 if (!idR.equals("")) {
                     ArrayList<Appellation> listeAppellations = ControleurPrincipal.listeRegionAoc.get(idR);
-                    AppellationAdapter aocAda = new AppellationAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, listeAppellations);
+                    AppellationAdapter aocAda = new AppellationAdapter(mContext, R.layout.liste_choix_item, R.id.nom, listeAppellations);
                     listeChoix.setAdapter(aocAda);
                 }
             }
             break;
             case "achat": {
                 dialog.setTitle("Lieu d'achat");
-                LieuAchatAdapter achatAda = new LieuAchatAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuAchat);
+                LieuAchatAdapter achatAda = new LieuAchatAdapter(mContext, R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuAchat);
                 listeChoix.setAdapter(achatAda);
             }
             break;
             case "stockage": {
                 dialog.setTitle("Lieu de stockage");
-                LieuStockageAdapter stockageAda = new LieuStockageAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuStockage);
+                LieuStockageAdapter stockageAda = new LieuStockageAdapter(mContext, R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuStockage);
                 listeChoix.setAdapter(stockageAda);
             }
             break;
             case "type": {
                 dialog.setTitle("Type de vin");
-                ArrayAdapter typeAda = new ArrayAdapter<>(getApplicationContext(), R.layout.liste_types, R.id.nomType, listeType);
+                ArrayAdapter typeAda = new ArrayAdapter<String>(mContext, R.layout.liste_choix_item, R.id.nom, listeType) {
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                         return GestionListes.createListe(position, convertView, mContext, listeType, "type");
+                    }
+
+                    @Override
+                    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                         return GestionListes.createListe(position, convertView, mContext, listeType, "type");
+                    }
+                };
                 listeChoix.setAdapter(typeAda);
             }
         }

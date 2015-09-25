@@ -42,36 +42,35 @@ public class VinRoseAdapter extends ArrayAdapter<VinRose> {
     private TextView moins;
     private Dialog dialog;
     private boolean[] coeurs;
+    private static Typeface MAIANDRA;
 
     public VinRoseAdapter(Context context, int textViewResourceID, ArrayList<VinRose> vins) {
         super(context,textViewResourceID,vins);
         mContext = context;
         this.vins = vins;
         this.dialog = new Dialog(context);
+        MAIANDRA = Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf");
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-
-        nom.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
+        coeurs = new boolean[ControleurPrincipal.listeVinsRose.size()];
         View v = convertView;
         final Vin vin = vins.get(position);
         if (v == null) {
-
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
             v = inflater.inflate(R.layout.liste_vins, null);
-
         }
         if(vins.size() > 0) {
             id = (TextView) v.findViewById(R.id.idVin);
             nom = (TextView) v.findViewById(R.id.nomVin);
-            region.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
+            nom.setTypeface(MAIANDRA);
             region = (TextView) v.findViewById(R.id.regionVin);
-            annee.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
+            region.setTypeface(MAIANDRA);
             annee = (TextView) v.findViewById(R.id.annee);
-            nbBt.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
+            annee.setTypeface(MAIANDRA);
             nbBt = (TextView) v.findViewById(R.id.nbBouteilles);
+            nbBt.setTypeface(MAIANDRA);
 
             note = (ImageView) v.findViewById(R.id.note);
             favori = (ImageView) v.findViewById(R.id.favori);
@@ -87,7 +86,6 @@ public class VinRoseAdapter extends ArrayAdapter<VinRose> {
                 if(vin.isFavori() || coeurs[position])
                 {
                     favori.setImageResource(R.mipmap.ic_favori_oui);
-
                 }
                 else
                     favori.setImageResource(R.mipmap.ic_favori_no);

@@ -62,7 +62,9 @@
                     android:layout_height="match_parent"
                     android:text="Nom"
                     android:id="@+id/labNom"
-                    android:gravity="center_vertical"/>
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomEditText
                     android:layout_width="wrap_content"
@@ -71,7 +73,11 @@
                     android:textColor="#a52323"
                     android:layout_marginRight="50dp"
                     android:layout_marginLeft="10dp"
-                    android:background="@android:color/transparent" />
+                    android:background="@android:color/transparent"
+                    android:layout_weight="1"
+                    android:textSize="24dp"
+                    android:textColorHint="#cbcbcb"
+                    android:hint="Entrer un nom" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
@@ -80,13 +86,15 @@
                     android:id="@+id/labNbBouteilles"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="10dp"
-                    />
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1">
 
                     <Button
                         style="?android:attr/borderlessButtonStyle"
@@ -107,7 +115,8 @@
                         android:layout_weight="3"
                         android:textColor="@color/rouge"
                         android:gravity="center"
-                        android:background="@android:color/transparent" />
+                        android:background="@android:color/transparent"
+                        android:textSize="24dp" />
 
                     <Button
                         style="?android:attr/borderlessButtonStyle"
@@ -133,7 +142,9 @@
                     android:layout_height="wrap_content"
                     android:text="Année"
                     android:id="@+id/labAnnee"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
@@ -143,13 +154,17 @@
                     android:id="@+id/anneeVin"
                     android:textColor="#a52323"
                     android:hint="Choisir année"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="24dp"
+                    android:textColorHint="#cbcbcb" />
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1">
 
                     <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                         android:layout_width="wrap_content"
@@ -158,7 +173,7 @@
                         android:id="@+id/labSuivi"
                         android:singleLine="false"
                         android:gravity="center_vertical"
-                        />
+                        android:textSize="24dp" />
 
                     <CheckBox
                         android:layout_width="wrap_content"
@@ -172,14 +187,16 @@
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
                     <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Vin favori"
                         android:id="@+id/labFavori"
-                        android:gravity="center_vertical" />
+                        android:gravity="center_vertical"
+                        android:textSize="24dp" />
 
                     <CheckBox
                         android:layout_width="wrap_content"
@@ -200,7 +217,9 @@
                     android:layout_height="wrap_content"
                     android:text="Région"
                     android:id="@+id/labRegion"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
@@ -208,7 +227,10 @@
                     android:id="@+id/regionVin"
                     android:textColor="#a52323"
                     android:hint="Choisir région"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="24dp"
+                    android:textColorHint="#cbcbcb" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
@@ -216,14 +238,19 @@
                     android:text="Appellation"
                     android:id="@+id/labAoc"
                     android:gravity="fill_vertical"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/appellation"
                     android:hint="Choisir appellation"
-                    android:textColor="#a52323" />
+                    android:textColor="#a52323"
+                    android:layout_weight="1"
+                    android:textSize="24dp"
+                    android:textColorHint="#cbcbcb" />
 
             </TableRow>
 
@@ -237,7 +264,9 @@
                     android:layout_height="wrap_content"
                     android:text="Type de Vin"
                     android:id="@+id/labType"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
@@ -245,7 +274,10 @@
                     android:id="@+id/typeVin"
                     android:textColor="#a52323"
                     android:hint="Choisir type"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="24dp"
+                    android:textColorHint="#cbcbcb" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
@@ -253,26 +285,42 @@
                     android:text="Prix achat"
                     android:id="@+id/labPrix"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
-                <com.example.pboguet.macaveonline.Utils.MyCustomEditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:ems="10"
-                    android:id="@+id/prixVin"
-                    android:textColor="#a52323"
-                    android:numeric="decimal"
-                    android:background="@android:color/transparent" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-                <com.example.pboguet.macaveonline.Utils.MyCustomTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="€"
-                    android:id="@+id/devisePrix"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical" />
+                    <com.example.pboguet.macaveonline.Utils.MyCustomEditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:ems="10"
+                        android:id="@+id/prixVin"
+                        android:textColor="#a52323"
+                        android:numeric="decimal"
+                        android:background="@android:color/transparent"
+                        android:layout_weight="1"
+                        android:textSize="24dp"
+                        android:hint="Entrer prix"
+                        android:textColorHint="#cbcbcb" />
+
+                    <com.example.pboguet.macaveonline.Utils.MyCustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="€"
+                        android:id="@+id/devisePrix"
+                        android:textStyle="bold"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:textSize="24dp" />
+                </LinearLayout>
+
             </TableRow>
 
             <TableRow
@@ -285,7 +333,9 @@
                     android:layout_height="wrap_content"
                     android:text="Degré Alcool"
                     android:id="@+id/labDegre"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomEditText
                     android:layout_width="wrap_content"
@@ -295,7 +345,11 @@
                     android:id="@+id/degre"
                     android:textColor="#a52323"
                     android:layout_marginLeft="10dp"
-                    android:background="@android:color/transparent" />
+                    android:background="@android:color/transparent"
+                    android:layout_weight="1"
+                    android:textSize="24dp"
+                    android:textColorHint="#cbcbcb"
+                    android:hint="Choisir degré" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
@@ -303,14 +357,20 @@
                     android:text="Offert par"
                     android:id="@+id/labOffert"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomEditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/offert"
                     android:textColor="#a52323"
-                    android:background="@android:color/transparent" />
+                    android:background="@android:color/transparent"
+                    android:layout_weight="1"
+                    android:textSize="24dp"
+                    android:textColorHint="#cbcbcb"
+                    android:hint="Entrer nom" />
             </TableRow>
 
             <TableRow
@@ -323,7 +383,9 @@
                     android:layout_height="wrap_content"
                     android:text="Consommer à partir de"
                     android:id="@+id/labConsoPartir"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
@@ -333,7 +395,10 @@
                     android:id="@+id/consoPartirVin"
                     android:textColor="#a52323"
                     android:layout_marginLeft="10dp"
-                    android:hint="Choisir année" />
+                    android:hint="Choisir année"
+                    android:layout_weight="1"
+                    android:textSize="24dp"
+                    android:textColorHint="#cbcbcb" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
@@ -341,14 +406,19 @@
                     android:text="Lieu achat"
                     android:id="@+id/labLieuAchat"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/lieuAchatVin"
                     android:textColor="#a52323"
-                    android:hint="Choisir lieu d&apos;achat" />
+                    android:hint="Choisir lieu d&apos;achat"
+                    android:layout_weight="1"
+                    android:textSize="24dp"
+                    android:textColorHint="#cbcbcb" />
 
             </TableRow>
 
@@ -374,7 +444,9 @@
                     android:layout_height="wrap_content"
                     android:text="Consommer avant"
                     android:id="@+id/labConsoAvant"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
@@ -384,7 +456,10 @@
                     android:id="@+id/consoAvantVin"
                     android:layout_marginLeft="10dp"
                     android:textColor="#a52323"
-                    android:hint="Choisir année" />
+                    android:hint="Choisir année"
+                    android:layout_weight="1"
+                    android:textSize="24dp"
+                    android:textColorHint="#cbcbcb" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
@@ -392,14 +467,19 @@
                     android:text="Lieu stockage"
                     android:id="@+id/labLieuStockage"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/lieuStockageVin"
                     android:textColor="#a52323"
-                    android:hint="Choisir lieu stockage" />
+                    android:hint="Choisir lieu stockage"
+                    android:layout_weight="1"
+                    android:textSize="24dp"
+                    android:textColorHint="#cbcbcb" />
             </TableRow>
 
             <TableRow
@@ -423,7 +503,8 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:layout_weight="1">
 
                     <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                         android:layout_width="wrap_content"
@@ -431,19 +512,22 @@
                         android:text="Note"
                         android:id="@+id/labNote"
                         android:gravity="center_vertical"
-                        android:layout_marginRight="15dp" />
+                        android:layout_marginRight="15dp"
+                        android:textSize="24dp" />
 
                     <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/noteSurVingt"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:textSize="24dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
                     <RatingBar
                         android:id="@+id/noteVin"
@@ -461,7 +545,9 @@
                     android:text="Commentaires"
                     android:id="@+id/labCommentaires"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomEditText
                     android:layout_width="wrap_content"
@@ -470,7 +556,9 @@
                     android:ems="10"
                     android:id="@+id/commentairesVin"
                     android:textColor="#a52323"
-                    android:background="@android:color/transparent" />
+                    android:background="@android:color/transparent"
+                    android:layout_weight="1"
+                    android:textSize="24dp" />
             </TableRow>
 
             <LinearLayout
@@ -486,7 +574,9 @@
                     android:id="@+id/ajouterVin"
                     android:layout_weight="1"
                     style="@android:style/Widget.DeviceDefault.Button.Borderless"
-                    android:textColor="@color/rouge" />
+                    android:textColor="@color/rouge"
+                    android:background="#ffffff"
+                    android:textSize="24dp" />
 
                 <Button
                     android:layout_width="wrap_content"
@@ -495,7 +585,9 @@
                     android:id="@+id/annuler"
                     android:layout_weight="1"
                     style="@android:style/Widget.DeviceDefault.Button.Borderless"
-                    android:textColor="@color/rouge" />
+                    android:textColor="@color/rouge"
+                    android:background="#ffffff"
+                    android:textSize="24dp" />
 
             </LinearLayout>
 
@@ -503,25 +595,37 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/erreurNom"
-                android:textColor="@color/rouge" />
+                android:textColor="@color/rouge"
+                android:textSize="24dp"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="15dp" />
 
             <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/erreurAnnee"
-                android:textColor="@color/rouge" />
+                android:textColor="@color/rouge"
+                android:textSize="24dp"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="15dp" />
 
             <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/erreurRegion"
-                android:textColor="@color/rouge"/>
+                android:textColor="@color/rouge"
+                android:textSize="24dp"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="15dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/erreurType"
-                android:textColor="@color/rouge"/>
+                android:textColor="@color/rouge"
+                android:textSize="24dp"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="15dp" />
 
             <TextView
                 android:layout_width="wrap_content"

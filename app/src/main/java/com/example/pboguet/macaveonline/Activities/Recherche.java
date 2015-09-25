@@ -1,15 +1,19 @@
 package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,7 +43,7 @@ public class Recherche extends Activity {
     private Spinner listeType;
     private Spinner listeStockage;
     private Button btnRecherche;
-    private Button rechercheText;
+    private ImageButton rechercheText;
     private ListView listeVins;
     private TextView noResultat;
     private int region = 0;
@@ -48,6 +52,10 @@ public class Recherche extends Activity {
     private int stockage = 0;
     private VinAdapter vinsAda = null;
     ArrayList listeVinsRes = new ArrayList();
+    private ArrayList types;
+    private Context mContext;
+    private static Typeface JELLYKA;
+    private static Typeface MAIANDRA;
 
     public static Activity getInstance() {
         return mActivity;
@@ -57,37 +65,49 @@ public class Recherche extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
+        mContext = getApplicationContext();
         setContentView(R.layout.recherche);
         TextView titre = (TextView) findViewById(R.id.titreRecherche);
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/JellykaWonderlandWine.ttf");
-        titre.setTypeface(font);
+        JELLYKA = Typeface.createFromAsset(mContext.getAssets(), "fonts/JellykaWonderlandWine.ttf");
+        MAIANDRA = Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf");
+        titre.setTypeface(JELLYKA);
 
-        new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
+        new Menu(mContext, mActivity, (ListView) findViewById(R.id.menu));
 
         champRecherche = (EditText) findViewById(R.id.recherche);
-        rechercheText = (Button) findViewById(R.id.rechercheText);
+        rechercheText = (ImageButton) findViewById(R.id.rechercheText);
         listeRegion = (Spinner) findViewById(R.id.listeRegion);
         listeAoc = (Spinner) findViewById(R.id.listeAoc);
         listeType = (Spinner) findViewById(R.id.listeType);
         listeStockage = (Spinner) findViewById(R.id.listeStockage);
         btnRecherche = (Button) findViewById(R.id.btnRecherche);
-        btnRecherche.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/MaiandraGD.ttf"));
+        btnRecherche.setTypeface(MAIANDRA);
         listeVins = (ListView) findViewById(R.id.listeVinsRecherche);
         noResultat = (TextView) findViewById(R.id.aucunVin);
 
-        RegionAdapter regAda = new RegionAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeRegion);
+        RegionAdapter regAda = new RegionAdapter(mContext, R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeRegion);
         regAda.setDropDownViewResource(R.layout.liste_choix_item);
         listeRegion.setAdapter(regAda);
         listeRegion.setOnItemSelectedListener(new onRegionClickListener());
-        final ArrayList types = new ArrayList(4);
+        types = new ArrayList(4);
         types.add(0,"Type de vin");
         types.add(1,"Blanc");
         types.add(2, "Rouge");
         types.add(3, "Rosé");
         types.add(4, "Mousseux");
-        ArrayAdapter typeAda = new ArrayAdapter<>(getApplicationContext(),R.layout.liste_types,R.id.nomType, types);
+        ArrayAdapter typeAda = new ArrayAdapter<String>(mContext,R.layout.liste_choix_item,R.id.nom, types) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                return GestionListes.createListe(position, convertView, mContext, types, "type");
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                return GestionListes.createListe(position, convertView, mContext, types, "type");
+            }
+        };
         listeType.setAdapter(typeAda);
-        LieuStockageAdapter lieuStockAda = new LieuStockageAdapter(getApplicationContext(), R.layout.liste_choix_item,R.id.nom, ControleurPrincipal.listeLieuStockage);
+        LieuStockageAdapter lieuStockAda = new LieuStockageAdapter(mContext, R.layout.liste_choix_item,R.id.nom, ControleurPrincipal.listeLieuStockage);
         listeStockage.setAdapter(lieuStockAda);
 
         listeAoc.setOnItemSelectedListener(new onSpinnerClickListener());
@@ -127,9 +147,19 @@ public class Recherche extends Activity {
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             if(position > 0)
             {
-                ArrayList listeAppellations = (ArrayList) ControleurPrincipal.listeRegionAoc.get(position);
+                final ArrayList listeAppellations = (ArrayList) ControleurPrincipal.listeRegionAoc.get(position);
                 if(listeAppellations != null) {
-                    ArrayAdapter aocAda = new ArrayAdapter(getApplicationContext(), R.layout.liste_choix_item, R.id.nom, listeAppellations);
+                    ArrayAdapter aocAda = new ArrayAdapter<String>(mContext, R.layout.liste_choix_item, R.id.nom, listeAppellations) {
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            return GestionListes.createListe(position, convertView, mContext, listeAppellations, "aoc");
+                        }
+
+                        @Override
+                        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                            return GestionListes.createListe(position, convertView, mContext, listeAppellations, "aoc");
+                        }
+                    };
                     listeAoc.setAdapter(aocAda);
                     listeAoc.setVisibility(View.VISIBLE);
                 }
@@ -165,6 +195,7 @@ public class Recherche extends Activity {
     }
 
     private class onSpinnerClickListener implements AdapterView.OnItemSelectedListener {
+
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             int spinner = parent.getId();
@@ -375,7 +406,7 @@ public class Recherche extends Activity {
                 listeVinsRes = ControleurPrincipal.listeVins;
             }
 
-            vinsAda = new VinAdapter(getApplicationContext(), R.layout.liste_vins, listeVinsRes);
+            vinsAda = new VinAdapter(mContext, R.layout.liste_vins, listeVinsRes);
             listeVins.setAdapter(vinsAda);
             if (listeVinsRes.size() > 0) {
                 if (noResultat.isShown()) {
@@ -394,7 +425,7 @@ public class Recherche extends Activity {
         @Override
         public void onClick(View v) {
             // on cache le clavier
-            InputMethodManager imm = (InputMethodManager)getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager)getSystemService(mContext.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             int tailleListe = ControleurPrincipal.listeVins.size();
             listeVinsRes = new ArrayList();
@@ -407,7 +438,7 @@ public class Recherche extends Activity {
                     listeVinsRes.add(vi);
                 }
             }
-            vinsAda = new VinAdapter(getApplicationContext(), R.layout.liste_vins, listeVinsRes);
+            vinsAda = new VinAdapter(mContext, R.layout.liste_vins, listeVinsRes);
             listeVins.setAdapter(vinsAda);
             if (listeVinsRes.size() > 0) {
                 if (noResultat.isShown()) {

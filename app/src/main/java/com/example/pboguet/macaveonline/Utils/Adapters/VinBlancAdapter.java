@@ -28,6 +28,7 @@ import java.util.ArrayList;
  * Created by pboguet on 06/07/2015.
  */
 public class VinBlancAdapter extends ArrayAdapter<VinBlanc> {
+    private static Typeface MAIANDRA;
     private ArrayList<VinBlanc> vins;
     private Context mContext;
     private TextView nom;
@@ -48,6 +49,7 @@ public class VinBlancAdapter extends ArrayAdapter<VinBlanc> {
         mContext = context;
         this.vins = vins;
         this.dialog = new Dialog(context);
+        MAIANDRA = Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf");
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -62,13 +64,13 @@ public class VinBlancAdapter extends ArrayAdapter<VinBlanc> {
         if(vins.size() > 0) {
             id = (TextView) v.findViewById(R.id.idVin);
             nom = (TextView) v.findViewById(R.id.nomVin);
-            nom.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
+            nom.setTypeface(MAIANDRA);
             region = (TextView) v.findViewById(R.id.regionVin);
-            region.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
+            region.setTypeface(MAIANDRA);
             annee = (TextView) v.findViewById(R.id.annee);
-            annee.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
+            annee.setTypeface(MAIANDRA);
             nbBt = (TextView) v.findViewById(R.id.nbBouteilles);
-            nbBt.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));
+            nbBt.setTypeface(MAIANDRA);
             note = (ImageView) v.findViewById(R.id.note);
             favori = (ImageView) v.findViewById(R.id.favori);
             plus = (TextView) v.findViewById(R.id.plus);

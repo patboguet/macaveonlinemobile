@@ -1,11 +1,18 @@
 package com.example.pboguet.macaveonline.Utils;
 
+import android.content.Context;
+import android.graphics.Typeface;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
 import com.example.pboguet.macaveonline.Class.Appellation;
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.LieuAchat;
 import com.example.pboguet.macaveonline.Class.LieuStockage;
 import com.example.pboguet.macaveonline.Class.Region;
 import com.example.pboguet.macaveonline.Class.Vin;
+import com.example.pboguet.macaveonline.R;
 
 import java.util.ArrayList;
 
@@ -138,5 +145,55 @@ public class GestionListes {
             }
         }
         return 0;
+    }
+
+    public static View createListe(int position, View convertView, Context c, ArrayList liste, String s) {
+        View v = convertView;
+        if (v == null) {
+            LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            v = inflater.inflate(R.layout.liste_choix_item, null);
+        }
+        TextView tvNom = (TextView) v.findViewById(R.id.nom);
+        TextView tvId = (TextView) v.findViewById(R.id.id);
+        tvNom.setTypeface(Typeface.createFromAsset(c.getAssets(), "fonts/MaiandraGD.ttf"));
+        String contenuTvNom = null;
+        int contenuTvId = 0;
+        switch (s)
+        {
+            case "type" : {
+                contenuTvNom = (String) liste.get(position);
+                contenuTvId = position;
+            }
+                break;
+            case "aoc" : {
+                Appellation a = (Appellation) liste.get(position);
+                contenuTvNom = a.getNom();
+                contenuTvId = a.getId();
+            }
+                break;
+            case "lieuS" : {
+                LieuStockage ls = (LieuStockage) liste.get(position);
+                contenuTvNom = ls.getNom();
+                contenuTvId = ls.getId();
+            }
+                break;
+            case "lieuA" : {
+                LieuAchat la = (LieuAchat) liste.get(position);
+                contenuTvNom = la.getNom();
+                contenuTvId = la.getId();
+            }
+                break;
+            case "region" : {
+                Region r = (Region) liste.get(position);
+                contenuTvNom = r.getNom();
+                contenuTvId = r.getId();
+            }
+                break;
+        }
+
+        tvNom.setText(contenuTvNom);
+        tvId.setText(Integer.toString(contenuTvId));
+
+        return v;
     }
 }

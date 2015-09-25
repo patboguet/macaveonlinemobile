@@ -88,7 +88,7 @@ public class MyMainActivity extends Activity {
             String tabActif = tabs.getCurrentTabTag();
             int idVS = ControleurPrincipal.idVinSupprime;
             switch (tabActif) {
-                case "tag1": {
+                case "ROUGES": {
                     if (idVS > 0) {
                         rougeAda.remove(getVinRouge(idVS));
                         ControleurPrincipal.idVinSupprime = 0;
@@ -98,7 +98,7 @@ public class MyMainActivity extends Activity {
                     }
                 }
                 break;
-                case "tag2": {
+                case "BLANCS": {
                     if (idVS > 0) {
                         blancAda.remove(getVinBlanc(idVS));
                         ControleurPrincipal.idVinSupprime = 0;
@@ -108,7 +108,7 @@ public class MyMainActivity extends Activity {
                     }
                 }
                 break;
-                case "tag3": {
+                case "ROSES": {
                     if (idVS > 0) {
                         roseAda.remove(getVinRose(idVS));
                         ControleurPrincipal.idVinSupprime = 0;
@@ -118,7 +118,7 @@ public class MyMainActivity extends Activity {
                     }
                 }
                 break;
-                case "tag4": {
+                case "MOUSSEUX": {
                     if (idVS > 0) {
                         mousseAda.remove(getMousseux(idVS));
                         ControleurPrincipal.idVinSupprime = 0;

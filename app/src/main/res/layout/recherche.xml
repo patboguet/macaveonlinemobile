@@ -57,9 +57,10 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:gravity="center_horizontal">
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="20dp">
 
                 <EditText
                     android:layout_width="fill_parent"
@@ -70,47 +71,53 @@
                     android:hint="Recherche"
                     android:textSize="20dp" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                <ImageButton
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:id="@+id/rechercheText"
-                    android:background="@mipmap/ic_search" />
+                    style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                    android:src="@mipmap/ic_search" />
 
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                android:layout_gravity="center">
 
                 <Spinner
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:id="@+id/listeRegion"
                     android:layout_marginRight="20dp"
-                    android:spinnerMode="dialog" />
+                    android:spinnerMode="dialog"
+                    android:layout_weight="1" />
 
                 <Spinner
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/listeAoc"
                     android:visibility="gone"
                     android:layout_marginRight="20dp"
-                    android:spinnerMode="dialog" />
+                    android:spinnerMode="dialog"
+                    android:layout_weight="1" />
 
                 <Spinner
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/listeType"
                     android:layout_marginRight="20dp"
-                    android:spinnerMode="dialog" />
+                    android:spinnerMode="dialog"
+                    android:layout_weight="1" />
 
                 <Spinner
-                    android:layout_width="200dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/listeStockage"
                     android:layout_marginRight="20dp"
-                    android:spinnerMode="dialog" />
+                    android:spinnerMode="dialog"
+                    android:layout_weight="1" />
 
             </TableRow>
 
@@ -122,18 +129,23 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rechercher"
+                    android:text="RECHERCHER"
                     android:id="@+id/btnRecherche"
                     style="@android:style/Widget.DeviceDefault.Button.Borderless"
                     android:layout_weight="1"
-                    android:textColor="@color/rouge" />
+                    android:textColor="@color/rouge"
+                    android:background="@android:color/background_light" />
             </LinearLayout>
 
-        <TextView
+        <com.example.pboguet.macaveonline.Utils.MyCustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/aucunVin"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:textColor="@color/rouge"
+            android:textSize="25dp"
+            android:layout_marginTop="50dp" />
 
         <LinearLayout
             android:orientation="vertical"
