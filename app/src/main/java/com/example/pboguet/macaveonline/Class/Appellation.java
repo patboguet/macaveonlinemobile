@@ -4,7 +4,8 @@ package com.example.pboguet.macaveonline.Class;
 /**
  * Created by pboguet on 19/06/15.
  */
-public class Appellation {
+public class Appellation
+{
     private int id;
     private String nom;
 
@@ -30,16 +31,21 @@ public class Appellation {
         this.nom = nom;
     }
 
-    public boolean equals(Object objetAComparer) {
+    /**
+     * On compare si un objet est de type Appellation
+     * @param objetAComparer objet à comparer
+     * @return boolean Oui ou non
+     */
+    public boolean equals(Object objetAComparer)
+    {
         boolean res = false;
-
         if (objetAComparer instanceof Appellation)
         {
             Appellation aoc = (Appellation) objetAComparer;
-            if(aoc.getId() == this.getId())
+            if(aoc.getId() == this.getId()) {
                 res = true;
+            }
         }
-
         return res;
     }
 

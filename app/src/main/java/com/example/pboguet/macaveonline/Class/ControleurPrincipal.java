@@ -1,14 +1,13 @@
 package com.example.pboguet.macaveonline.Class;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.graphics.Typeface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Données statiques de l'application
  * Created by pboguet on 26/08/2015.
  */
 public class ControleurPrincipal {
@@ -28,6 +27,12 @@ public class ControleurPrincipal {
     public static int idVinAjoute = 0;
     public static ProgressDialog loader = null;
 
+    /**
+     * Numéro du mois en toute lettre
+     * @param num Numéro du mois
+     * @param calendrier Calendrier Android ou données du vin
+     * @return
+     */
     public static String numeroMoisEnLettre(int num, boolean calendrier)
     {
         // mois issu du calendrier Android

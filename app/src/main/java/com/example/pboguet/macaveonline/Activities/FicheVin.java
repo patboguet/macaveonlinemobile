@@ -1,6 +1,5 @@
 package com.example.pboguet.macaveonline.Activities;
 
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -31,8 +30,8 @@ import com.example.pboguet.macaveonline.Utils.GestionListes;
 /**
  * Created by pboguet on 27/08/2015.
  */
-public class FicheVin extends Activity {
-
+public class FicheVin extends Activity
+{
     private TextView id;
     private TextView nom;
     private Button moins;
@@ -72,15 +71,15 @@ public class FicheVin extends Activity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-
         mActivity = this;
         mContext = getApplicationContext();
         setContentView(R.layout.detail_vin);
-        TextView titre = (TextView) findViewById(R.id.titreFiche);
         JELLYKA = Typeface.createFromAsset(getAssets(), "fonts/JellykaWonderlandWine.ttf");
         MAIANDRA = Typeface.createFromAsset(getAssets(), "fonts/MaiandraGD.ttf");
+        TextView titre = (TextView) findViewById(R.id.titreFiche);
         titre.setTypeface(JELLYKA);
 
         new Menu(mContext, this, (ListView) findViewById(R.id.menu));
@@ -144,7 +143,8 @@ public class FicheVin extends Activity {
         }
         else degre.setText("");
         offert.setText(vin.getOffertPar());
-        if(vin.getConsoPartir() != null) {
+        if(vin.getConsoPartir() != null)
+        {
             String[] consoP = vin.getConsoPartir().split("-");
             consoPartir.setText(ControleurPrincipal.numeroMoisEnLettre(Integer.parseInt(consoP[1]), false) + " " + consoP[2]);
             consoPartirNum.setText(consoP[1]+"-"+consoP[2]);
@@ -155,7 +155,8 @@ public class FicheVin extends Activity {
             consoPartirNum.setText("");
         }
 
-        if(vin.getConsoAvant() != null) {
+        if(vin.getConsoAvant() != null)
+        {
             String[] consoA = vin.getConsoAvant().split("-");
             consoAvant.setText(ControleurPrincipal.numeroMoisEnLettre(Integer.parseInt(consoA[1]), false) + " " + consoA[2]);
             consoAvantNum.setText(consoA[1]+"-"+consoA[2]);
@@ -179,11 +180,11 @@ public class FicheVin extends Activity {
             lieuStockage.setText(GestionListes.getNomLieuStockage(vin.getLieuStockage()));
         }
 
-        if(vin.getNote() == 0.0f)
-        {
+        if(vin.getNote() == 0.0f) {
             noteSurVingt.setText("");
         }
-        else {
+        else
+        {
             note.setRating(vin.getNote() / 4);
             noteSurVingt.setText(Float.toString(vin.getNote()));
         }
@@ -191,71 +192,83 @@ public class FicheVin extends Activity {
         commentaires.setText(vin.getCommentaires());
 
         // Listeners de click sur les éléments de la vue
-        moins.setOnClickListener(new View.OnClickListener() {
+        moins.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 int nb = Integer.parseInt(nbBouteilles.getText().toString());
                 if (nb > 0) {
                     nbBouteilles.setText(Integer.toString(nb - 1));
                 }
             }
         });
-        plus.setOnClickListener(new View.OnClickListener() {
+        plus.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 nbBouteilles.setText(Integer.toString(Integer.parseInt(nbBouteilles.getText().toString()) + 1));
             }
         });
 
-        note.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        note.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener()
+        {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 noteSurVingt.setText(Float.toString(rating*4));
             }
         });
 
-        consoPartir.setOnClickListener(new View.OnClickListener() {
+        consoPartir.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 listeDateConso("partir", dialog);
             }
         });
-        consoAvant.setOnClickListener(new View.OnClickListener() {
+        consoAvant.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 listeDateConso("avant", dialog);
             }
         });
 
-        lieuAchat.setOnClickListener(new View.OnClickListener() {
+        lieuAchat.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 listePopUp("achat", dialog);
             }
         });
 
-        lieuStockage.setOnClickListener(new View.OnClickListener() {
+        lieuStockage.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 listePopUp("stockage", dialog);
             }
         });
 
-        supprimer.setOnClickListener(new View.OnClickListener() {
+        supprimer.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 WebService.deleteVin(vin);
             }
         });
 
-        modifier.setOnClickListener(new View.OnClickListener() {
+        modifier.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Vin vinModifie = new Vin();
 
                 String typeV = type.getText().toString();
                 int idType = 0;
-                switch(typeV) {
+                switch(typeV)
+                {
                     case "Blanc" : idType = 1;
                         break;
                     case "Rouge" : idType = 2;
@@ -313,10 +326,17 @@ public class FicheVin extends Activity {
         });
     }
 
-    private void listePopUp(final String type, final Dialog dialog) {
+    /**
+     * Création d'une liste de choix dans un dialog
+     * @param type Type de contenu de la liste (Région, Appellation, etc...)
+     * @param dialog Dialog où on affiche la liste
+     */
+    private void listePopUp(final String type, final Dialog dialog)
+    {
         dialog.setContentView(R.layout.liste_choix_popup);
         ListView listeChoix = (ListView) dialog.findViewById(R.id.listeChoix);
-        if(type.equals("achat")) {
+        if(type.equals("achat"))
+        {
                 dialog.setTitle("Lieu d'achat");
                 ArrayAdapter achatAda = new LieuAchatAdapter(mContext,R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuAchat);
                 listeChoix.setAdapter(achatAda);
@@ -327,9 +347,11 @@ public class FicheVin extends Activity {
             ArrayAdapter stockageAda = new LieuStockageAdapter(mContext,R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuStockage);
             listeChoix.setAdapter(stockageAda);
         }
-        listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listeChoix.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
                 if (type.equals("achat")) {
                     lieuAchat.setText(GestionListes.getNomLieuAchat(position + 1));
                 } else {
@@ -341,7 +363,13 @@ public class FicheVin extends Activity {
         dialog.show();
     }
 
-    private void listeDateConso(final String conso, final Dialog dialog) {
+    /**
+     * Construction du calendrier pour chois dates de consommation
+     * @param conso Type de date de consommation (Mini ou Maxi)
+     * @param dialog Dialog pour affichage du calendrier
+     */
+    private void listeDateConso(final String conso, final Dialog dialog)
+    {
         dialog.setContentView(R.layout.liste_annees);
         dialog.setTitle("Date début consommation");
         Button valider = (Button) dialog.findViewById(R.id.validerDate);
@@ -351,7 +379,8 @@ public class FicheVin extends Activity {
         listeAnnee.findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
         listeAnnee.setCalendarViewShown(false);
 
-        valider.setOnClickListener(new View.OnClickListener() {
+        valider.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 String mois = ControleurPrincipal.numeroMoisEnLettre(listeAnnee.getMonth(), true);
@@ -363,7 +392,8 @@ public class FicheVin extends Activity {
                 dialog.dismiss();
             }
         });
-        annuler.setOnClickListener(new View.OnClickListener() {
+        annuler.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

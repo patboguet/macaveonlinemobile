@@ -1,14 +1,12 @@
 package com.example.pboguet.macaveonline.Utils.Adapters;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
@@ -19,17 +17,19 @@ import java.util.ArrayList;
 /**
  * Created by pboguet on 24/09/2015.
  */
-public class MenuAdapter extends ArrayAdapter<String> {
+public class MenuAdapter extends ArrayAdapter<String>
+{
     private Context mContext;
-    public MenuAdapter(Context c, ArrayList<String> menu) {
+    public MenuAdapter(Context c, ArrayList<String> menu)
+    {
         super(c, R.layout.nom_menu, menu);
         this.mContext = c;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.nom_menu, parent, false);
         TextView nomMenu = (TextView) v.findViewById(R.id.nomMenu);
         nomMenu.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf"));

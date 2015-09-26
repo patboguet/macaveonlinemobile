@@ -5,7 +5,8 @@ import java.io.Serializable;
 /**
  * Created by pboguet on 19/06/15.
  */
-public class Vin implements Serializable{
+public class Vin implements Serializable
+{
     protected int idVin;
     protected String nom;
     protected int annee;
@@ -191,17 +192,22 @@ public class Vin implements Serializable{
         estModifie = true;
     }
 
+    /**
+     * On compare si un objet est de type Vin
+     * @param objetAComparer objet à comparer
+     * @return boolean Oui ou non
+     */
     @Override
-    public boolean equals(Object objetAComparer) {
+    public boolean equals(Object objetAComparer)
+    {
         boolean res = false;
-
         if (objetAComparer instanceof Vin)
         {
             Vin vinAComparer = (Vin) objetAComparer;
-            if(vinAComparer.idVin == this.idVin)
+            if(vinAComparer.idVin == this.idVin) {
                 res = true;
+            }
         }
-
         return res;
     }
 

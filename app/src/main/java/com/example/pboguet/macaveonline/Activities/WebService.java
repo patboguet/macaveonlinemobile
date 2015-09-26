@@ -3,7 +3,6 @@ package com.example.pboguet.macaveonline.Activities;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.example.pboguet.macaveonline.Class.ControleurPrincipal;
 import com.example.pboguet.macaveonline.Class.Vin;
 import com.example.pboguet.macaveonline.Utils.BackTask;
 
@@ -13,12 +12,11 @@ import org.json.JSONObject;
 /**
  * Created by pboguet on 18/06/15.
  */
-public class WebService extends Activity {
-
+public class WebService extends Activity
+{
     private static Activity mActivity;
 
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         mActivity = this;
         new BackTask().execute("select_vins");
@@ -28,12 +26,20 @@ public class WebService extends Activity {
         return mActivity;
     }
 
+    /**
+     * Insertion vin en BDD
+     * @param vin Vin à insérer
+     */
     public static void insertVin(Vin vin)
     {
         JSONObject vinJson = vinToJson(vin);
         new BackTask().execute("insert", vinJson.toString());
     }
 
+    /**
+     * Mise à jour d'un vin
+     * @param vin Vin à modifier
+     */
     public static void updateVin(Vin vin)
     {
         JSONObject vinJson = vinToJson(vin);
@@ -41,16 +47,28 @@ public class WebService extends Activity {
 
     }
 
+    /**
+     * Suppression d'un vin
+     * @param vin Vin à supprimer
+     */
     public static void deleteVin(Vin vin)
     {
         new BackTask().execute("delete", Long.toString(vin.getIdVin()));
     }
 
-    private static JSONObject vinToJson(Vin vin) {
+    /**
+     * Formatage des données du vin en json
+     * @param vin Vin
+     * @return json vin au format json
+     */
+    private static JSONObject vinToJson(Vin vin)
+    {
         JSONObject json = new JSONObject();
-        try {
+        try
+        {
             // update
-            if(vin.getIdVin() > 0) {
+            if(vin.getIdVin() > 0)
+            {
                 json.put("id_vin", vin.getIdVin());
                 json.put("FK_type", vin.getType());
                 json.put("FK_utilisateur", vin.getUtilisateur());
@@ -67,7 +85,8 @@ public class WebService extends Activity {
                 json.put("commentaires", vin.getCommentaires());
             }
             // insert
-            else {
+            else
+            {
                 json.put("nom", vin.getNom());
                 json.put("annee", vin.getAnnee());
                 json.put("FK_region", vin.getRegion());
@@ -87,7 +106,8 @@ public class WebService extends Activity {
                 json.put("commentaires", vin.getCommentaires());
                 json.put("FK_utilisateur", vin.getUtilisateur());
             }
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
             e.printStackTrace();
         }
         return json;

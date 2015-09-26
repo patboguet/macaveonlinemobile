@@ -40,7 +40,6 @@ import java.util.List;
  */
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
 {
-
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -55,22 +54,22 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
     private View loginFormView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         mActivity = this;
         DataBaseHelper db = new DataBaseHelper(this, "macaveonline");
         //TODO : si connexion, ajouter en BDD
         if(!db.checkIsConnected(3) || !db.checkIsConnected(2))
         {
-            //TODO : transmettre id User à la MainActivity
             // mode demo
             myUtilisateur.setUserId(3);
             Intent myIntent = new Intent(LoginActivity.this, MyMainActivity.class);
             LoginActivity.this.startActivity(myIntent);
         }
-        else {
+        else
+        {
             setContentView(R.layout.connexion);
-
             // Set up the login form.
             loginView = (EditText) findViewById(R.id.login);
             populateAutoComplete();
@@ -113,7 +112,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    public void attemptLogin() {
+    public void attemptLogin()
+    {
         if (mAuthTask != null) {
             return;
         }
@@ -131,18 +131,21 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
 
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(password))
+        {
             passView.setError(getString(R.string.err_pass_faux));
             focusView = passView;
             cancel = true;
         }
 
         // Check for a valid login address.
-        if (TextUtils.isEmpty(login)) {
+        if (TextUtils.isEmpty(login))
+        {
             loginView.setError(getString(R.string.err_champ_requis));
             focusView = loginView;
             cancel = true;
-        } else if (!isLoginValid(login)) {
+        } else if (!isLoginValid(login))
+        {
             loginView.setError(getString(R.string.err_login_invalide));
             focusView = loginView;
             cancel = true;
@@ -152,7 +155,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
-        } else {
+        }
+        else
+        {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
@@ -175,11 +180,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
      * Shows the progress UI and hides the login form.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    public void showProgress(final boolean show) {
+    public void showProgress(final boolean show)
+    {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2)
+        {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
             loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
@@ -199,7 +206,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
                     progressView.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
-        } else {
+        }
+        else
+        {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             progressView.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -208,7 +217,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
+    {
         return new CursorLoader(this,
                 // Retrieve data rows for the device user's 'profile' contact.
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
@@ -225,10 +235,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor)
+    {
         List<String> emails = new ArrayList<String>();
         cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast())
+        {
             emails.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
@@ -239,7 +251,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
 
     }
 
-    private interface ProfileQuery {
+    private interface ProfileQuery
+    {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
                 ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
@@ -253,60 +266,76 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean>
+    {
         private final String mEmail;
         private final String mPassword;
         private final Context mContext;
 
-        UserLoginTask(String email, String password, Context context) {
+        UserLoginTask(String email, String password, Context context)
+        {
             mEmail = email;
             mPassword = password;
             mContext = context;
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected Boolean doInBackground(Void... params)
+        {
             DataBaseHelper db = null;
             try {
                 db = new DataBaseHelper(mContext, "macaveonline");
                 myUtilisateur = db.getUser(mEmail);
 
-                if (myUtilisateur.userId > 0) {
+                if (myUtilisateur.userId > 0)
+                {
                     // Account exists, check password.
                     if (myUtilisateur.password.equals(mPassword))
                         return true;
                     else
                         return false;
-                } else {
+                }
+                else
+                {
                     myUtilisateur.password = mPassword;
                     return true;
                 }
-            } finally {
+            }
+            finally
+            {
                 if (db != null)
                     db.close();
             }
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final Boolean success)
+        {
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
+            if (success)
+            {
                 int myUser = myUtilisateur.userId;
-                if (myUser > 0) {
+                if (myUser > 0)
+                {
                     finish();
                     Intent myIntent = new Intent(LoginActivity.this, MyMainActivity.class);
                     LoginActivity.this.startActivity(myIntent);
-                } else {
-                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                }
+                else
+                {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener()
+                    {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which) {
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            switch (which)
+                            {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     DataBaseHelper db = null;
-                                    try {
+                                    try
+                                    {
                                         finish();
                                         db = new DataBaseHelper(mContext, "macaveonline");
                                         myUtilisateur = db.insertUser(myUtilisateur);
@@ -314,7 +343,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
                                         myToast.show();
                                         Intent myIntent = new Intent(LoginActivity.this, MyMainActivity.class);
                                         LoginActivity.this.startActivity(myIntent);
-                                    } finally {
+                                    }
+                                    finally
+                                    {
                                         if (db != null)
                                             db.close();
                                     }
@@ -327,19 +358,21 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>
                             }
                         }
                     };
-
                     AlertDialog.Builder builder = new AlertDialog.Builder(this.mContext);
                     builder.setMessage(R.string.confirm_registry).setPositiveButton(R.string.yes, dialogClickListener)
                             .setNegativeButton(R.string.no, dialogClickListener).show();
                 }
-            } else {
+            }
+            else
+            {
                 passView.setError(getString(R.string.err_pass_faux));
                 passView.requestFocus();
             }
         }
 
         @Override
-        protected void onCancelled() {
+        protected void onCancelled()
+        {
             mAuthTask = null;
             showProgress(false);
         }

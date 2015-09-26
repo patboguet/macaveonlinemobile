@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -35,7 +33,8 @@ import java.util.ArrayList;
 /**
  * Created by Patrick on 12/09/2015.
  */
-public class Recherche extends Activity {
+public class Recherche extends Activity
+{
     private static Activity mActivity;
     private EditText champRecherche;
     private Spinner listeRegion;
@@ -62,14 +61,15 @@ public class Recherche extends Activity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         mActivity = this;
         mContext = getApplicationContext();
         setContentView(R.layout.recherche);
-        TextView titre = (TextView) findViewById(R.id.titreRecherche);
         JELLYKA = Typeface.createFromAsset(mContext.getAssets(), "fonts/JellykaWonderlandWine.ttf");
         MAIANDRA = Typeface.createFromAsset(mContext.getAssets(), "fonts/MaiandraGD.ttf");
+        TextView titre = (TextView) findViewById(R.id.titreRecherche);
         titre.setTypeface(JELLYKA);
 
         new Menu(mContext, mActivity, (ListView) findViewById(R.id.menu));
@@ -95,7 +95,8 @@ public class Recherche extends Activity {
         types.add(2, "Rouge");
         types.add(3, "Rosé");
         types.add(4, "Mousseux");
-        ArrayAdapter typeAda = new ArrayAdapter<String>(mContext,R.layout.liste_choix_item,R.id.nom, types) {
+        ArrayAdapter typeAda = new ArrayAdapter<String>(mContext,R.layout.liste_choix_item,R.id.nom, types)
+        {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 return GestionListes.createListe(position, convertView, mContext, types, "type");
@@ -113,16 +114,17 @@ public class Recherche extends Activity {
         listeAoc.setOnItemSelectedListener(new onSpinnerClickListener());
         listeType.setOnItemSelectedListener(new onSpinnerClickListener());
         listeStockage.setOnItemSelectedListener(new onSpinnerClickListener());
-
         btnRecherche.setOnClickListener(new rechercheOnClickListener());
         rechercheText.setOnClickListener(new rechercheTextOnClickListener());
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
         int idVS = ControleurPrincipal.idVinSupprime;
-        if(idVS > 0) {
+        if(idVS > 0)
+        {
             vinsAda.remove(getVin(idVS));
             ControleurPrincipal.idVinSupprime = 0;
         }
@@ -131,8 +133,10 @@ public class Recherche extends Activity {
         }
     }
 
-    protected Vin getVin(int idV) {
-        for(int j=0;j<listeVinsRes.size();j++){
+    protected Vin getVin(int idV)
+    {
+        for(int j=0;j<listeVinsRes.size();j++)
+        {
             Vin v = (Vin) listeVinsRes.get(j);
             int idVin = v.getIdVin();
             if(idV == idVin) {
@@ -142,14 +146,19 @@ public class Recherche extends Activity {
         return null;
     }
 
-    public class onRegionClickListener implements AdapterView.OnItemSelectedListener {
+    public class onRegionClickListener implements AdapterView.OnItemSelectedListener
+    {
         @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+        {
             if(position > 0)
             {
                 final ArrayList listeAppellations = (ArrayList) ControleurPrincipal.listeRegionAoc.get(position);
-                if(listeAppellations != null) {
-                    ArrayAdapter aocAda = new ArrayAdapter<String>(mContext, R.layout.liste_choix_item, R.id.nom, listeAppellations) {
+                // Construction de la liste des appellations de la région sélectionnée
+                if(listeAppellations != null)
+                {
+                    ArrayAdapter aocAda = new ArrayAdapter<String>(mContext, R.layout.liste_choix_item, R.id.nom, listeAppellations)
+                    {
                         @Override
                         public View getView(int position, View convertView, ViewGroup parent) {
                             return GestionListes.createListe(position, convertView, mContext, listeAppellations, "aoc");
@@ -163,26 +172,24 @@ public class Recherche extends Activity {
                     listeAoc.setAdapter(aocAda);
                     listeAoc.setVisibility(View.VISIBLE);
                 }
-                else {
-                    if(listeAoc.isShown())
-                    {
+                else
+                {
+                    if(listeAoc.isShown()) {
                         listeAoc.setVisibility(View.GONE);
                     }
                 }
                 Region r = (Region) parent.getItemAtPosition(position);
                 region = r.getId();
             }
-            else {
-                if(aoc > 0)
-                {
+            else
+            {
+                if(aoc > 0) {
                     aoc = 0;
                 }
-                if(region > 0)
-                {
-                    region =0;
+                if(region > 0) {
+                    region = 0;
                 }
-                if(listeAoc.isShown())
-                {
+                if(listeAoc.isShown()) {
                     listeAoc.setVisibility(View.GONE);
                 }
             }
@@ -194,18 +201,19 @@ public class Recherche extends Activity {
         }
     }
 
-    private class onSpinnerClickListener implements AdapterView.OnItemSelectedListener {
-
+    private class onSpinnerClickListener implements AdapterView.OnItemSelectedListener
+    {
         @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+        {
             int spinner = parent.getId();
             switch(spinner)
             {
-                case R.id.listeAoc : {
+                case R.id.listeAoc :
+                {
                     Appellation a = (Appellation) parent.getItemAtPosition(position);
                     String nom = a.getNom();
-                    if(!nom.equals("Appellation"))
-                    {
+                    if(!nom.equals("Appellation")) {
                         aoc = GestionListes.getIdAppellation(nom);
                     }
                     else {
@@ -217,7 +225,8 @@ public class Recherche extends Activity {
                     type = position;
                 }
                 break;
-                case R.id.listeStockage : {
+                case R.id.listeStockage :
+                {
                     LieuStockage ls = (LieuStockage) parent.getItemAtPosition(position);
                     stockage = ls.getId();
                 }
@@ -231,30 +240,33 @@ public class Recherche extends Activity {
         }
     }
 
-    private class rechercheOnClickListener implements View.OnClickListener {
+    // Recherche via les filtres
+    private class rechercheOnClickListener implements View.OnClickListener
+    {
         @Override
-        public void onClick(View v) {
+        public void onClick(View v)
+        {
             int tailleListe = ControleurPrincipal.listeVins.size();
             listeVinsRes = new ArrayList();
             // recherche uniquement type de vin
-            if (region == 0 && aoc == 0 && type > 0 && stockage == 0) {
-                switch (type) {
-                    case 1:
-                        listeVinsRes = ControleurPrincipal.listeVinsBlanc;
+            if (region == 0 && aoc == 0 && type > 0 && stockage == 0)
+            {
+                switch (type)
+                {
+                    case 1 : listeVinsRes = ControleurPrincipal.listeVinsBlanc;
                         break;
-                    case 2:
-                        listeVinsRes = ControleurPrincipal.listeVinsRouge;
+                    case 2 : listeVinsRes = ControleurPrincipal.listeVinsRouge;
                         break;
-                    case 3:
-                        listeVinsRes = ControleurPrincipal.listeVinsRose;
+                    case 3 : listeVinsRes = ControleurPrincipal.listeVinsRose;
                         break;
-                    case 4:
-                        listeVinsRes = ControleurPrincipal.listeMousseux;
+                    case 4 : listeVinsRes = ControleurPrincipal.listeMousseux;
                 }
             }
             // recherche par région
-            if (region > 0 && aoc == 0 && type == 0 && stockage == 0) {
-                for (int i = 0; i < tailleListe; i++) {
+            if (region > 0 && aoc == 0 && type == 0 && stockage == 0)
+            {
+                for (int i = 0; i < tailleListe; i++)
+                {
                     int idR;
                     Vin vi = ControleurPrincipal.listeVins.get(i);
                     idR = vi.getRegion();
@@ -264,10 +276,12 @@ public class Recherche extends Activity {
                 }
             }
             // recherche par région et appellation
-            if (region > 0 && aoc > 0 && type == 0 && stockage == 0) {
+            if (region > 0 && aoc > 0 && type == 0 && stockage == 0)
+            {
                 int idR;
                 int idA;
-                for (int i = 0; i < tailleListe; i++) {
+                for (int i = 0; i < tailleListe; i++)
+                {
                     Vin vi = ControleurPrincipal.listeVins.get(i);
                     idR = vi.getRegion();
                     idA = vi.getAppellation();
@@ -277,7 +291,8 @@ public class Recherche extends Activity {
                 }
             }
             // recherche par région et type de vin
-            if(region > 0 && aoc == 0 && type > 0 && stockage == 0) {
+            if(region > 0 && aoc == 0 && type > 0 && stockage == 0)
+            {
                 int idR;
                 int idT;
                 for (int i= 0; i < tailleListe;i++)
@@ -285,14 +300,14 @@ public class Recherche extends Activity {
                     Vin vi = ControleurPrincipal.listeVins.get(i);
                     idR = vi.getRegion();
                     idT = vi.getType();
-                    if(idR == region && idT == type)
-                    {
+                    if(idR == region && idT == type) {
                         listeVinsRes.add(vi);
                     }
                 }
             }
             // recherche par région et lieux de stockage
-            if(region > 0 && aoc == 0 && type == 0 && stockage > 0) {
+            if(region > 0 && aoc == 0 && type == 0 && stockage > 0)
+            {
                 int idR;
                 int idS;
                 for (int i= 0; i < tailleListe;i++)
@@ -300,14 +315,14 @@ public class Recherche extends Activity {
                     Vin vi = ControleurPrincipal.listeVins.get(i);
                     idR = vi.getRegion();
                     idS = vi.getLieuStockage();
-                    if(idR == region && idS == stockage)
-                    {
+                    if(idR == region && idS == stockage) {
                         listeVinsRes.add(vi);
                     }
                 }
             }
             // recherche par région, appellation et type de vin
-            if(region > 0 && aoc > 0 && type > 0 && stockage == 0) {
+            if(region > 0 && aoc > 0 && type > 0 && stockage == 0)
+            {
                 int idR;
                 int idA;
                 int idT;
@@ -317,14 +332,14 @@ public class Recherche extends Activity {
                     idR = vi.getRegion();
                     idT = vi.getType();
                     idA = vi.getAppellation();
-                    if(idR == region && idT == type && idA == aoc)
-                    {
+                    if(idR == region && idT == type && idA == aoc) {
                         listeVinsRes.add(vi);
                     }
                 }
             }
             // recherche par région, appellation et lieux de stockage
-            if(region > 0 && aoc > 0 && type == 0 && stockage > 0) {
+            if(region > 0 && aoc > 0 && type == 0 && stockage > 0)
+            {
                 int idR;
                 int idA;
                 int idS;
@@ -334,14 +349,14 @@ public class Recherche extends Activity {
                     idR = vi.getRegion();
                     idA = vi.getAppellation();
                     idS = vi.getLieuStockage();
-                    if(idR == region && idA == aoc && idS == stockage)
-                    {
+                    if(idR == region && idA == aoc && idS == stockage) {
                         listeVinsRes.add(vi);
                     }
                 }
             }
             // recherche par région, type et lieux de stockage
-            if(region > 0 && aoc == 0 && type > 0 && stockage > 0) {
+            if(region > 0 && aoc == 0 && type > 0 && stockage > 0)
+            {
                 int idR;
                 int idT;
                 int idS;
@@ -351,14 +366,14 @@ public class Recherche extends Activity {
                     idR = vi.getRegion();
                     idT = vi.getType();
                     idS = vi.getLieuStockage();
-                    if(idR == region && idT == type && idS == stockage)
-                    {
+                    if(idR == region && idT == type && idS == stockage) {
                         listeVinsRes.add(vi);
                     }
                 }
             }
             // recherche par type et lieux de stockage
-            if(region == 0 && aoc == 0 && type > 0 && stockage > 0) {
+            if(region == 0 && aoc == 0 && type > 0 && stockage > 0)
+            {
                 int idT;
                 int idS;
                 for (int i= 0; i < tailleListe;i++)
@@ -366,16 +381,17 @@ public class Recherche extends Activity {
                     Vin vi = ControleurPrincipal.listeVins.get(i);
                     idS = vi.getLieuStockage();
                     idT = vi.getType();
-                    if(idS == stockage && idT == type)
-                    {
+                    if(idS == stockage && idT == type) {
                         listeVinsRes.add(vi);
                     }
                 }
             }
             // recherche par lieux de stockage
-            if (region == 0 && aoc == 0 && type == 0 && stockage > 0) {
+            if (region == 0 && aoc == 0 && type == 0 && stockage > 0)
+            {
                 int idS;
-                for (int i = 0; i < tailleListe; i++) {
+                for (int i = 0; i < tailleListe; i++)
+                {
                     Vin vi = ControleurPrincipal.listeVins.get(i);
                     idS = vi.getLieuStockage();
                     if (idS == stockage) {
@@ -384,12 +400,14 @@ public class Recherche extends Activity {
                 }
             }
             // recherche par tous critères
-            if (region > 0 && aoc > 0 && type > 0 && stockage > 0) {
+            if (region > 0 && aoc > 0 && type > 0 && stockage > 0)
+            {
                 int idR;
                 int idA;
                 int idT;
                 int idS;
-                for (int i = 0; i < tailleListe; i++) {
+                for (int i = 0; i < tailleListe; i++)
+                {
                     Vin vi = ControleurPrincipal.listeVins.get(i);
                     idR = vi.getRegion();
                     idA = vi.getAppellation();
@@ -401,18 +419,21 @@ public class Recherche extends Activity {
                 }
             }
             // recherche globale = affichage de la cave
-            if(region == 0 && aoc == 0 && type == 0 && stockage == 0)
-            {
+            if(region == 0 && aoc == 0 && type == 0 && stockage == 0) {
                 listeVinsRes = ControleurPrincipal.listeVins;
             }
 
             vinsAda = new VinAdapter(mContext, R.layout.liste_vins, listeVinsRes);
             listeVins.setAdapter(vinsAda);
-            if (listeVinsRes.size() > 0) {
+            // Affichage des résultats
+            if (listeVinsRes.size() > 0)
+            {
                 if (noResultat.isShown()) {
                     noResultat.setVisibility(View.GONE);
                 }
-            } else {
+            }
+            else
+            {
                 if (noResultat.getVisibility() == View.GONE) {
                     noResultat.setVisibility(View.VISIBLE);
                 }
@@ -421,9 +442,12 @@ public class Recherche extends Activity {
         }
     }
 
-    private class rechercheTextOnClickListener implements View.OnClickListener {
+    // Recherche via le nom du vin
+    private class rechercheTextOnClickListener implements View.OnClickListener
+    {
         @Override
-        public void onClick(View v) {
+        public void onClick(View v)
+        {
             // on cache le clavier
             InputMethodManager imm = (InputMethodManager)getSystemService(mContext.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -440,11 +464,14 @@ public class Recherche extends Activity {
             }
             vinsAda = new VinAdapter(mContext, R.layout.liste_vins, listeVinsRes);
             listeVins.setAdapter(vinsAda);
-            if (listeVinsRes.size() > 0) {
+            if (listeVinsRes.size() > 0)
+            {
                 if (noResultat.isShown()) {
                     noResultat.setVisibility(View.GONE);
                 }
-            } else {
+            }
+            else
+            {
                 if (noResultat.getVisibility() == View.GONE) {
                     noResultat.setVisibility(View.VISIBLE);
                 }

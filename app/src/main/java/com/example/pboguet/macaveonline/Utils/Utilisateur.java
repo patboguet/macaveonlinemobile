@@ -3,7 +3,8 @@ package com.example.pboguet.macaveonline.Utils;
 /**
  * Created by pboguet on 16/04/15.
  */
-public class Utilisateur {
+public class Utilisateur
+{
     public int userId;
     public String login;
     public String password;
@@ -11,7 +12,8 @@ public class Utilisateur {
     public String prenom;
     public String mail;
 
-    public Utilisateur(int userId, String username, String password, String nom, String prenom, String mail){
+    public Utilisateur(int userId, String username, String password, String nom, String prenom, String mail)
+    {
         this.userId=userId;
         this.login=username;
         this.password=password;
@@ -20,9 +22,7 @@ public class Utilisateur {
         this.mail = mail;
     }
 
-    public Utilisateur() {
-
-    }
+    public Utilisateur() {}
 
     public int getUserId() {
         return userId;

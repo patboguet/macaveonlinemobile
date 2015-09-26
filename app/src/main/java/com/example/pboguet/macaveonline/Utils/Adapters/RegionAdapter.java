@@ -17,11 +17,13 @@ import java.util.ArrayList;
 /**
  * Created by pbogu_000 on 29/08/2015.
  */
-public class RegionAdapter extends ArrayAdapter<Region> {
+public class RegionAdapter extends ArrayAdapter<Region>
+{
     private ArrayList<Region> regions;
     private Context mContext;
 
-    public RegionAdapter(Context context, int layoutID, int textViewID, ArrayList<Region> regions) {
+    public RegionAdapter(Context context, int layoutID, int textViewID, ArrayList<Region> regions)
+    {
         super(context,layoutID,textViewID,regions);
         mContext = context;
         this.regions = regions;

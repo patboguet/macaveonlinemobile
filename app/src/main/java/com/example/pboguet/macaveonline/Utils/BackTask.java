@@ -40,7 +40,8 @@ import java.util.List;
 /**
  * Created by pboguet on 25/08/2015.
  */
-public class BackTask extends AsyncTask<String, Void, String> {
+public class BackTask extends AsyncTask<String, Void, String>
+{
     private InputStream is;
     private String line;
     private String result;
@@ -62,21 +63,23 @@ public class BackTask extends AsyncTask<String, Void, String> {
     private int idUtilisateur;
     private boolean finChargement = false;
 
-   @Override
-    protected void onPreExecute () {
-        //to do whatever you want before execute webservice
-       if(ControleurPrincipal.loader == null) {
+    @Override
+    protected void onPreExecute ()
+    {
+       super.onPreExecute();
+       if(ControleurPrincipal.loader == null)
+       {
            ControleurPrincipal.loader = new ProgressDialog(WebService.getInstance().getApplicationContext());
            ControleurPrincipal.loader.show(WebService.getInstance(), "", "Chargement de la cave...", true);
        }
-        //like progress bar or something like that
-        super.onPreExecute();
     }
 
-    protected String doInBackground (String...params){
+    protected String doInBackground (String...params)
+    {
         String finUrl = null;
         typeService = params[0];
-        switch (typeService) {
+        switch (typeService)
+        {
             case "select_vins":
                 finUrl = "webservice_select_vins.php";
                 break;
@@ -106,12 +109,10 @@ public class BackTask extends AsyncTask<String, Void, String> {
                 break;
         }
         ControleurPrincipal.urlWS = ControleurPrincipal.urlWS + finUrl;
-        if(typeService != "insert" && typeService != "update" && typeService != "delete")
-        {
+        if(typeService != "insert" && typeService != "update" && typeService != "delete") {
             liste = connectWbs(ControleurPrincipal.urlWS, null);
         }
-        else
-        {
+        else {
             liste = connectWbs(ControleurPrincipal.urlWS, params[1]);
         }
         ControleurPrincipal.urlWS = "http://www.macaveonline.fr/webservice/";
@@ -120,118 +121,145 @@ public class BackTask extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute (String res){
-        try {
+    protected void onPostExecute (String res)
+    {
+        try
+        {
             JSONArray ar = new JSONArray(res);
-            for (int i = 0; i < ar.length(); i++) {
+            // on parcourt les données reçues depuis le webservice
+            for (int i = 0; i < ar.length(); i++)
+            {
                 JSONObject jsonobject = ar.getJSONObject(i);
-                switch (typeService) {
-                    case "select_vins": {
-                        if (!jsonobject.getString("id_vin").equals("null")) {
+                switch (typeService)
+                {
+                    case "select_vins":
+                    {
+                        if (!jsonobject.getString("id_vin").equals("null"))
+                        {
                             int idVin = Integer.parseInt(jsonobject.getString("id_vin"));
                             int region = Integer.parseInt(jsonobject.getString("FK_region"));
                             String type = jsonobject.getString("FK_type");
                             if (!jsonobject.getString("FK_appellation").equals("null")) {
                                 aoc = Integer.parseInt(jsonobject.getString("FK_appellation"));
-                            } else {
+                            }
+                            else {
                                 aoc = 0;
                             }
                             String nom = jsonobject.getString("nom");
                             int annee = Integer.parseInt(jsonobject.getString("annee"));
                             if (!jsonobject.getString("degre_alcool").equals("null")) {
                                 degre = Integer.parseInt(jsonobject.getString("degre_alcool"));
-                            } else {
+                            }
+                            else {
                                 degre = 0;
                             }
                             if (!jsonobject.getString("conso_partir").equals("null")) {
                                 conso_partir = formatDate(jsonobject.getString("conso_partir"));
-                            } else {
+                            }
+                            else {
                                 conso_partir = null;
                             }
                             if (!jsonobject.getString("conso_avant").equals("null")) {
                                 conso_avant = formatDate(jsonobject.getString("conso_avant"));
-                            } else {
+                            }
+                            else {
                                 conso_avant = null;
                             }
                             if (!jsonobject.getString("note").equals("null")) {
                                 note = Float.parseFloat(jsonobject.getString("note"));
-                            } else {
+                            }
+                            else {
                                 note = 0;
                             }
                             if (!jsonobject.getString("nb_bouteilles").equals("null")) {
                                 nb_bt = Integer.parseInt(jsonobject.getString("nb_bouteilles"));
-                            } else {
+                            }
+                            else {
                                 nb_bt = 0;
                             }
                             if (jsonobject.getString("suivi_stock").equals("1")) {
                                 suivi = true;
-                            } else {
+                            }
+                            else {
                                 suivi = false;
                             }
                             if (jsonobject.getString("meilleur_vin").equals("1")) {
                                 favori = true;
-                            } else {
+                            }
+                            else {
                                 favori = false;
                             }
                             if (!jsonobject.getString("prix_achat").equals("null")) {
                                 prix = Float.parseFloat(jsonobject.getString("prix_achat"));
-                            } else {
+                            }
+                            else {
                                 prix = 0;
                             }
                             if (!jsonobject.getString("offert_par").equals("null")) {
                                 offert = jsonobject.getString("offert_par");
-                            } else {
+                            }
+                            else {
                                 offert = "";
                             }
                             if (!jsonobject.getString("FK_lieu_achat").equals("null")) {
                                 lieu_achat = Integer.parseInt(jsonobject.getString("FK_lieu_achat"));
-                            } else {
+                            }
+                            else {
                                 lieu_achat = 0;
                             }
                             if (!jsonobject.getString("FK_lieu_stockage").equals("null")) {
                                 lieu_stockage = Integer.parseInt(jsonobject.getString("FK_lieu_stockage"));
-                            } else {
+                            }
+                            else {
                                 lieu_stockage = 0;
                             }
                             if (!jsonobject.getString("commentaires").equals("null")) {
                                 commentaires = jsonobject.getString("commentaires");
-                            } else {
+                            }
+                            else {
                                 commentaires = "";
                             }
-
                             if (!jsonobject.getString("FK_utilisateur").equals("null") || !jsonobject.getString("FK_utilisateur").equals("0")) {
                                 idUtilisateur = Integer.parseInt(jsonobject.getString("FK_utilisateur"));
-                            } else {
+                            }
+                            else {
                                 idUtilisateur = LoginActivity.myUtilisateur.getUserId();
                             }
 
-                            switch (type) {
+                            switch (type)
+                            {
                                 // Blanc
-                                case "1": {
+                                case "1":
+                                {
                                     VinBlanc vinB = new VinBlanc(idVin, nom, annee, region, aoc,
                                             Integer.parseInt(type), degre, lieu_stockage, lieu_achat,
                                             conso_partir, conso_avant, note, nb_bt, suivi, favori,
                                             prix, offert, commentaires, idUtilisateur);
-                                    if (!(ControleurPrincipal.listeVins.contains(vinB))) {
+                                    // On regarde si le vin n'est pas déjà dans les listes
+                                    if (!(ControleurPrincipal.listeVins.contains(vinB)))
+                                    {
                                         ControleurPrincipal.listeVinsBlanc.add(vinB);
                                         ControleurPrincipal.listeVins.add(vinB);
                                     }
                                 }
                                 break;
                                 // Rouge
-                                case "2": {
+                                case "2":
+                                {
                                     VinRouge vinR = new VinRouge(idVin, nom, annee, region, aoc,
                                             Integer.parseInt(type), degre, lieu_stockage, lieu_achat,
                                             conso_partir, conso_avant, note, nb_bt, suivi, favori,
                                             prix, offert, commentaires, idUtilisateur);
-                                    if (!(ControleurPrincipal.listeVins.contains(vinR))) {
+                                    if (!(ControleurPrincipal.listeVins.contains(vinR)))
+                                    {
                                         ControleurPrincipal.listeVinsRouge.add(vinR);
                                         ControleurPrincipal.listeVins.add(vinR);
                                     }
                                 }
                                 break;
                                 // Rosé
-                                case "3": {
+                                case "3":
+                                {
                                     VinRose vinRos = new VinRose(idVin, nom, annee, region, aoc,
                                             Integer.parseInt(type), degre, lieu_stockage, lieu_achat,
                                             conso_partir, conso_avant, note, nb_bt, suivi, favori,
@@ -244,7 +272,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 }
                                 break;
                                 // Mousseux
-                                case "4": {
+                                case "4":
+                                {
                                     Mousseux mousseux = new Mousseux(idVin, nom, annee, region, aoc,
                                             Integer.parseInt(type), degre, lieu_stockage, lieu_achat,
                                             conso_partir, conso_avant, note, nb_bt, suivi, favori,
@@ -261,7 +290,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                         break;
                     }
                     // liste Régions
-                    case "select_regions": {
+                    case "select_regions":
+                    {
                         int idRegion = Integer.parseInt(jsonobject.getString("id_region"));
                         String region = jsonobject.getString("region");
                         Region reg = new Region(idRegion, region);
@@ -271,7 +301,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     }
                     break;
                     // liste Appellations
-                    case "select_aoc": {
+                    case "select_aoc":
+                    {
                         int idAoc = Integer.parseInt(jsonobject.getString("id_appellation"));
                         String aoc = jsonobject.getString("appellation");
                         int idRegion = Integer.parseInt(jsonobject.getString("FK_region"));
@@ -297,7 +328,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     }
                     break;
                     // liste Lieu Achat
-                    case "select_lieu_achat": {
+                    case "select_lieu_achat":
+                    {
                         int idLieu = Integer.parseInt(jsonobject.getString("id_lieu_achat"));
                         String lieu = jsonobject.getString("lieu_achat");
                         LieuAchat la = new LieuAchat(idLieu, lieu);
@@ -307,7 +339,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     }
                     break;
                     // liste Lieu Stockage
-                    case "select_lieu_stockage": {
+                    case "select_lieu_stockage":
+                    {
                         int idLieu = Integer.parseInt(jsonobject.getString("id_lieu_stockage"));
                         String lieu = jsonobject.getString("lieu_stockage");
                         LieuStockage ls = new LieuStockage(idLieu, lieu);
@@ -322,7 +355,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     }
                     break;
                     // insérer un vin
-                    case "insert": {
+                    case "insert":
+                    {
                         String msg = jsonobject.getString("message");
                         if(msg.equals("OK"))
                         {
@@ -332,20 +366,17 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             int annee = Integer.parseInt(jsonobject.getString("annee"));
                             int region = Integer.parseInt(jsonobject.getString("region"));
                             int appellation = 0;
-                            if(!jsonobject.getString("appellation").equals("null"))
-                            {
+                            if(!jsonobject.getString("appellation").equals("null")) {
                                 appellation = Integer.parseInt(jsonobject.getString("appellation"));
                             }
                             float degre = 0.0f;
-                            if(!jsonobject.getString("degreAlcool").equals("null"))
-                            {
+                            if(!jsonobject.getString("degreAlcool").equals("null")) {
                                 degre = Integer.parseInt(jsonobject.getString("degreAlcool"));
                             }
                             int utilisateur = Integer.parseInt(jsonobject.getString("utilisateur"));
                             int idType = Integer.parseInt(jsonobject.getString("idType"));
                             float note = 0.0f;
-                            if(!jsonobject.getString("note").equals("null"))
-                            {
+                            if(!jsonobject.getString("note").equals("null")) {
                                 note = Float.parseFloat(jsonobject.getString("note"));
                             }
                             int nbBt = Integer.parseInt(jsonobject.getString("nbBouteilles"));
@@ -362,8 +393,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 prix = Float.parseFloat(jsonobject.getString("prixAchat"));
                             }
                             String offert = "";
-                            if(!jsonobject.getString("offertPar").equals("null"))
-                            {
+                            if(!jsonobject.getString("offertPar").equals("null")) {
                                 offert = jsonobject.getString("offertPar");
                             }
                             int lieuAchat = 0;
@@ -392,26 +422,31 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             ajoutVin(vin, id, nom, annee, region, appellation, idType, degre, utilisateur, note, nbBt, suivi, favori, prix, offert, lieuAchat, lieuStockage, consoAvant, consoPartir, commentaires);
                             ControleurPrincipal.listeVins.add(vin);
                             ControleurPrincipal.idVinAjoute = id;
-                            switch (idType) {
-                                case 1 : {
+                            switch (idType)
+                            {
+                                case 1 :
+                                {
                                     VinBlanc vinB = new VinBlanc();
                                     ajoutVin(vinB, id, nom, annee, region, appellation, idType, degre, utilisateur, note, nbBt, suivi, favori, prix, offert, lieuAchat, lieuStockage,consoAvant,consoPartir,commentaires);
                                     ControleurPrincipal.listeVinsBlanc.add(vinB);
                                 }
                                 break;
-                                case 2 : {
+                                case 2 :
+                                {
                                     VinRouge vinR = new VinRouge();
                                     ajoutVin(vinR, id, nom, annee, region, appellation, idType, degre, utilisateur, note, nbBt, suivi, favori, prix, offert, lieuAchat, lieuStockage,consoAvant,consoPartir,commentaires);
                                     ControleurPrincipal.listeVinsRouge.add(vinR);
                                 }
                                 break;
-                                case 3 : {
+                                case 3 :
+                                {
                                     VinRose vinRo = new VinRose();
                                     ajoutVin(vinRo, id, nom, annee, region, appellation, idType, degre, utilisateur, note, nbBt, suivi, favori, prix, offert, lieuAchat, lieuStockage,consoAvant,consoPartir,commentaires);
                                     ControleurPrincipal.listeVinsRose.add(vinRo);
                                 }
                                 break;
-                                case 4 : {
+                                case 4 :
+                                {
                                     Mousseux mousseux = new Mousseux();
                                     ajoutVin(mousseux, id, nom, annee, region, appellation, idType, degre, utilisateur, note, nbBt, suivi, favori, prix, offert, lieuAchat, lieuStockage,consoAvant,consoPartir,commentaires);
                                     ControleurPrincipal.listeMousseux.add(mousseux);
@@ -427,7 +462,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     }
                     break;
                     // vin mis à jour
-                    case "update": {
+                    case "update":
+                    {
                         String msg = jsonobject.getString("message");
                         if(msg.equals("OK"))
                         {
@@ -435,8 +471,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             int id = Integer.parseInt(jsonobject.getString("idVin"));
                             int idType = Integer.parseInt(jsonobject.getString("idType"));
                             float note = 0.0f;
-                            if(!jsonobject.getString("note").equals("null"))
-                            {
+                            if(!jsonobject.getString("note").equals("null")) {
                                 note = Float.parseFloat(jsonobject.getString("note"));
                             }
                             int nbBt = Integer.parseInt(jsonobject.getString("nbBouteilles"));
@@ -445,7 +480,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 suivi = true;
                             }
                             boolean favori = false;
-                            if(jsonobject.getString("favori").equals("1")){
+                            if(jsonobject.getString("favori").equals("1")) {
                                 favori = true;
                             }
                             float prix = 0.0f;
@@ -453,8 +488,7 @@ public class BackTask extends AsyncTask<String, Void, String> {
                                 prix = Float.parseFloat(jsonobject.getString("prixAchat"));
                             }
                             String offert = "";
-                            if(!jsonobject.getString("offertPar").equals("null"))
-                            {
+                            if(!jsonobject.getString("offertPar").equals("null")) {
                                 offert = jsonobject.getString("offertPar");
                             }
                             int lieuAchat = 0;
@@ -481,23 +515,28 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             // on modifie les valeurs du vin
                             Vin vin = GestionListes.getVinById(id, 0);
                             updateDonnees(vin,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
-                            switch (idType) {
-                                case 1 : {
+                            switch (idType)
+                            {
+                                case 1 :
+                                {
                                     VinBlanc vinB = (VinBlanc) GestionListes.getVinById(id, idType);
                                     updateDonnees(vinB,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
                                 }
                                 break;
-                                case 2 : {
+                                case 2 :
+                                {
                                     VinRouge vinR = (VinRouge) GestionListes.getVinById(id, idType);
                                     updateDonnees(vinR,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
                                 }
                                 break;
-                                case 3 : {
+                                case 3 :
+                                {
                                     VinRose vinRo = (VinRose) GestionListes.getVinById(id, idType);
                                     updateDonnees(vinRo,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
                                 }
                                 break;
-                                case 4 : {
+                                case 4 :
+                                {
                                     Mousseux mousseux = (Mousseux) GestionListes.getVinById(id, idType);
                                     updateDonnees(mousseux,note,nbBt,suivi,favori,prix,offert,lieuAchat,lieuStockage,consoAvant,consoPartir,commentaires);
                                 }
@@ -512,7 +551,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                     }
                     break;
                     // retour suppression
-                    case "delete": {
+                    case "delete":
+                    {
                         String msg = jsonobject.getString("idVin");
                         if(!msg.equals("false"))
                         {
@@ -521,7 +561,8 @@ public class BackTask extends AsyncTask<String, Void, String> {
                             int size = vins.size();
                             int idVin = Integer.parseInt(msg);
                             outerloop:
-                            for (int j = 0; j < size; j++) {
+                            for (int j = 0; j < size; j++)
+                            {
                                 Vin v = (Vin) vins.get(j);
                                 long id = v.getIdVin();
                                 int type = v.getType();
@@ -565,18 +606,47 @@ public class BackTask extends AsyncTask<String, Void, String> {
                 case "select_lieu_achat" : new BackTask().execute("select_lieu_stockage");
                     break;
             }
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
             e.printStackTrace();
         }
         // on indique que le chargement des données est terminé
-        if(finChargement) {
+        if(finChargement)
+        {
             ControleurPrincipal.loader.dismiss();
             WebService.getInstance().setResult(Activity.RESULT_OK);
             WebService.getInstance().finish();
         }
     }
 
-    private void ajoutVin(Vin vin, int id, String nom, int annee, int region, int appellation, int type, float degre, int utilisateur, float note, int nbBt, boolean suivi, boolean favori, float prix, String offert, int lieuAchat, int lieuStockage, String consoAvant, String consoPartir, String commentaires) {
+    /**
+     * Attribution des données du nouveau vin
+     * @param vin
+     * @param id
+     * @param nom
+     * @param annee
+     * @param region
+     * @param appellation
+     * @param type
+     * @param degre
+     * @param utilisateur
+     * @param note
+     * @param nbBt
+     * @param suivi
+     * @param favori
+     * @param prix
+     * @param offert
+     * @param lieuAchat
+     * @param lieuStockage
+     * @param consoAvant
+     * @param consoPartir
+     * @param commentaires
+     */
+    private void ajoutVin(Vin vin, int id, String nom, int annee, int region, int appellation,
+                          int type, float degre, int utilisateur, float note, int nbBt,
+                          boolean suivi, boolean favori, float prix, String offert, int lieuAchat,
+                          int lieuStockage, String consoAvant, String consoPartir, String commentaires)
+    {
         vin.setIdVin(id);
         vin.setNom(nom);
         vin.setAnnee(annee);
@@ -598,7 +668,25 @@ public class BackTask extends AsyncTask<String, Void, String> {
         vin.setCommentaires(commentaires);
     }
 
-    private void updateDonnees(Vin vin, float note, int nbBt, boolean suivi, boolean favori, float prix, String offert, int lieuAchat, int lieuStockage, String consoAvant, String consoPartir, String commentaires) {
+    /**
+     * Modification d'un vin. Tous les paramètres ne sont pas à modifier
+     * @param vin
+     * @param note
+     * @param nbBt
+     * @param suivi
+     * @param favori
+     * @param prix
+     * @param offert
+     * @param lieuAchat
+     * @param lieuStockage
+     * @param consoAvant
+     * @param consoPartir
+     * @param commentaires
+     */
+    private void updateDonnees(Vin vin, float note, int nbBt, boolean suivi, boolean favori,
+                               float prix, String offert, int lieuAchat, int lieuStockage,
+                               String consoAvant, String consoPartir, String commentaires)
+    {
         vin.setNote(note);
         vin.setNbBouteilles(nbBt);
         vin.setSuiviStock(suivi);
@@ -612,30 +700,38 @@ public class BackTask extends AsyncTask<String, Void, String> {
         vin.setCommentaires(commentaires);
     }
 
-
-    // date : yyyy-mm-dd
-    private String formatDate(String date) {
+    /**
+     * Formatage de la date
+     * @param date Date au format yyy-MM-dd
+     * @return date formatée
+     */
+    private String formatDate(String date)
+    {
         String[] date_explo = date.split("-");
         return date_explo[2]+"-"+date_explo[1]+"-"+date_explo[0];
     }
 
-    protected int getVin(ArrayList listeVins, long idVin) {
-        int index = -1;
-        outerloop:
+    protected int getVin(ArrayList listeVins, long idVin)
+    {
         for (int i = 0; i < listeVins.size(); i++) {
             Vin v = (Vin) listeVins.get(i);
             long id = v.getIdVin();
-            if(id == idVin)
-            {
-                index = i;
-                break outerloop;
+            if(id == idVin) {
+                return i;
             }
         }
-        return index;
+        return -1;
     }
 
+    /**
+     * Connexion au webservice
+     * @param url Url du webservice
+     * @param vin Vin (optionnel)
+     * @return result liste des résultats
+     */
     protected String connectWbs(String url, String vin) {
-        try {
+        try
+        {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             List nameValuePairs = new ArrayList(1);
@@ -648,25 +744,23 @@ public class BackTask extends AsyncTask<String, Void, String> {
             is = entity.getContent();
         }
         catch (Exception e) {
-            Log.e("Webservice 1", e.toString());
+            Log.e("Erreur connexion", e.toString());
         }
-        try {
+        try
+        {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
             StringBuilder sb = new StringBuilder();
-            while((line = reader.readLine()) != null)
-            {
+            while((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
             }
             is.close();
             result = sb.toString();
         }
         catch (Exception e) {
-            Log.e("Webservice 2", e.toString());
+            Log.e("Erreur reception", e.toString());
         }
-
         return result;
     }
-
 }
 
 

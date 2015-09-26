@@ -5,7 +5,11 @@ package com.example.pboguet.macaveonline.Class;
  */
 public class VinRouge extends Vin{
 
-    public VinRouge(int idVin, String nom, int annee, int region, int appellation, int type, float degreAlcool, int lieuStockage, int lieuAchat, String consoPartir, String consoAvant, float note, int nbBouteilles, boolean suiviStock, boolean favori, float prixAchat, String offertPar, String commentaires, int utilisateur)
+    public VinRouge(int idVin, String nom, int annee, int region, int appellation, int type,
+                    float degreAlcool, int lieuStockage, int lieuAchat, String consoPartir,
+                    String consoAvant, float note, int nbBouteilles, boolean suiviStock,
+                    boolean favori, float prixAchat, String offertPar, String commentaires,
+                    int utilisateur)
     {
         super();
         this.idVin = idVin;

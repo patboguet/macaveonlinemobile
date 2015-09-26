@@ -1,15 +1,12 @@
 package com.example.pboguet.macaveonline.Activities;
 
 import android.app.Activity;
-import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -30,9 +27,11 @@ import com.example.pboguet.macaveonline.Utils.Adapters.VinRoseAdapter;
 import com.example.pboguet.macaveonline.Utils.Adapters.VinRougeAdapter;
 
 /**
+ * Activité concernant l'affichage de la cave à vins
  * Created by pboguet on 16/04/15.
  */
-public class MyMainActivity extends Activity {
+public class MyMainActivity extends Activity
+{
     private TabHost tabs;
     private static TextView tvPasVin;
     private VinRougeAdapter rougeAda;
@@ -40,101 +39,126 @@ public class MyMainActivity extends Activity {
     private VinRoseAdapter roseAda;
     private MousseuxAdapter mousseAda;
     private static Activity mActivity;
+    private Context mContext;
+    private Typeface JELLYKA;
 
     public static Activity getInstance() {
         return mActivity;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ma_cave);
-        TextView titre = (TextView) findViewById(R.id.barreHaut);
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/JellykaWonderlandWine.ttf");
-        titre.setTypeface(font);
         mActivity = this;
-        if(ControleurPrincipal.menu.size() == 0) {
+        mContext = getApplicationContext();
+        setContentView(R.layout.ma_cave);
+        JELLYKA = Typeface.createFromAsset(getAssets(), "fonts/JellykaWonderlandWine.ttf");
+        TextView titre = (TextView) findViewById(R.id.barreHaut);
+        titre.setTypeface(JELLYKA);
+
+        // On ajoute le contenu du menu
+        if(ControleurPrincipal.menu.size() == 0)
+        {
             ControleurPrincipal.menu.add(0, "Ma Cave");
             ControleurPrincipal.menu.add(1, "Recherche");
             ControleurPrincipal.menu.add(2, "Ajouter");
         }
         initControleuPrincipal();
-        new Menu(getApplicationContext(), this, (ListView) findViewById(R.id.menu));
-
+        new Menu(mContext, this, (ListView) findViewById(R.id.menu));
         Intent intent = new Intent(this, WebService.class);
         startActivityForResult(intent, 0311);
     }
 
-    // Pour l'affichage des listes à sélectionner
+    /**
+     * On initialise les premières valeurs des listes pour la recherche
+     * afin d'afficher une valeur par défaut
+     */
     private void initControleuPrincipal() {
-        if(ControleurPrincipal.listeRegion.size() == 0) {
+        if(ControleurPrincipal.listeRegion.size() == 0)
+        {
             Region reg = new Region(0, "Région");
             ControleurPrincipal.listeRegion.add(0, reg);
         }
-        if(ControleurPrincipal.listeLieuStockage.size() == 0) {
+        if(ControleurPrincipal.listeLieuStockage.size() == 0)
+        {
             LieuStockage ls = new LieuStockage(0, "Lieu Stockage");
             ControleurPrincipal.listeLieuStockage.add(0, ls);
         }
-        if(ControleurPrincipal.listeLieuAchat.size() == 0) {
+        if(ControleurPrincipal.listeLieuAchat.size() == 0)
+        {
             LieuAchat la = new LieuAchat(0, "Lieu Achat");
             ControleurPrincipal.listeLieuAchat.add(0, la);
         }
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
-        if (tabs != null) {
+        // Gestion du rafraichissement des listes
+        if (tabs != null)
+        {
             String tabActif = tabs.getCurrentTabTag();
             int idVS = ControleurPrincipal.idVinSupprime;
-            switch (tabActif) {
-                case "ROUGES": {
-                    if (idVS > 0) {
+            switch (tabActif)
+            {
+                case "ROUGES":
+                {
+                    if (idVS > 0)
+                    {
                         rougeAda.remove(getVinRouge(idVS));
                         ControleurPrincipal.idVinSupprime = 0;
                     }
-                    if(rougeAda != null){
+                    if(rougeAda != null) {
                         rougeAda.notifyDataSetChanged();
                     }
                 }
                 break;
-                case "BLANCS": {
-                    if (idVS > 0) {
+                case "BLANCS":
+                {
+                    if (idVS > 0)
+                    {
                         blancAda.remove(getVinBlanc(idVS));
                         ControleurPrincipal.idVinSupprime = 0;
                     }
-                    if(blancAda != null){
+                    if(blancAda != null) {
                         blancAda.notifyDataSetChanged();
                     }
                 }
                 break;
-                case "ROSES": {
-                    if (idVS > 0) {
+                case "ROSES":
+                {
+                    if (idVS > 0)
+                    {
                         roseAda.remove(getVinRose(idVS));
                         ControleurPrincipal.idVinSupprime = 0;
                     }
-                    if(roseAda != null){
+                    if(roseAda != null) {
                         roseAda.notifyDataSetChanged();
                     }
                 }
                 break;
-                case "MOUSSEUX": {
-                    if (idVS > 0) {
+                case "MOUSSEUX":
+                {
+                    if (idVS > 0)
+                    {
                         mousseAda.remove(getMousseux(idVS));
                         ControleurPrincipal.idVinSupprime = 0;
                     }
-                    if(mousseAda != null){
+                    if(mousseAda != null) {
                         mousseAda.notifyDataSetChanged();
                     }
                     break;
                 }
-
             }
         }
     }
 
-    private Mousseux getMousseux(int idV) {
-        for(int j=0;j<ControleurPrincipal.listeMousseux.size();j++){
+    private Mousseux getMousseux(int idV)
+    {
+        for(int j=0;j<ControleurPrincipal.listeMousseux.size();j++)
+        {
             Mousseux v = ControleurPrincipal.listeMousseux.get(j);
             int idVin = v.getIdVin();
             if(idV == idVin) {
@@ -144,8 +168,10 @@ public class MyMainActivity extends Activity {
         return null;
     }
 
-    private VinRose getVinRose(int idV) {
-        for(int j=0;j<ControleurPrincipal.listeVinsRose.size();j++){
+    private VinRose getVinRose(int idV)
+    {
+        for(int j=0;j<ControleurPrincipal.listeVinsRose.size();j++)
+        {
             VinRose v = ControleurPrincipal.listeVinsRose.get(j);
             int idVin = v.getIdVin();
             if(idV == idVin) {
@@ -155,8 +181,10 @@ public class MyMainActivity extends Activity {
         return null;
     }
 
-    private VinBlanc getVinBlanc(int idV) {
-        for(int j=0;j<ControleurPrincipal.listeVinsBlanc.size();j++){
+    private VinBlanc getVinBlanc(int idV)
+    {
+        for(int j=0;j<ControleurPrincipal.listeVinsBlanc.size();j++)
+        {
             VinBlanc v = ControleurPrincipal.listeVinsBlanc.get(j);
             int idVin = v.getIdVin();
             if(idV == idVin) {
@@ -167,8 +195,10 @@ public class MyMainActivity extends Activity {
 
     }
 
-    private VinRouge getVinRouge(int idV) {
-        for(int j=0;j<ControleurPrincipal.listeVinsRouge.size();j++){
+    private VinRouge getVinRouge(int idV)
+    {
+        for(int j=0;j<ControleurPrincipal.listeVinsRouge.size();j++)
+        {
             VinRouge v = ControleurPrincipal.listeVinsRouge.get(j);
             int idVin = v.getIdVin();
             if(idV == idVin) {
@@ -182,18 +212,25 @@ public class MyMainActivity extends Activity {
     public void onBackPressed() { super.onBackPressed(); }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
         super.onDestroy();
         if(WebService.getInstance() != null) WebService.getInstance().finish();
         if(LoginActivity.getInstance() != null) LoginActivity.getInstance().finish();
     }
 
     @Override
-     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
         afficheCave(requestCode, resultCode);
     }
 
+    /**
+     * Affichage de la cave si toutes les données on été récupérées depuis le Webservice
+     * @param requestCode Code du Webservice (0311)
+     * @param resultCode Résultat de l'activité du WebService
+     */
     private void afficheCave(int requestCode, int resultCode)
     {
         if(requestCode == 0311)
@@ -209,34 +246,37 @@ public class MyMainActivity extends Activity {
                 setupTab("ROSES");
                 setupTab("MOUSSEUX");
 
+                //onglet actif = Vins Rouges
                 tabs.setCurrentTab(0);
 
-                tabs.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+                tabs.setOnTabChangedListener(new TabHost.OnTabChangeListener()
+                {
                     @Override
-                    public void onTabChanged(String tabId) {
+                    public void onTabChanged(String tabId)
+                    {
                         if (tvPasVin.isShown()) {
                             tvPasVin.setVisibility(View.GONE);
                         }
-                        // ROUGES
-                        if ("tag1".equals(tabId)) {
+                        if ("ROUGES".equals(tabId))
+                        {
                             if (ControleurPrincipal.listeVinsRouge.size() == 0) {
                                 tvPasVin.setVisibility(View.VISIBLE);
                             }
                         }
-                        // BLANCS
-                        if ("tag2".equals(tabId)) {
+                        if ("BLANCS".equals(tabId))
+                        {
                             if (ControleurPrincipal.listeVinsBlanc.size() == 0) {
                                 tvPasVin.setVisibility(View.VISIBLE);
                             }
                         }
-                        // ROSES
-                        if ("tag3".equals(tabId)) {
+                        if ("ROSES".equals(tabId))
+                        {
                             if (ControleurPrincipal.listeVinsRose.size() == 0) {
                                 tvPasVin.setVisibility(View.VISIBLE);
                             }
                         }
-                        // MOUSSEUX
-                        if ("tag4".equals(tabId)) {
+                        if ("MOUSSEUX".equals(tabId))
+                        {
                             if (ControleurPrincipal.listeMousseux.size() == 0) {
                                 tvPasVin.setVisibility(View.VISIBLE);
                             }
@@ -249,7 +289,8 @@ public class MyMainActivity extends Activity {
                     ListView lvR = (ListView) findViewById(R.id.listeVinsRouges);
                     lvR.setAdapter(rougeAda);
 
-                } else {
+                }
+                else {
                     tvPasVin.setVisibility(View.VISIBLE);
                 }
                 if (ControleurPrincipal.listeVinsBlanc.size() > 0)
@@ -257,7 +298,8 @@ public class MyMainActivity extends Activity {
                     blancAda = new VinBlancAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsBlanc);
                     ListView lvB = (ListView) findViewById(R.id.listeVinsBlancs);
                     lvB.setAdapter(blancAda);
-                } else {
+                }
+                else {
                     tvPasVin.setVisibility(View.VISIBLE);
                 }
                 if (ControleurPrincipal.listeVinsRose.size() > 0)
@@ -265,7 +307,8 @@ public class MyMainActivity extends Activity {
                     roseAda = new VinRoseAdapter(this, R.layout.liste_vins, ControleurPrincipal.listeVinsRose);
                     ListView lvRo = (ListView) findViewById(R.id.listeVinsRoses);
                     lvRo.setAdapter(roseAda);
-                } else {
+                }
+                else {
                     tvPasVin.setVisibility(View.VISIBLE);
                 }
                 if (ControleurPrincipal.listeMousseux.size() > 0)
@@ -281,6 +324,10 @@ public class MyMainActivity extends Activity {
         }
     }
 
+    /**
+     * Affichage du contenu dans chaque onglet
+     * @param tag Onglet
+     */
     private void setupTab(final String tag)
     {
         View tabview = createTabView(tabs.getContext(), tag);
@@ -297,10 +344,16 @@ public class MyMainActivity extends Activity {
                 break;
         }
         tabs.addTab(tab);
-
     }
 
-    private View createTabView(final Context context, final String text) {
+    /**
+     * Personnalisation du titre des onglets
+     * @param context Context
+     * @param text Titre de l'onglet
+     * @return
+     */
+    private View createTabView(final Context context, final String text)
+    {
         View view = LayoutInflater.from(context).inflate(R.layout.tabs_bg, null);
         TextView tv = (TextView) view.findViewById(R.id.tabsText);
         tv.setText(text);

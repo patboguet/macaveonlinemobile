@@ -29,16 +29,20 @@ public class LieuStockage {
         this.nom = nom;
     }
 
+    /**
+     * On compare si un objet est de type LieuStockage
+     * @param objetAComparer objet à comparer
+     * @return boolean Oui ou non
+     */
     public boolean equals(Object objetAComparer) {
         boolean res = false;
-
         if (objetAComparer instanceof LieuStockage)
         {
             LieuStockage lieuAComparer = (LieuStockage) objetAComparer;
-            if(lieuAComparer.getId() == this.getId())
+            if(lieuAComparer.getId() == this.getId()) {
                 res = true;
+            }
         }
-
         return res;
     }
 

@@ -17,11 +17,13 @@ import java.util.ArrayList;
 /**
  * Created by pbogu_000 on 29/08/2015.
  */
-public class LieuAchatAdapter extends ArrayAdapter<LieuAchat> {
+public class LieuAchatAdapter extends ArrayAdapter<LieuAchat>
+{
     private ArrayList<LieuAchat> lieuxAchat;
     private Context mContext;
 
-    public LieuAchatAdapter(Context context, int textViewResourceID, int textViewID, ArrayList<LieuAchat> lieux) {
+    public LieuAchatAdapter(Context context, int textViewResourceID, int textViewID, ArrayList<LieuAchat> lieux)
+    {
         super(context,textViewResourceID,textViewID,lieux);
         mContext = context;
         this.lieuxAchat = lieux;

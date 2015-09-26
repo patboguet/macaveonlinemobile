@@ -3,7 +3,8 @@ package com.example.pboguet.macaveonline.Class;
 /**
  * Created by pboguet on 19/06/15.
  */
-public class LieuAchat {
+public class LieuAchat
+{
     private int id;
     private String nom;
 
@@ -29,16 +30,21 @@ public class LieuAchat {
         this.nom = lieu;
     }
 
+    /**
+     * On compare si un objet est de type LieuAchat
+     * @param objetAComparer objet à comparer
+     * @return boolean Oui ou non
+     */
     public boolean equals(Object objetAComparer) {
         boolean res = false;
 
         if (objetAComparer instanceof LieuAchat)
         {
             LieuAchat lieuAComparer = (LieuAchat) objetAComparer;
-            if(lieuAComparer.getId() == this.getId())
+            if(lieuAComparer.getId() == this.getId()) {
                 res = true;
+            }
         }
-
         return res;
     }
 

@@ -38,17 +38,22 @@ public class Region {
         return listeAppellation;
     }
 
+    /**
+     * On compare si un objet est de type Region
+     * @param objetAComparer objet à comparer
+     * @return boolean Oui ou non
+     */
     @Override
-    public boolean equals(Object objetAComparer) {
+    public boolean equals(Object objetAComparer)
+    {
         boolean res = false;
-
         if (objetAComparer instanceof Region)
         {
             Region regionAComparer = (Region) objetAComparer;
-            if(regionAComparer.getId() == this.getId())
+            if(regionAComparer.getId() == this.getId()) {
                 res = true;
+            }
         }
-
         return res;
     }
 

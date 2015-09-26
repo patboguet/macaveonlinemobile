@@ -18,11 +18,13 @@ import java.util.ArrayList;
 /**
  * Created by pboguet on 15/09/2015.
  */
-public class AppellationAdapter extends ArrayAdapter<Appellation> {
+public class AppellationAdapter extends ArrayAdapter<Appellation>
+{
     private ArrayList<Appellation> appellations;
     private Context mContext;
 
-    public AppellationAdapter(Context context, int layoutID, int textViewID, ArrayList liste) {
+    public AppellationAdapter(Context context, int layoutID, int textViewID, ArrayList liste)
+    {
         super(context,layoutID,textViewID,liste);
         mContext = context;
         this.appellations = liste;
