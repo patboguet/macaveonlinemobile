@@ -315,11 +315,18 @@ public class BackTask extends AsyncTask<String, Void, String>
                                 if(r.listeAppellation.size() == 0) {
                                     Appellation a = new Appellation(0,"Appellation");
                                     r.listeAppellation.add(0, a);
-                                }
-                                else {
                                     r.listeAppellation.add(app);
                                 }
-                                ControleurPrincipal.listeRegionAoc.put(idRegion, r.getListeAppellation());
+                                else {
+                                    if(!r.listeAppellation.contains(app)) {
+                                        r.listeAppellation.add(app);
+                                    }
+                                }
+                                boolean a = ControleurPrincipal.listeRegionAoc.containsKey(idRegion);
+                                boolean b = ControleurPrincipal.listeRegionAoc.containsValue(r.getListeAppellation());
+                                if(!ControleurPrincipal.listeRegionAoc.containsKey(idRegion)) {
+                                    ControleurPrincipal.listeRegionAoc.put(idRegion, r.getListeAppellation());
+                                }
                             }
                         }
                         if (!ControleurPrincipal.listeAppellation.contains(app)) {

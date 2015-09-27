@@ -188,7 +188,7 @@ public class GestionListes
         TextView tvNom = (TextView) v.findViewById(R.id.nom);
         TextView tvId = (TextView) v.findViewById(R.id.id);
         tvNom.setTypeface(Typeface.createFromAsset(c.getAssets(), "fonts/MaiandraGD.ttf"));
-        String contenuTvNom = null;
+        String contenuTvNom = "";
         int contenuTvId = 0;
         switch (s)
         {
