@@ -421,7 +421,6 @@ public class BackTask extends AsyncTask<String, Void, String>
                             Vin vin = new Vin();
                             ajoutVin(vin, id, nom, annee, region, appellation, idType, degre, utilisateur, note, nbBt, suivi, favori, prix, offert, lieuAchat, lieuStockage, consoAvant, consoPartir, commentaires);
                             ControleurPrincipal.listeVins.add(vin);
-                            ControleurPrincipal.idVinAjoute = id;
                             switch (idType)
                             {
                                 case 1 :
