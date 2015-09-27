@@ -77,7 +77,8 @@
                     android:layout_weight="1"
                     android:textSize="24dp"
                     android:textColorHint="#cbcbcb"
-                    android:hint="Entrer un nom" />
+                    android:hint="Entrer un nom"
+                    android:maxWidth="300dp" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
@@ -307,7 +308,8 @@
                         android:layout_weight="1"
                         android:textSize="24dp"
                         android:hint="Entrer prix"
-                        android:textColorHint="#cbcbcb" />
+                        android:textColorHint="#cbcbcb"
+                        android:maxWidth="50dp" />
 
                     <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                         android:layout_width="wrap_content"
@@ -318,7 +320,8 @@
                         android:textStyle="bold"
                         android:gravity="center_vertical"
                         android:layout_weight="1"
-                        android:textSize="24dp" />
+                        android:textSize="24dp"
+                        android:layout_marginLeft="-20dp" />
                 </LinearLayout>
 
             </TableRow>
@@ -370,7 +373,8 @@
                     android:layout_weight="1"
                     android:textSize="24dp"
                     android:textColorHint="#cbcbcb"
-                    android:hint="Entrer nom" />
+                    android:hint="Entrer nom"
+                    android:maxWidth="200dp" />
             </TableRow>
 
             <TableRow
@@ -558,7 +562,9 @@
                     android:textColor="#a52323"
                     android:background="@android:color/transparent"
                     android:layout_weight="1"
-                    android:textSize="24dp" />
+                    android:textSize="24dp"
+                    android:hint="Commentaires"
+                    android:textColorHint="#cbcbcb" />
             </TableRow>
 
             <LinearLayout

@@ -79,7 +79,8 @@
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:textSize="24dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:maxWidth="300dp" />
 
             <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                 android:layout_width="wrap_content"
@@ -316,7 +317,8 @@
                     android:textStyle="bold"
                     android:gravity="center_vertical"
                     android:textSize="24dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:layout_marginLeft="-20dp" />
 
             </LinearLayout>
 
@@ -367,7 +369,8 @@
                 android:textSize="24dp"
                 android:layout_weight="1"
                 android:hint="Nom"
-                android:textColorHint="#cbcbcb" />
+                android:textColorHint="#cbcbcb"
+                android:maxWidth="200dp" />
         </TableRow>
 
         <TableRow
