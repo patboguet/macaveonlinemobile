@@ -166,8 +166,8 @@ public class AjoutVin extends Activity
             }
             else
             {
-                labelAppellation.setVisibility(View.GONE);
-                appellation.setVisibility(View.GONE);
+                labelAppellation.setVisibility(View.INVISIBLE);
+                appellation.setVisibility(View.INVISIBLE);
             }
             int typeV = vinInitial.getType();
             type.setText(GestionListes.getNomType(typeV));
@@ -181,7 +181,7 @@ public class AjoutVin extends Activity
             }
             else degre.setText("");
             offert.setText(vinInitial.getOffertPar());
-            if(vinInitial.getConsoPartir() != null)
+            if(!vinInitial.getConsoPartir().equals(""))
             {
                 String[] consoP = vinInitial.getConsoPartir().split("-");
                 consoPartir.setText(ControleurPrincipal.numeroMoisEnLettre(Integer.parseInt(consoP[1]), false) + " " + consoP[2]);
@@ -192,7 +192,7 @@ public class AjoutVin extends Activity
                 consoPartir.setText("");
                 consoPartirNum.setText("");
             }
-            if(vinInitial.getConsoAvant() != null)
+            if(!vinInitial.getConsoAvant().equals(""))
             {
                 String[] consoA = vinInitial.getConsoAvant().split("-");
                 consoAvant.setText(ControleurPrincipal.numeroMoisEnLettre(Integer.parseInt(consoA[1]), false) + " " + consoA[2]);
@@ -348,8 +348,18 @@ public class AjoutVin extends Activity
                     else {
                         vin.setLieuStockage(Integer.parseInt(idLA));
                     }
-                    vin.setConsoPartir("01-"+consoPartirNum.getText().toString());
-                    vin.setConsoAvant("01-"+consoAvantNum.getText().toString());
+                    if(!consoPartirNum.getText().toString().equals("")) {
+                        vin.setConsoPartir("01-" + consoPartirNum.getText().toString());
+                    }
+                    else {
+                        vin.setConsoPartir("");
+                    }
+                    if(!consoAvantNum.getText().toString().equals("")) {
+                        vin.setConsoAvant("01-"+consoAvantNum.getText().toString());
+                    }
+                    else {
+                        vin.setConsoAvant("");
+                    }
                     vin.setNote(note.getRating() * 4);
                     String nb = nbBouteilles.getText().toString();
                     if(nb.equals("")) {
@@ -470,17 +480,33 @@ public class AjoutVin extends Activity
             @Override
             public void onClick(View v)
             {
-                String mois = ControleurPrincipal.numeroMoisEnLettre(pickerAnnee.getMonth(), true);
+                String moisLettre = ControleurPrincipal.numeroMoisEnLettre(pickerAnnee.getMonth(), true);
+                int mois = pickerAnnee.getMonth() + 1;
+                String an = Integer.toString(pickerAnnee.getYear());
                 switch (liste)
                 {
                     case "annee":
-                        annee.setText(Integer.toString(pickerAnnee.getYear()));
+                        annee.setText(an);
                         break;
-                    case "partir":
-                        consoPartir.setText(mois + " " + Integer.toString(pickerAnnee.getYear()));
+                    case "partir": {
+                        consoPartir.setText(moisLettre + " " + an);
+                        if(mois < 10) {
+                            consoPartirNum.setText("0" + mois + "-" + an);
+                        }
+                        else {
+                            consoPartirNum.setText(mois + "-" + an);
+                        }
+                    }
                         break;
-                    case "avant":
-                        consoAvant.setText(mois + " " + Integer.toString(pickerAnnee.getYear()));
+                    case "avant": {
+                        consoAvant.setText(moisLettre + " " + an);
+                        if(mois < 10) {
+                            consoAvantNum.setText("0" + mois + "-" + an);
+                        }
+                        else {
+                            consoAvantNum.setText(mois + "-" + an);
+                        }
+                    }
                         break;
                 }
                 dialog.dismiss();
@@ -519,7 +545,7 @@ public class AjoutVin extends Activity
                 // On récupère l'id de la région pour afficher la liste des appellations correspondantes
                 Integer idR = Integer.parseInt(idRegion.getText().toString());
                 dialog.setTitle("Appellation");
-                if (!idR.equals(""))
+                if (!idR.equals("") && idR != 6 && idR != 12)
                 {
                     ArrayList<Appellation> listeAppellations = ControleurPrincipal.listeRegionAoc.get(idR);
                     AppellationAdapter aocAda = new AppellationAdapter(mContext, R.layout.liste_choix_item, R.id.nom, listeAppellations);
@@ -576,6 +602,20 @@ public class AjoutVin extends Activity
                         else {
                             region.setText("");
                         }
+                        if(position == 6 || position == 12)
+                        {
+                            if(labelAppellation.isShown())
+                            {
+                                labelAppellation.setVisibility(View.INVISIBLE);
+                                appellation.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                        else
+                        {
+                            labelAppellation.setVisibility(View.VISIBLE);
+                            appellation.setVisibility(View.VISIBLE);
+                        }
+
                         idRegion.setText(Integer.toString(position));
                     }
                     break;

@@ -303,7 +303,9 @@
                     android:numeric="decimal"
                     android:background="@android:color/transparent"
                     android:textSize="24dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textColorHint="#cbcbcb"
+                    android:hint="Prix" />
 
                 <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                     android:layout_width="wrap_content"
@@ -363,7 +365,9 @@
                 android:textColor="#a52323"
                 android:background="@android:color/transparent"
                 android:textSize="24dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:hint="Nom"
+                android:textColorHint="#cbcbcb" />
         </TableRow>
 
         <TableRow
@@ -390,7 +394,9 @@
                 android:textColor="#a52323"
                 android:layout_marginLeft="10dp"
                 android:textSize="24dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColorHint="#cbcbcb"
+                android:hint="Date " />
 
             <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                 android:layout_width="wrap_content"
@@ -408,7 +414,9 @@
                 android:id="@+id/lieuAchatVin"
                 android:textColor="#a52323"
                 android:textSize="24dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColorHint="#cbcbcb"
+                android:hint="Lieu d&apos;achat" />
 
         </TableRow>
 
@@ -449,7 +457,9 @@
                 android:textColor="#a52323"
                 android:layout_marginLeft="10dp"
                 android:textSize="24dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:hint="Date"
+                android:textColorHint="#cbcbcb" />
 
             <com.example.pboguet.macaveonline.Utils.MyCustomTextView
                 android:layout_width="wrap_content"
@@ -467,7 +477,9 @@
                 android:id="@+id/lieuStockageVin"
                 android:textColor="#a52323"
                 android:textSize="24dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:hint="Lieu stockage"
+                android:textColorHint="#cbcbcb" />
         </TableRow>
 
         <TableRow
@@ -548,7 +560,9 @@
                 android:textColor="#a52323"
                 android:background="@android:color/transparent"
                 android:textSize="24dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColorHint="#cbcbcb"
+                android:hint="Commentaires" />
         </TableRow>
 
         <LinearLayout

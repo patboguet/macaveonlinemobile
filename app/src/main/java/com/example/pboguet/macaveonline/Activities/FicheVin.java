@@ -143,7 +143,7 @@ public class FicheVin extends Activity
         }
         else degre.setText("");
         offert.setText(vin.getOffertPar());
-        if(vin.getConsoPartir() != null)
+        if(!vin.getConsoPartir().equals(""))
         {
             String[] consoP = vin.getConsoPartir().split("-");
             consoPartir.setText(ControleurPrincipal.numeroMoisEnLettre(Integer.parseInt(consoP[1]), false) + " " + consoP[2]);
@@ -155,7 +155,7 @@ public class FicheVin extends Activity
             consoPartirNum.setText("");
         }
 
-        if(vin.getConsoAvant() != null)
+        if(!vin.getConsoAvant().equals(""))
         {
             String[] consoA = vin.getConsoAvant().split("-");
             consoAvant.setText(ControleurPrincipal.numeroMoisEnLettre(Integer.parseInt(consoA[1]), false) + " " + consoA[2]);
@@ -283,8 +283,19 @@ public class FicheVin extends Activity
                 vinModifie.setType(idType);
                 vinModifie.setLieuStockage(GestionListes.getIdLieuStockage(lieuStockage.getText().toString()));
                 vinModifie.setLieuAchat(GestionListes.getIdLieuAchat(lieuAchat.getText().toString()));
-                vinModifie.setConsoPartir("01-" + consoPartirNum.getText().toString());
-                vinModifie.setConsoAvant("01-" + consoAvantNum.getText().toString());
+                if(consoPartirNum.getText().toString().equals("")) {
+                    vinModifie.setConsoPartir("");
+                }
+                else {
+                    vinModifie.setConsoPartir("01-" + consoPartirNum.getText().toString());
+                }
+                if(consoAvantNum.getText().toString().equals("")) {
+                    vinModifie.setConsoAvant("");
+                }
+                else {
+                    vinModifie.setConsoAvant("01-" + consoAvantNum.getText().toString());
+                }
+
                 vinModifie.setNote(note.getRating() * 4);
                 if(nbBouteilles.getText().toString().isEmpty()) {
                     vinModifie.setNbBouteilles(0);
@@ -335,14 +346,12 @@ public class FicheVin extends Activity
     {
         dialog.setContentView(R.layout.liste_choix_popup);
         ListView listeChoix = (ListView) dialog.findViewById(R.id.listeChoix);
-        if(type.equals("achat"))
-        {
-                dialog.setTitle("Lieu d'achat");
-                ArrayAdapter achatAda = new LieuAchatAdapter(mContext,R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuAchat);
-                listeChoix.setAdapter(achatAda);
-            }
-        else
-        {
+        if(type.equals("achat")) {
+            dialog.setTitle("Lieu d'achat");
+            ArrayAdapter achatAda = new LieuAchatAdapter(mContext,R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuAchat);
+            listeChoix.setAdapter(achatAda);
+        }
+        else {
             dialog.setTitle("Lieu de stockage");
             ArrayAdapter stockageAda = new LieuStockageAdapter(mContext,R.layout.liste_choix_item, R.id.nom, ControleurPrincipal.listeLieuStockage);
             listeChoix.setAdapter(stockageAda);
@@ -353,9 +362,10 @@ public class FicheVin extends Activity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 if (type.equals("achat")) {
-                    lieuAchat.setText(GestionListes.getNomLieuAchat(position + 1));
-                } else {
-                    lieuStockage.setText(GestionListes.getNomLieuStockage(position + 1));
+                    lieuAchat.setText(GestionListes.getNomLieuAchat(position));
+                }
+                else {
+                    lieuStockage.setText(GestionListes.getNomLieuStockage(position));
                 }
                 dialog.dismiss();
             }
@@ -371,23 +381,43 @@ public class FicheVin extends Activity
     private void listeDateConso(final String conso, final Dialog dialog)
     {
         dialog.setContentView(R.layout.liste_annees);
-        dialog.setTitle("Date début consommation");
+        if(conso.equals("partir")) {
+            dialog.setTitle("Date début consommation");
+        }
+        else {
+            dialog.setTitle("Date consommation maximale");
+        }
         Button valider = (Button) dialog.findViewById(R.id.validerDate);
         Button annuler = (Button) dialog.findViewById(R.id.annuler);
-        final DatePicker listeAnnee = (DatePicker) dialog.findViewById(R.id.datePicker);
+        final DatePicker pickerAnnee = (DatePicker) dialog.findViewById(R.id.datePicker);
         // on cache le jour ansi que le calendrier
-        listeAnnee.findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
-        listeAnnee.setCalendarViewShown(false);
+        pickerAnnee.findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
+        pickerAnnee.setCalendarViewShown(false);
 
         valider.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
-                String mois = ControleurPrincipal.numeroMoisEnLettre(listeAnnee.getMonth(), true);
+                String moisLettre = ControleurPrincipal.numeroMoisEnLettre(pickerAnnee.getMonth(), true);
+                int mois = pickerAnnee.getMonth() + 1;
+                String an = Integer.toString(pickerAnnee.getYear());
                 if (conso.equals("partir")) {
-                    consoPartir.setText(mois + " " + Integer.toString(listeAnnee.getYear()));
-                } else {
-                    consoAvant.setText(mois + " " + Integer.toString(listeAnnee.getYear()));
+                    consoPartir.setText(moisLettre + " " + an);
+                    if(mois < 10) {
+                        consoPartirNum.setText("0" + mois + "-" + an);
+                    }
+                    else {
+                        consoPartirNum.setText(mois + "-" + an);
+                    }
+                }
+                else {
+                    consoAvant.setText(moisLettre + " " + an);
+                    if(mois < 10) {
+                        consoAvantNum.setText("0" + mois + "-" + an);
+                    }
+                    else {
+                        consoAvantNum.setText(mois + "-" + an);
+                    }
                 }
                 dialog.dismiss();
             }

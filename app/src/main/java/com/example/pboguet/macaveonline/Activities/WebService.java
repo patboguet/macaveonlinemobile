@@ -96,7 +96,7 @@ public class WebService extends Activity
                 json.put("FK_lieu_stockage", vin.getLieuStockage());
                 json.put("FK_lieu_achat", vin.getLieuAchat());
                 json.put("conso_partir", vin.getConsoPartir());
-                json.put("conso_pvant", vin.getConsoAvant());
+                json.put("conso_avant", vin.getConsoAvant());
                 json.put("note", vin.getNote());
                 json.put("nb_bouteilles", vin.getNbBouteilles());
                 json.put("suivi_stock", vin.isSuiviStock());

@@ -157,13 +157,13 @@ public class BackTask extends AsyncTask<String, Void, String>
                                 conso_partir = formatDate(jsonobject.getString("conso_partir"));
                             }
                             else {
-                                conso_partir = null;
+                                conso_partir = "";
                             }
                             if (!jsonobject.getString("conso_avant").equals("null")) {
                                 conso_avant = formatDate(jsonobject.getString("conso_avant"));
                             }
                             else {
-                                conso_avant = null;
+                                conso_avant = "";
                             }
                             if (!jsonobject.getString("note").equals("null")) {
                                 note = Float.parseFloat(jsonobject.getString("note"));
@@ -381,11 +381,11 @@ public class BackTask extends AsyncTask<String, Void, String>
                             }
                             int nbBt = Integer.parseInt(jsonobject.getString("nbBouteilles"));
                             boolean suivi = false;
-                            if(jsonobject.getString("suiviStock").equals("1")) {
+                            if(jsonobject.getString("suiviStock").equals("true")) {
                                 suivi = true;
                             }
                             boolean favori = false;
-                            if(jsonobject.getString("favori").equals("1")){
+                            if(jsonobject.getString("favori").equals("true")){
                                 favori = true;
                             }
                             float prix = 0.0f;
@@ -404,15 +404,15 @@ public class BackTask extends AsyncTask<String, Void, String>
                             if(!jsonobject.getString("lieuStockage").equals("null")) {
                                 lieuStockage = Integer.parseInt(jsonobject.getString("lieuStockage"));
                             }
-                            String consoAvant = null;
+                            String consoAvant = "";
                             if(!jsonobject.getString("consoAvant").equals("null")) {
                                 consoAvant = jsonobject.getString("consoAvant");
                             }
-                            String consoPartir = null;
+                            String consoPartir = "";
                             if(!jsonobject.getString("consoPartir").equals("null")) {
                                 consoPartir = jsonobject.getString("consoPartir");
                             }
-                            String commentaires = null;
+                            String commentaires = "";
                             if(!jsonobject.getString("commentaires").equals("null")) {
                                 commentaires = jsonobject.getString("commentaires");
                             }
@@ -454,10 +454,10 @@ public class BackTask extends AsyncTask<String, Void, String>
                                 break;
                             }
                             // on notifie le changement à l'utilisateur
-                            Toast.makeText(WebService.getInstance().getApplicationContext(), "Le vin a bien été inséré", Toast.LENGTH_LONG).show();
+                            Toast.makeText(WebService.getInstance().getApplicationContext(), "Le vin a bien été inséré", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            Toast.makeText(WebService.getInstance().getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                            Toast.makeText(WebService.getInstance().getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_SHORT).show();
                         }
                     }
                     break;
@@ -471,44 +471,44 @@ public class BackTask extends AsyncTask<String, Void, String>
                             int id = Integer.parseInt(jsonobject.getString("idVin"));
                             int idType = Integer.parseInt(jsonobject.getString("idType"));
                             float note = 0.0f;
-                            if(!jsonobject.getString("note").equals("null")) {
+                            if(!jsonobject.getString("note").equals("0")) {
                                 note = Float.parseFloat(jsonobject.getString("note"));
                             }
                             int nbBt = Integer.parseInt(jsonobject.getString("nbBouteilles"));
                             boolean suivi = false;
-                            if(jsonobject.getString("suiviStock").equals("1")) {
+                            if(jsonobject.getString("suiviStock").equals("true")) {
                                 suivi = true;
                             }
                             boolean favori = false;
-                            if(jsonobject.getString("favori").equals("1")) {
+                            if(jsonobject.getString("favori").equals("true")) {
                                 favori = true;
                             }
                             float prix = 0.0f;
-                            if(!jsonobject.getString("prixAchat").equals("null")) {
+                            if(!jsonobject.getString("prixAchat").equals("0")) {
                                 prix = Float.parseFloat(jsonobject.getString("prixAchat"));
                             }
                             String offert = "";
-                            if(!jsonobject.getString("offertPar").equals("null")) {
+                            if(!jsonobject.getString("offertPar").equals("")) {
                                 offert = jsonobject.getString("offertPar");
                             }
                             int lieuAchat = 0;
-                            if(!jsonobject.getString("lieuAchat").equals("null")) {
+                            if(!jsonobject.getString("lieuAchat").equals("0")) {
                                 lieuAchat = Integer.parseInt(jsonobject.getString("lieuAchat"));
                             }
                             int lieuStockage = 0;
-                            if(!jsonobject.getString("lieuStockage").equals("null")) {
+                            if(!jsonobject.getString("lieuStockage").equals("0")) {
                                 lieuStockage = Integer.parseInt(jsonobject.getString("lieuStockage"));
                             }
-                            String consoAvant = null;
-                            if(!jsonobject.getString("consoAvant").equals("null")) {
+                            String consoAvant = "";
+                            if(!jsonobject.getString("consoAvant").equals("")) {
                                 consoAvant = jsonobject.getString("consoAvant");
                             }
-                            String consoPartir = null;
-                            if(!jsonobject.getString("consoPartir").equals("null")) {
+                            String consoPartir = "";
+                            if(!jsonobject.getString("consoPartir").equals("")) {
                                 consoPartir = jsonobject.getString("consoPartir");
                             }
-                            String commentaires = null;
-                            if(!jsonobject.getString("commentaires").equals("null")) {
+                            String commentaires = "";
+                            if(!jsonobject.getString("commentaires").equals("")) {
                                 commentaires = jsonobject.getString("commentaires");
                             }
 
